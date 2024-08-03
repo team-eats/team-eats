@@ -11,7 +11,11 @@ Say it is a business owner but, one that has an existing account.
 //Maybe team eats site prompts for a password?
 //Does site require 2step verification system?
 
-Once business owner is allowed on his profile page he can see a display of his menu, his hours/location, where he can create tags, and a section where he can create a message with current events or info on the business. The BO can see everything the customer can see if a person were to look at a business profile, without any of the access the BO has. This gives BO opportunity to tailor profile page to their business.
+Once business owner is allowed on his profile page he can see a display of his menu, his hours/location, where he can create tags, 
+and a section where he can create a message with current events or info on the business. The BO can see everything the customer can 
+see if a person were to look at a business profile, without any of the access the BO has. This gives BO opportunity to tailor profile page to 
+their business.
+
 
 POSSIBLE FEATURES:
 menu display with ability to edit
@@ -33,10 +37,13 @@ current events and special message section with ability to edit.
 
 Say it is a Business Owner that does not have an existing account.
 
-//Is there a way to verify Business licesne that is in scope of our project? Or at least a way to verify the person is the owner of the business they are buillding profile for.
+//Is there a way to verify Business licesne that is in scope of our project? Or at least a way to verify 
+the person is the owner of the business they are buillding profile for.
 
 
-Once BO is on future profile page they see they have the ability to create a menu, also create display of hours location, and a special message/ current events section to display for the customer viewing BO profile. They can even create tags. This gives BO opportunity to tailor profile page to their business.
+Once BO is on future profile page they see they have the ability to create a menu, also create display of hours
+location, and a special message/ current events section to display for the customer viewing BO profile. They can even create tags. 
+This gives BO opportunity to tailor profile page to their business.
 
 POSSIBLE FEATURES:
 menu display with ability to edit
@@ -45,7 +52,9 @@ section to create tags
 current events and special message section with ability to edit.
 
 
-         The huge question of scope that I have are the verification of business owners. One of the Biggest concerns I have is how to ensure people claiming business are business owner. If there is no way to verify, is there a way to have business profile pages?
+         
+huge question of scope that I have are the verification of business owners. One of the Biggest concerns I have
+is how to ensure people claiming business are business owner. If there is no way to verify, is there a way to have business profile pages?
 
 
 
