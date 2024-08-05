@@ -5,6 +5,8 @@ Possible features for MVP — Business owner
 First time a person access team eats site, person is then asked if they are user or business.
 // should this be its own page? Or just on the first page?
 
+<!--Coop
+when a user opens to the home page they see a list of businesses, they have to navigate to the login/ sign up if they want user functionality. But otherwise can use most **customer** features like normal-->
 
 Say it is a business owner but, one that has an existing account.
 
@@ -16,14 +18,11 @@ and a section where he can create a message with current events or info on the b
 see if a person were to look at a business profile, without any of the access the BO has. This gives BO opportunity to tailor profile page to 
 their business.
 
-
 POSSIBLE FEATURES:
 menu display with ability to edit
 hours and location display with ability to edit.
 section to create tags
 current events and special message section with ability to edit.
-
-
 
 //Could these be possible features on a Business owners profile page? Could the menu display be something that the BO has control over?
 // Could the menu display be something that the BO has control over? Maybe give them the option to update design and content?
