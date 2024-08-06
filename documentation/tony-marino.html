@@ -35,9 +35,9 @@
 
 <section class="my-8 mx-[25%]">
     <div>
-        <h2 class="font-bold text-3xl">User Case</h2>
+        <h2 class="font-bold text-3xl">Use Case - Updating Hours</h2>
         <p class="my-1 mx-0">Tony has seen a surge in business recently and has decided to extend his hours. He visits his profile to update the pizzeria's business hours.</p>
-        <p class="my-1 mx-0"><strong>Pre-condition:</strong> Tony navigates to the Team Eats website and logs into his business profile.</p>
+        <p class="my-1 mx-0"><strong>Pre-condition:</strong> Tony is on the Team Eats website and logged in to his profile that has claimed his business.</p>
         <p class="my-1 mx-0"><strong>Post-condition:</strong> Tony successfully updates the hours that his pizzeria is open.</p>
     </div>
 </section>
@@ -46,7 +46,9 @@
     <div>
         <h2 class="font-bold text-3xl">Interaction Flow</h2>
         <ol class="list-decimal">
-            <li class="my-1 mx-4">Tony clicks on his business profile.</li>
+            <li class="my-1 mx-4">Tony clicks on his profile icon.</li>
+            <li class="my-1 mx-4">Team Eats website loads a dropdown menu with a link to profile settings, owned businesses, and a link to display favorite websites</li>
+            <li class="my-1 mx-4">Tony clicks on his owned business</li>
             <li class="my-1 mx-4">Team Eats website loads the page for Tony's Pizzeria.</li>
             <li class="my-1 mx-4">Tony clicks on the edit button.</li>
             <li class="my-1 mx-4">Team Eats website goes into the editing mode.</li>
@@ -54,6 +56,31 @@
             <li class="my-1 mx-4">Team Eats website focuses on the text box and allows text entry.</li>
             <li class="my-1 mx-4">Tony types out his updated business hours and clicks the button to save changes.</li>
             <li class="my-1 mx-4">Team Eats website updates the saved information in the database to show on Tony's Pizzeria's page.</li>
+        </ol>
+    </div>
+</section>
+
+<section class="my-8 mx-[25%]">
+    <div>
+        <h2 class="font-bold text-3xl">Use Case - Adding a Tag</h2>
+        <p class="my-1 mx-0">Tony wants to add a descriptive tag to his listing so that his restaurant will show up when people search for that tag.</p>
+        <p class="my-1 mx-0"><strong>Pre-condition:</strong> Tony is on the Team Eats website and logged in to his profile that has claimed his business.</p>
+        <p class="my-1 mx-0"><strong>Post-condition:</strong> Tony has added a tag to his listing and the listing will now show up when that tag is searched.</p>
+    </div>
+</section>
+
+<section class="my-8 mx-[25%]">
+    <div>
+        <h2 class="font-bold text-3xl">Interaction Flow</h2>
+        <ol class="list-decimal">
+            <li class="my-1 mx-4">Tony clicks his profile icon on the nav bar</li>
+            <li class="my-1 mx-4">Team Eats website loads a dropdown menu with a link to profile settings, owned businesses, and a link to display favorite websites</li>
+            <li class="my-1 mx-4">Tony clicks on his owned business</li>
+            <li class="my-1 mx-4">Team Eats website loads the Tony's Pizzeria business listing</li>
+            <li class="my-1 mx-4">Tony clicks on the "Add a filter" button</li>
+            <li class="my-1 mx-4">Team Eats website presents a list of filters to choose from</li>
+            <li class="my-1 mx-4">Tony clicks on the "pizza" filter</li>
+            <li class="my-1 mx-4">Team Eats saves the filter to Tony's Pizzeria's entity</li>
         </ol>
     </div>
 </section>
