@@ -2,25 +2,36 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0">
-    <title>Pages we need and maybe want as well</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Required Pages</title>
 </head>
 <body>
 
-<header>
-    <h1>Pages we need</h1>
+<header class="bg-blue-900 p-4 m-0 border-b-black border-b-4 border-solid">
+    <h1 class="text-center text-gray-300 m-0 text-4xl">Required Pages</h1>
 </header>
-<ul>
-    <li>Home page</li>
-    <li>search **results** page</li>
-    <li>sign up -page- **modal**</li>
-    <li>login page</li>
-    <li>business page</li>
-    <li>profile options</li>
-    <li>Edit listing view</li>
-    <li>Lists page</li>
-</ul>
+
+<section class="my-8 mx-[25%]">
+<ol ol class="list-decimal">
+    <li class="my-1 mx-0"><strong>Persistent Elements:</strong><br>
+        <ul>
+            <li class="my-1 ml-4"><em>Navbar (always present):</em> home, about us, submit a listing, search bar</li>
+            <li class="my-1 ml-4"><em>Navbar (if logged in - user):</em> profile dropdown (settings, liked listings)</li>
+            <li class="my-1 ml-4"><em>Navbar (if logged in - business):</em> profile dropdown (owned businesses, settings)</li>
+            <li class="my-1 ml-4"><em>Navbar (if not logged in):</em> log-in, create profile (form for user info: username, password, e-mail, customer or owner)</li>
+            <li class="my-1 ml-4"><em>Profile settings (modal from navbar profile icon dropdown):</em> changing info (username, password, e-mail, changing to owner)</li>
+            <li class="my-1 ml-4"><em>Favorites (modal from navbar profile icon dropdown):</em> view places you’ve been, view favorites, viewing places you want to go</li>
+            <li class="my-1 ml-4"><em>Log-in/Create account (modal from navbar when not logged in):</em> log-in section (username, password, forgot password?), create account section (username, password, e-mail, business owner checkbox)</li>
+        </ul>
+    </li>
+    <li class="my-1 mx-0"><strong>Home page:</strong> hero section with tagline (CTA button to find a random restaurant?), featured restaurants</li>
+    <li class="my-1 mx-0"><strong>Business page:</strong> overview (description, address, phone number, hours), basic tags for filters, menu, reviews?, photos</li>
+    <li class="my-1 mx-0"><strong>Search results:</strong> filtering options (i.e. Mexican, gluten-free, family-friendly etc.), search results with restaurant cards (simplified version of the details page)</li>
+    <li class="my-1 mx-0"><strong>About us:</strong> description of the website and mission, contact info and/or form (contact form used for requesting a business to list)</li>
+    <li class="my-1 mx-0"><strong>Submit a listing:</strong> form for owner or user to submit new listings, fields for essential info (name, address, phone number, cuisine etc.)</li>
+</ol>
+</section>
 
 </body>
 </html>
