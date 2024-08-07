@@ -19,10 +19,7 @@ probably only business owners need two step-->
 
 --**BUSINESS PROFILE IDEAS**--
 
-Once business owner is allowed on his profile page he can see a display of his menu, his hours/location, where he can create tags, 
-and a section where he can create a message with current events or info on the business. The BO can see everything the customer can 
-see if a person were to look at a business profile, without any of the access the BO has. This gives BO opportunity to tailor profile page to 
-their business.
+Once business owner is allowed on his profile page he can see a display of his menu, his hours/location,where he can create tags, and a section where he can create a message with current events or info on the business. The BO can see everything the customer can see if a person were to look at a business profile, without any of the access the BO has. This gives BO opportunity to tailor profile page to their business.
 
 POSSIBLE FEATURES:
 menu display with ability to edit
@@ -30,7 +27,8 @@ hours and location display with ability to edit.
 section to create tags
 current events and special message section with ability to edit.
 
-//Could these be possible features on a Business owners profile page? Could the menu display be something that the BO has control over?
+//Could these be possible features on a Business owners profile page? Could the menu display be something that the BO
+has control over? 
 // Could the menu display be something that the BO has control over? Maybe give them the option to update design and content?
 //Could we have the same idea for the hours and location?
 //Same question for the current events and info box?
