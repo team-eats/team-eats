@@ -4,7 +4,7 @@ export function Navigation () {
     return (
 
         <>
-            <section className="contianer mx-auto border-2 border-red-300">
+            <section className="container mx-auto border-2 border-red-300">
             <nav className="bg-red-50 dark:bg-gray-900 text-slate-600">
                 <div className="max-w-screen-xl flex flex-wrap items-end justify-between mx-auto p-4">
                     <a href="https://flowbite.com/" className="flex items-center space-x-3 rtl:space-x-reverse">
