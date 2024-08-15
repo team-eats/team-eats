@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+<h1>Conceptual Model</h1>
+<h2>Entities and Attributes</h2>
+
+<h3>Profile</h3>
+<ul>
+    <li>Profile ID (primary key)</li>
+    <li>profile name</li>
+    <li>email address</li>
+    <li>password</li>
+    <li>is-business-owner</li>
+    <li>date-profile-created</li>
+</ul>
+
+<h3>Business</h3>
+<ul>
+    <li>business id (primary key)</li>
+    <li>profile id (secondary key)</li>
+    <li>business name</li>
+    <li>banner photo</li>
+    <li>business profile photo</li>
+    <li>hours</li>
+    <li>bio</li>
+    <li>business email address</li>
+    <li>phone number</li>
+</ul>
+
+<h3>Like</h3>
+<ul>
+    <li>liking user id (secondary key)</li>
+    <li>liked business id (secondary key)</li>
+    <li>timestamp</li>
+</ul>
+
+<h3>Location</h3>
+<ul>
+    <li>location id (primary key)</li>
+    <li>business id (secondary key)</li>
+    <li>location of business</li>
+    <li>start timestamp</li>
+    <li>end timestamp</li>
+</ul>
+
+<h3>Menu Section</h3>
+<ul>
+    <li>menu section id (primary key)</li>
+    <li>business id (secondary key)</li>
+    <li>section name</li>
+</ul>
+
+<h3>Menu Item</h3>
+<ul>
+    <li>menu item id (primary key)</li>
+    <li>menu section id (secondary key)</li>
+    <li>item description</li>
+    <li>menu item photo</li>
+    <li>price</li>
+</ul>
+
+<h2>Relationships</h2>
+<h3>Profile</h3>
+<ul>
+    <li>one profile can manage many business listings (one to many)</li>
+    <li>one profile can like many listings (one to many)</li>
+</ul>
+
+<h3>Business</h3>
+<ul>
+    <li>one business can be liked by many profiles (one to many)</li>
+    <li>one business can have many locations (one to many)</li>
+    <li>one business can have many menu sections (one to many)</li>
+</ul>
+
+<h3>Like</h3>
+
+<h3>Location</h3>
+
+<h3>Menu Section</h3>
+<ul>
+    <li>a menu section can have multiple items (one to many)</li>
+</ul>
+
+<h3>Menu Item</h3>
+
+</body>
+</html>
