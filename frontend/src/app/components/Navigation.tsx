@@ -1,9 +1,8 @@
-
-
-export function Navigation () {
+export function Navigation() {
     return (
 
         <>
+
             <nav className="bg-red-50 dark:bg-gray-900 text-slate-600">
                <div className="max-w-screen-xl flex flex-wrap items-end justify-between mx-auto p-4">
                    <a href="https://flowbite.com/" className="flex items-center space-x-3 rtl:space-x-reverse">
@@ -75,8 +74,8 @@ export function Navigation () {
                      </div>
                  </div>
              </nav>
+
         </>
 
     )
 }
-
