@@ -1,4 +1,4 @@
-import {BusinessCard} from "@/app/search/BusinessCard";
+import {BusinessCard} from "@/app/components/BusinessCard";
 
 export default function results(){
     return (
