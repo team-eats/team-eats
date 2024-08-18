@@ -1,5 +1,8 @@
+
 import type { Metadata } from 'next'
 import './globals.css'
+import { Navigation } from "@/app/components/Navigation";
+import React from "react";
 
 
 export const metadata: Metadata = {
@@ -14,8 +17,15 @@ type RootLayoutProps = {
 export default function RootLayout(props : RootLayoutProps) {
     const { children } = props
     return (
+        <>
         <html  lang="en" suppressHydrationWarning>
-        <body>{children}</body>
+        <body>
+
+        <Navigation />
+        {children}
+
+        </body>
         </html>
+        </>
     )
 }
