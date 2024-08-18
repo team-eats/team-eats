@@ -1,13 +1,9 @@
 
-import {Navigation} from "@/app/components/Navigation";
 import {Section} from "@/app/components/section";
-
 
 export default function Home() {
     return (
         <>
-
-            {/*<Navigation />*/}
 
             <div className={"border-2 border-black text-center py-5"}>
             <h1 className={"text-3xl font-bold"}>Welcome to Team Eats</h1>
