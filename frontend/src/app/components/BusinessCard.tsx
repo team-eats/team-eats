@@ -8,7 +8,7 @@ export function BusinessCard() {
     return (
         <Card
             className="max-w-sm"
-            renderImage={() => <Image width={500} height={500} src="/images/blog/image-1.jpg" alt="image 1" />}
+            renderImage={() => <Image width={150} height={200} src="/images/blog/image-1.jpg" alt="image 1" />}
         >
             <h5 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
                 Noteworthy technology acquisitions 2021
