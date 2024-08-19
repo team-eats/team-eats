@@ -34,8 +34,8 @@ export default function() {
 
 
              </div>
-<div>
-    <Contact/>
+<div className={"container mx-auto mt-10 mb-10"}>
+    <Contact className={""}/>
 </div>
 
 
