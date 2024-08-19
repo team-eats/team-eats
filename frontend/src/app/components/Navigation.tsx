@@ -1,3 +1,4 @@
+'use client'
 import {Dropdown} from "flowbite-react";
 
 
@@ -115,7 +116,7 @@ export function Navigation() {
                     </form>
 
 
-                    <ul className="flex justify-between px-36">
+                    <ul className="flex items-center justify-between">
                         <li>
                             <a href="/" className="hover:text-red-950 text-2xl px-2">About us</a>
                         </li>
@@ -127,7 +128,6 @@ export function Navigation() {
                         </li>
 
                     </ul>
-
 
                     <Dropdown
                         arrowIcon={false}
@@ -143,14 +143,14 @@ export function Navigation() {
                         }
                     >
                         <Dropdown.Header>
-                            <span className="block text-sm">Bonnie Green</span>
-                            <span className="block truncate text-sm font-medium">name@flowbite.com</span>
+                            <span className="block text-sm">Account Options</span>
+                            <span className="block truncate text-sm font-medium">Team Eats Options</span>
                         </Dropdown.Header>
-                        <Dropdown.Item>Dashboard</Dropdown.Item>
-                        <Dropdown.Item>Settings</Dropdown.Item>
-                        <Dropdown.Item>Earnings</Dropdown.Item>
+                        <Dropdown.Item>New listing form</Dropdown.Item>
+                        <Dropdown.Item>Favorites</Dropdown.Item>
+                        <Dropdown.Item>About us</Dropdown.Item>
                         <Dropdown.Divider />
-                        <Dropdown.Item>Sign out</Dropdown.Item>
+                        <Dropdown.Item>Sign in/out</Dropdown.Item>
                     </Dropdown>
 
 
