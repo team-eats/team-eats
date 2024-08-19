@@ -114,33 +114,53 @@ export function Navigation() {
                         </button>
                     </form>
 
-                    <ul className="flex items-end">
+
+                    <ul className="flex justify-between px-36">
                         <li>
-                            <a href="/" className="hover:text-red-950">About us</a>
+                            <a href="/" className="hover:text-red-950 text-2xl px-2">About us</a>
                         </li>
                         <li>
                             <button type="button"
-                                    className="py-2.5 me-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white border border-black hover:bg-orange-800 hover:text-red-950 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">Submit
+                                    className="px-4 py-3 me-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white border border-black hover:bg-orange-800 hover:text-red-950 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">Submit
                                 a listing
                             </button>
                         </li>
-                        <li>
-                            <svg className="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                            <path stroke="currentColor" strokeLinecap="round" strokeWidth="2" d="M5 7h14M5 12h14M5 17h14" />
+
+                    </ul>
+
+
+                    <Dropdown
+                        arrowIcon={false}
+                        inline
+                        label={
+                            <svg className="w-8 h-8 text-gray-800 dark:text-white" aria-hidden="true"
+                                 xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
+                                 viewBox="0 0 24 24">
+                                <path stroke="currentColor" strokeLinecap="round" strokeWidth="2"
+                                      d="M5 7h14M5 12h14M5 17h14"/>
                             </svg>
 
-                         </li>
-            </ul>
+                        }
+                    >
+                        <Dropdown.Header>
+                            <span className="block text-sm">Bonnie Green</span>
+                            <span className="block truncate text-sm font-medium">name@flowbite.com</span>
+                        </Dropdown.Header>
+                        <Dropdown.Item>Dashboard</Dropdown.Item>
+                        <Dropdown.Item>Settings</Dropdown.Item>
+                        <Dropdown.Item>Earnings</Dropdown.Item>
+                        <Dropdown.Divider />
+                        <Dropdown.Item>Sign out</Dropdown.Item>
+                    </Dropdown>
 
 
-        </div>
 
+                </div>
 
-</nav>
+            </nav>
 
+        </>
 
-</>
-
-)
+    )
 
 }
