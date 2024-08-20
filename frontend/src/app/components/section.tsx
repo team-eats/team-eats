@@ -14,6 +14,9 @@ export function Section() {
             <div className="bg-red-700 p-3 shadow-lg overflow-x-auto flex flex-row gap-3 mx-auto h-[24rem]">
                 <BusinessCard />
                 <BusinessCard />
+                <BusinessCard />
+                <BusinessCard />
+                <BusinessCard />
             </div>
         </section>
     )
