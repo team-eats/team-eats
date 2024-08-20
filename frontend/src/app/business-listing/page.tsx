@@ -2,6 +2,7 @@
 
 import { Carousel } from "flowbite-react";
 import React from "react";
+import {MenuSection} from "@/app/components/MenuSection";
 
 export default function () {
     return (
@@ -25,6 +26,7 @@ export default function () {
                 </div>
                 <div className='block ml-[384px] px-[5%] max-w-[calc(100lvw-382px)]'>
                     <h2 className='block text-6xl my-10 underline underline-offset-8'>Tony's Pizzeria</h2>
+                    <MenuSection />
                 </div>
             </div>
         </>
