@@ -1,32 +1,30 @@
 'use client'
 
+import { Carousel } from "flowbite-react";
 import React from "react";
-import { Card } from "flowbite-react";
-import Image from "next/image";
 
 export default function () {
     return (
         <>
             <div className='flex'>
-                <div>
-                    <Card
-                        className="max-w-sm h-[calc(100lvh-70px)]"
-                        renderImage={() => <Image width={500} height={500} src="/images/blog/image-1.jpg"
-                                                  alt="image 1"/>}
-                    >
-                        <h5 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
-                            Noteworthy technology acquisitions 2021
-                        </h5>
-                        <p className="font-normal text-gray-700 dark:text-gray-400">
-                            Here are the biggest enterprise technology acquisitions of 2021 so far, in reverse
-                            chronological
-                            order.
-                        </p>
-                    </Card>
+                <div className='w-[384px] -top-[0px] fixed h-[70px] text-gray-500 bg-gray-500 -z-10 border-r-2 border-black select-none'>Filler</div>
+                <div className='fixed'>
+                    <div className="max-w-sm h-screen border-r-2 border-black bg-gray-500">
+                        <img src="https://placehold.co/300x300" alt="Placeholder business image"
+                             className='mx-auto pt-10 pb-5'/>
+                        <p className='text-xl text-gray-950 mx-[42px] my-2'><span className='text-lg'>Address:</span></p>
+                        <p className='text-xl text-gray-950 mx-[42px] my-2'><span className='text-lg'>Phone Number:</span></p>
+                        <p className='text-xl text-gray-950 mx-[42px] my-2'><span className='text-lg'>Hours:</span></p>
+                        <div className='text-center mt-5'>
+                            <h3 className='text-2xl font-bold'>About Tony's Pizzeria</h3>
+                            <p className="text-gray-100 mx-[42px] mt-5">
+                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cupiditate dolorum exercitationem numquam reiciendis? Debitis, magni, quibusdam. Accusantium animi beatae fuga libero nam officiis quas, quos sequi similique tempore, veniam voluptas. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cupiditate dolorum exercitationem numquam reiciendis? Debitis, magni, quibusdam. Accusantium animi beatae fuga libero nam officiis quas, quos sequi similique tempore
+                            </p>
+                        </div>
+                    </div>
                 </div>
-                <div className='block mx-auto'>
-                    <h2 className='block'>Tony's Pizzeria</h2>
-                    <p className='text-6xl'>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus aliquam animi consequatur doloremque eum ex explicabo incidunt magni maiores maxime officia, perspiciatis placeat totam? Aperiam dolorem eos inventore magnam quas. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus aliquam animi consequatur doloremque eum ex explicabo incidunt magni maiores maxime officia, perspiciatis placeat totam? Aperiam dolorem eos inventore magnam quas. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus aliquam animi consequatur doloremque eum ex explicabo incidunt magni maiores maxime officia, perspiciatis placeat totam? Aperiam dolorem eos inventore magnam quas. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus aliquam animi consequatur doloremque eum ex explicabo incidunt magni maiores maxime officia, perspiciatis placeat totam? Aperiam dolorem eos inventore magnam quas. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus aliquam animi consequatur doloremque eum ex explicabo incidunt magni maiores maxime officia, perspiciatis placeat totam? Aperiam dolorem eos inventore magnam quas. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus aliquam animi consequatur doloremque eum ex explicabo incidunt magni maiores maxime officia, perspiciatis placeat totam? Aperiam dolorem eos inventore magnam quas. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus aliquam animi consequatur doloremque eum ex explicabo incidunt magni maiores maxime officia, perspiciatis placeat totam? Aperiam dolorem eos inventore magnam quas.</p>
+                <div className='block ml-[384px] px-[5%] max-w-[calc(100lvw-382px)]'>
+                    <h2 className='block text-6xl my-10 underline underline-offset-8'>Tony's Pizzeria</h2>
                 </div>
             </div>
         </>
