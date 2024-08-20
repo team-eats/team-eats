@@ -6,16 +6,15 @@ import {Card} from "flowbite-react";
 
 export function Section() {
     return (
-        <Card className="">
-            <h5 className="mb-2 text-3xl font-bold text-gray-900 dark:text-white text-center">Pizza</h5>
-
-            <div className="items-center justify-center space-y-4 sm:flex sm:space-x-4 sm:space-y-0">
-                <div className="grid grid-cols-3 gap-4 ">
-                    <BusinessCard/>
-                    <BusinessCard/>
-                    <BusinessCard/>
-                </div>
+        <section className="mx-full my-5 mb-16 ">
+            <div>
+                <h5 className="text-3xl font-bold text-gray-900 text-center my-9 overflow-x-auto">Pizza</h5>
             </div>
-        </Card>
+
+            <div className="bg-red-700 p-3 shadow-lg overflow-x-auto flex flex-row gap-3 mx-auto h-[24rem]">
+                <BusinessCard />
+                <BusinessCard />
+            </div>
+        </section>
     )
 }
