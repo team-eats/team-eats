@@ -3,6 +3,7 @@
 
 import {BusinessCard} from "@/app/components/BusinessCard";
 import {Card} from "flowbite-react";
+import {MenuItemCard} from "@/app/components/MenuItemCard";
 
 export function Section() {
     return (
@@ -12,6 +13,7 @@ export function Section() {
             </div>
 
             <div className="bg-red-700 p-3 shadow-lg overflow-x-auto flex flex-row gap-3 mx-auto h-[24rem]">
+                <MenuItemCard />
                 <BusinessCard />
                 <BusinessCard />
                 <BusinessCard />

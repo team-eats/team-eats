@@ -1,5 +1,5 @@
 
-import {Section} from "@/app/components/section";
+import {Section} from "@/app/components/Section";
 
 export default function Home() {
     return (
