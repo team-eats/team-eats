@@ -7,11 +7,12 @@ export function Navigation() {
     return (
 
         <>
-            <nav>
-                <div className="flex items-center justify-evenly">
-                    <a href='..' className='flex'><img src="/placeholder-logo.png" className="h-12 hover:border-red-800" alt="placeholder logo"/>
+            <Navbar fluid>
+                <div className="flex max-w-xxl flex-wrap items-center justify-between">
+                    <a href='..' className='flex'><img src="/placeholder-logo.png" className="h-12 hover:border-red-800"
+                                                       alt="placeholder logo"/>
                         <span className="text-5xl text-black hover:text-red-950 hover:rounded-xl hover:border-red-800">Team Eats</span></a>
-                    <form className="flex items-center max-w-sm px-8 py-4">
+                    <form className="flex items-center max-w-sm py-4">
                         <label htmlFor="simple-search" className="sr-only">Search</label>
                         <div className="relative">
                             <div className="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
@@ -23,7 +24,7 @@ export function Navigation() {
                                 </svg>
                             </div>
                             <input type="text" id="simple-search"
-                                   className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg hover:border-red-800 focus:ring-red-800 focus:border-red-800 block w-full ps-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-red-500 dark:focus:border-red-500 px-6"
+                                   className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg hover:border-red-800 focus:ring-red-800 focus:border-red-800 block w-full ps-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-red-500 dark:focus:border-red-500 px-14"
                                    placeholder="Search Eats..." required/>
                         </div>
                         <button type="submit"
@@ -38,7 +39,7 @@ export function Navigation() {
                         </button>
                     </form>
 
-                    <div className="flex justify-items-end">
+                    <div className="flex justify-items-start">
                         <ul className="hidden md:flex items-center">
                             <li>
                                 <a href="/" className="hover:text-red-950 text-2xl px-2">About us</a>
@@ -76,7 +77,7 @@ export function Navigation() {
                         </Dropdown>
                     </div>
                 </div>
-            </nav>
+            </Navbar>
 
         </>
 
