@@ -6,12 +6,12 @@ import Image from "next/image";
 import ReactCardFlip from "react-card-flip";
 import {useState} from "react";
 
-export function BusinessCard() {
+export function MenuItemCard () {
     const [isFlipped, setIsFlipped] = useState(false);
 
-    function flipCard(){
-        setIsFlipped (!isFlipped);
-    }
+     function flipCard(){
+         setIsFlipped (!isFlipped);
+     }
 
     return (
         <Card
@@ -21,14 +21,14 @@ export function BusinessCard() {
             <ReactCardFlip flipDirection={'horizontal'} isFlipped={isFlipped}>
                 <div onClick={flipCard}>
                     <h5 className="card text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
-                        Tony's Pizzeria
+                        Eggplant Parmesan
                     </h5>
-                    <p className="font-normal text-gray-700 dark:text-gray-400">Come to Tony's!</p>
+                    <p className="font-normal text-gray-700 dark:text-gray-400">$99.99</p>
                 </div>
 
                 <div onClick={flipCard}>
                     <h2 className='card card-back'></h2>
-                    <p>An extremely family friendly restaurant with nothing shady at all and very adequate health ratings.</p>
+                    <p>Just a normal eggplant parm, with gmo heavy panko.</p>
                 </div>
             </ReactCardFlip>
         </Card>
