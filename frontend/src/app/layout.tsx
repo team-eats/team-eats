@@ -15,12 +15,12 @@ type RootLayoutProps = {
 export default function RootLayout(props : RootLayoutProps) {
     const { children } = props
     return (
-        <html lang="en" suppressHydrationWarning>
-            <body>
-                <Navigation/>
-                {children}
+        <html  lang="en" suppressHydrationWarning>
 
-            </body>
+        <body>
+        <Navigation />
+        {children}
+        </body>
         </html>
     )
 }
