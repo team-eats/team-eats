@@ -66,6 +66,7 @@ export function Navigation() {
                         <Dropdown.Item>Profile Settings</Dropdown.Item>
                         <Dropdown.Item>Favorites</Dropdown.Item>
                         <Dropdown.Item>Create Account</Dropdown.Item>
+                        <Dropdown.Item>Submit a Listing</Dropdown.Item>
                         <Dropdown.Item className='block xl:hidden text-left'>About Us</Dropdown.Item>
                         <Dropdown.Divider/>
                         <Dropdown.Item>Sign in/out</Dropdown.Item>
