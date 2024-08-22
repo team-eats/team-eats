@@ -27,7 +27,7 @@ export function MenuItemCard () {
                 </div>
 
                 <div onClick={flipCard}>
-                    <h2 className='card card-back'>Back</h2>
+                    <h2 className='card card-back'></h2>
                     <p>Just a normal eggplant parm, with gmo heavy panko.</p>
                 </div>
             </ReactCardFlip>
