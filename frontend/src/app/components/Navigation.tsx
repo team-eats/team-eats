@@ -1,8 +1,15 @@
 'use client'
 
-import {Avatar, Button, Dropdown, Navbar} from "flowbite-react";
+import {Button, Modal, Dropdown, Navbar} from "flowbite-react";
+import { useState } from "react";
+
+
+
+
 
 export function Navigation() {
+    const [openModal, setOpenModal] = useState(false);
+
     return (
 
         <>
@@ -28,18 +35,8 @@ export function Navigation() {
                                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg hover:border-red-800 focus:ring-red-800 focus:border-red-800 block w-full ps-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-red-500 dark:focus:border-red-500 px-14"
                                placeholder="Search Eats..." required/>
                     </div>
-                    <button type="submit"
-                            className="p-2.5 ms-2 text-sm font-medium text-white bg-black rounded-lg border border-black hover:bg-orange-800 focus:ring-4 focus:outline-none focus:ring-white dark:bg-red-600 dark:hover:bg-red-800 dark:focus:ring-red-500">
-                        <svg className="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
-                             viewBox="0 0 20 20">
-                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                                  stroke-width="2"
-                                  d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
-                        </svg>
-                        <span className="sr-only">Search</span>
-                    </button>
-                </form>
 
+                </form>
 
 
                 <div className="flex flex-wrap items-center p-2 md:order-2">
@@ -62,7 +59,7 @@ export function Navigation() {
                             <span className="block truncate text-sm font-medium">Options</span>
                         </Dropdown.Header>
                         <Dropdown.Item>Profile Settings</Dropdown.Item>
-                        <Dropdown.Item>Favorites</Dropdown.Item>
+                        <Dropdown.Item onClick={() => setOpenModal(true)}>Favorites</Dropdown.Item>
                         <Dropdown.Item>Create Account</Dropdown.Item>
                         <Dropdown.Item className='block xl:hidden text-left'>About Us</Dropdown.Item>
                         <Dropdown.Divider/>
@@ -71,8 +68,39 @@ export function Navigation() {
                 </div>
             </Navbar>
 
-        </>
 
-    )
 
+
+
+    <Modal dismissible show={openModal} onClose={() => setOpenModal(false )}>
+        <Modal.Header>Terms of Service</Modal.Header>
+        <Modal.Body>
+            <div className="space-y-6">
+                <p className="text-base leading-relaxed text-gray-500 dark:text-gray-400">
+                    With less than a month to go before the European Union enacts new consumer privacy laws for its citizens,
+                    companies around the world are updating their terms of service agreements to comply.
+                </p>
+                <p className="text-base leading-relaxed text-gray-500 dark:text-gray-400">
+                    The European Union’s General Data Protection Regulation (G.D.P.R.) goes into effect on May 25 and is meant
+                    to ensure a common set of data rights in the European Union. It requires organizations to notify users as
+                    soon as possible of high-risk data breaches that could personally affect them.
+                </p>
+            </div>
+        </Modal.Body>
+        <Modal.Footer>
+            <Button onClick={() => setOpenModal(false)}>I accept</Button>
+            <Button color="gray" onClick={() => setOpenModal(false)}>
+                Decline
+            </Button>
+        </Modal.Footer>
+    </Modal>
+</>
+);
 }
+
+
+
+
+
+
+
