@@ -5,13 +5,13 @@ import { Button, Checkbox, Label, Modal, TextInput } from "flowbite-react";
 import { useRef, useState } from "react";
 
 export function Login() {
-    const [openModal, setOpenModal] = useState(false);
+    const [openModal, setOpenLogin] = useState(false);
     const emailInputRef = useRef<HTMLInputElement>(null);
 
     return (
         <>
-            <Button onClick={() => setOpenModal(true)}>Toggle modal</Button>
-            <Modal show={openModal} size="md" popup onClose={() => setOpenModal(false)} initialFocus={emailInputRef}>
+            <Button onClick={() => setOpenLogin(true)}>Toggle modal</Button>
+            <Modal show={openModal} size="md" popup onClose={() => setOpenLogin(false)} initialFocus={emailInputRef}>
                 <Modal.Header />
                 <Modal.Body>
                     <div className="space-y-6">
