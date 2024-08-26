@@ -7,8 +7,9 @@ import { useRef, useState } from "react";
 
 
 export function Navigation() {
-    const [openModal, setOpenLogin] = useState(false);
+    const [openLogin, setOpenLogin] = useState(false);
     const emailInputRef = useRef<HTMLInputElement>(null);
+    const [openRegister, setOpenRegister] = useState(false);
 
 
     return (
@@ -77,7 +78,7 @@ export function Navigation() {
                 </div>
             </Navbar>
 
-            <Modal show={openModal} size="md" popup onClose={() => setOpenLogin(false)} initialFocus={emailInputRef}>
+            <Modal show={openLogin} size="md" popup onClose={() => setOpenLogin(false)} initialFocus={emailInputRef}>
                 <Modal.Header />
                 <Modal.Body>
                     <div className="space-y-6">
@@ -108,17 +109,49 @@ export function Navigation() {
                         </div>
                         <div className="flex justify-between text-sm font-medium text-gray-500 dark:text-gray-300">
                             Not registered?&nbsp;
+                            <a href="#" className="text-cyan-700 hover:underline dark:text-cyan-500"
+                               onClick={() => {setOpenLogin(false)}}>
 
-                            <a href="#" className="text-cyan-700 hover:underline dark:text-cyan-500" onClick={() => setOpenLogin(false)}>
                                 Create account
                             </a>
-
                         </div>
                     </div>
                 </Modal.Body>
             </Modal>
 
+            <Modal show={openRegister} size="md" popup onClose={() => setOpenRegister(false)} initialFocus={emailInputRef}>
+                <Modal.Header />
+                <Modal.Body>
+                    <div className="space-y-6">
+                        <h3 className="text-xl font-medium text-gray-900 dark:text-white">Create an Account</h3>
+                        <div>
+                            <div className="mb-2 block">
+                                <Label htmlFor="email" value="Your email"/>
+                            </div>
+                            <TextInput id="email" ref={emailInputRef} placeholder="name@company.com" required/>
+                        </div>
+                        <div>
+                            <div className="mb-2 block">
+                                <Label htmlFor="password" value="Your password"/>
+                            </div>
+                            <TextInput id="password" type="password" required/>
+                        </div>
+                        <div>
+                            <div className="mb-2 block">
+                                <Label htmlFor="password" value="Retype password"/>
+                            </div>
+                            <TextInput id="password" type="password" required/>
+                        </div>
+                        <div className="w-full">
+                            <Button>Create Account</Button>
+                        </div>
+                    </div>
+                </Modal.Body>
+            </Modal>
 
         </>
     )
 }
+
+
+{/*{setOpenRegister(value:true)}>*/}
