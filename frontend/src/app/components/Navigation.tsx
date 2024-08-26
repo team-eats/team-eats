@@ -1,10 +1,17 @@
 'use client'
 
-import {Avatar, Button, Dropdown, Navbar} from "flowbite-react";
+import {Avatar, Button, Checkbox, Dropdown, Label, Modal, Navbar, TextInput} from "flowbite-react";
+import {useState} from "react";
 
 export function Navigation() {
-    return (
+    const [openSettingsModal, setOpenSettingsModal] = useState(false);
+    const [email, setEmail] = useState('');
 
+    function onCloseSettingsModal() {
+        setOpenSettingsModal(false);
+        setEmail('');
+    }
+    return (
         <>
 
             <Navbar fluid rounded>
@@ -61,7 +68,7 @@ export function Navigation() {
                             <span className="block text-sm">Team Eats</span>
                             <span className="block truncate text-sm font-medium">Options</span>
                         </Dropdown.Header>
-                        <Dropdown.Item>Profile Settings</Dropdown.Item>
+                        <Dropdown.Item onClick={() => setOpenSettingsModal(true)}>Profile Settings</Dropdown.Item>
                         <Dropdown.Item>Favorites</Dropdown.Item>
                         <Dropdown.Item>Create Account</Dropdown.Item>
                         <Dropdown.Item className='block xl:hidden text-left'>About Us</Dropdown.Item>
@@ -71,6 +78,33 @@ export function Navigation() {
                 </div>
             </Navbar>
 
+            <Modal show={openSettingsModal} size="md" onClose={onCloseSettingsModal} popup>
+                <Modal.Header />
+                <Modal.Body>
+                    <div className="space-y-6">
+                        <h3 className="text-xl font-medium text-gray-900 dark:text-white">Account Settings</h3>
+                        <div>
+                            <div className="mb-2 block">
+                                <Label htmlFor="email" value="Change e-mail" />
+                            </div>
+                            <TextInput
+                                id="email"
+                                value={email}
+                                onChange={(event) => setEmail(event.target.value)}
+                            />
+                        </div>
+                        <div>
+                            <div className="mb-2 block">
+                                <Label htmlFor="password" value="Change password" />
+                            </div>
+                            <TextInput id="password" type="password" />
+                        </div>
+                        <div className="w-full">
+                            <Button>Save settings</Button>
+                        </div>
+                    </div>
+                </Modal.Body>
+            </Modal>
         </>
 
     )
