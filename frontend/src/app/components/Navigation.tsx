@@ -81,7 +81,7 @@ export function Navigation() {
                 <Modal.Header />
                 <Modal.Body>
                     <div className="space-y-6">
-                        <h3 className="text-xl font-medium text-gray-900 dark:text-white">Sign in to our platform</h3>
+                        <h3 className="text-xl font-medium text-gray-900 dark:text-white">Sign in to Team Eats</h3>
                         <div>
                             <div className="mb-2 block">
                                 <Label htmlFor="email" value="Your email" />
@@ -104,13 +104,15 @@ export function Navigation() {
                             </a>
                         </div>
                         <div className="w-full">
-                            <Button>Log in to your account</Button>
+                            <Button>Log In</Button>
                         </div>
                         <div className="flex justify-between text-sm font-medium text-gray-500 dark:text-gray-300">
                             Not registered?&nbsp;
-                            <a href="#" className="text-cyan-700 hover:underline dark:text-cyan-500">
+
+                            <a href="#" className="text-cyan-700 hover:underline dark:text-cyan-500" onClick={() => setOpenLogin(false)}>
                                 Create account
                             </a>
+
                         </div>
                     </div>
                 </Modal.Body>
