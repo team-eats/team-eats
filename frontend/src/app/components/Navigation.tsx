@@ -1,16 +1,9 @@
 'use client'
 
 import {Avatar, Button, Dropdown, Navbar} from "flowbite-react";
-import {Login} from "@/app/components/Login";
-import { Checkbox, Label, Modal, TextInput } from "flowbite-react";
-import { useRef, useState } from "react";
 
 
 export function Navigation() {
-    const [openLogin, setOpenLogin] = useState(false);
-    const emailInputRef = useRef<HTMLInputElement>(null);
-    const [openRegister, setOpenRegister] = useState(false);
-
 
     return (
 
@@ -28,9 +21,6 @@ export function Navigation() {
                         <div className="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
                             <svg className="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true"
                                  xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 20">
-                                {/*<path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"*/}
-                                {/*      stroke-width="2"*/}
-                                {/*      d="M3 5v10M3 5a2 2 0 1 0 0-4 2 2 0 0 0 0 4Zm0 10a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm12 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm0 0V6a3 3 0 0 0-3-3H9m1.5-2-2 2 2 2"/>*/}
                             </svg>
                         </div>
                         <input type="text" id="simple-search"
@@ -68,9 +58,10 @@ export function Navigation() {
                             <span className="block text-sm">Team Eats</span>
                             <span className="block truncate text-sm font-medium">Options</span>
                         </Dropdown.Header>
+
                         <Dropdown.Item>Profile Settings</Dropdown.Item>
                         <Dropdown.Item>Favorites</Dropdown.Item>
-                        <Dropdown.Item onClick={() => setOpenLogin(true)}>Login</Dropdown.Item>
+                        <Dropdown.Item href="/login">Login / Create Account</Dropdown.Item>
                         <Dropdown.Item>About Us</Dropdown.Item>
                         <Dropdown.Divider/>
 
