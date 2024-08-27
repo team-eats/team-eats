@@ -8,7 +8,7 @@ import Link from "next/link";
 export default function() {
     return (
         <>
-            <div className="flex flex-col md:flex-row justify-between p-6">
+            <div className="flex flex-col md:flex-row justify-around p-6 my-auto py-20 gap-16 md:gap">
 
 
                 <div>
