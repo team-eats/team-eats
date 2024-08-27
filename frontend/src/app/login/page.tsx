@@ -8,18 +8,19 @@ import Link from "next/link";
 export default function() {
     return (
         <>
-            <div className="flex flex-col md:flex-row justify-around p-6 my-auto py-20 gap-16 md:gap">
+            <div className="flex flex-col md:flex-row justify-around p-6 my-auto md:py-20 gap-16 md:gap">
 
 
                 <div>
-                    <form className="flex max-w-md flex-col gap-4">
-                        <h2>Login</h2>
+                    <form className="flex max-w-md flex-col gap-4 border-2 border-gray-600 p-3 rounded-lg">
+                        <h2 className="text-2xl">Login</h2>
                         <div>
                             <div className="mb-2 block">
                                 <Label htmlFor="email2" value="Your email"/>
                             </div>
-                            <TextInput id="email2" type="email" placeholder="name@flowbite.com" required shadow/>
+                            <TextInput id="email2" type="email" placeholder="email@address.com" required shadow/>
                         </div>
+
                         <div>
                             <div className="mb-2 block">
                                 <Label htmlFor="password2" value="Your password"/>
@@ -27,12 +28,12 @@ export default function() {
                             <TextInput id="password2" type="password" required shadow/>
                         </div>
                         <Button type="submit"
-                        className="my-3 ">Login</Button>
+                        className="my-3l">Login</Button>
                     </form>
                 </div>
 
                 <div>
-                    <form className="flex max-w-md flex-col gap-4">
+                    <form className="flex max-w-md flex-col gap-4 border-2 border-gray-600 p-3 rounded-lg">
                         <h2>Create Account</h2>
                         <div>
                             <div className="mb-2 block">
