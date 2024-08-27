@@ -8,7 +8,7 @@ import {BusinessCard} from "@/app/components/BusinessCard";
 
 
 export function Navigation() {
-    const [openModal, setOpenModal] = useState(false);
+    const [openFavoritesModal, setOpenFavoritesModal] = useState(false);
 
     const [openSettingsModal, setOpenSettingsModal] = useState(false);
     const [email, setEmail] = useState('');
@@ -20,7 +20,6 @@ export function Navigation() {
     return (
 
         <>
-
             <Navbar fluid rounded>
                 <Navbar.Brand href="/">
                     <img src="/placeholder-logo.png" className="h-12 hover:border-red-800" alt="placeholder logo"/>
@@ -54,8 +53,6 @@ export function Navigation() {
                     </button>
                 </form>
 
-
-
                 <div className="flex flex-wrap items-center p-2 md:order-2">
 
                     <Dropdown
@@ -76,7 +73,7 @@ export function Navigation() {
                             <span className="block truncate text-sm font-medium">Options</span>
                         </Dropdown.Header>
                         <Dropdown.Item onClick={() => setOpenSettingsModal(true)}>Profile Settings</Dropdown.Item>
-                        <Dropdown.Item onClick={() => setOpenModal(true)}>Favorites</Dropdown.Item>
+                        <Dropdown.Item onClick={() => setOpenFavoritesModal(true)}>Favorites</Dropdown.Item>
                         <Dropdown.Item>Create Account</Dropdown.Item>
                         <Dropdown.Item className='block xl:hidden text-left'>About Us</Dropdown.Item>
                         <Dropdown.Divider/>
@@ -113,29 +110,23 @@ export function Navigation() {
                 </Modal.Body>
             </Modal>
 
-
-
-
-
-    <Modal dismissible show={openModal} onClose={() => setOpenModal(false )}>
-        <Modal.Header className={"bg-orange-200"}>Favorite Eats</Modal.Header>
-        <Modal.Body className={"bg-red-700"}>
-
-            <div>
-                <BusinessCard />
-                <BusinessCard />
-                <BusinessCard />
-                <BusinessCard />
-                <BusinessCard />
-                <BusinessCard />
-            </div>
-        </Modal.Body>
-        <Modal.Footer className={"bg-orange-200"}>
-
-        </Modal.Footer>
-    </Modal>
-</>
-);
+            <Modal dismissible show={openFavoritesModal} onClose={() => setOpenFavoritesModal(false )}>
+                <Modal.Header className={"bg-orange-200"}>Favorite Eats</Modal.Header>
+                <Modal.Body className={"bg-red-700"}>
+                    <div>
+                        <BusinessCard />
+                        <BusinessCard />
+                        <BusinessCard />
+                        <BusinessCard />
+                        <BusinessCard />
+                        <BusinessCard />
+                    </div>
+            </Modal.Body>
+            <Modal.Footer className={"bg-orange-200"}>
+            </Modal.Footer>
+            </Modal>
+        </>
+    );
 }
 
 
