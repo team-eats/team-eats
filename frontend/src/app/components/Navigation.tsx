@@ -7,9 +7,7 @@ import {BusinessCard} from "@/app/components/BusinessCard";
 
 
 
-
 export function Navigation() {
-
     const [openModal, setOpenModal] = useState(false);
 
     const [openSettingsModal, setOpenSettingsModal] = useState(false);
@@ -56,6 +54,8 @@ export function Navigation() {
                     </button>
                 </form>
 
+
+
                 <div className="flex flex-wrap items-center p-2 md:order-2">
 
                     <Dropdown
@@ -71,20 +71,14 @@ export function Navigation() {
 
                         }
                     >
-                        <Dropdown.Header className="bg-red-700 text-white">
+                        <Dropdown.Header>
                             <span className="block text-sm">Team Eats</span>
                             <span className="block truncate text-sm font-medium">Options</span>
                         </Dropdown.Header>
-
-                        <Dropdown.Item>Profile Settings</Dropdown.Item>
-                        <Dropdown.Item>Favorites</Dropdown.Item>
-                        <Dropdown.Item href="/login">Login / Create Account</Dropdown.Item>
-                        <Dropdown.Item>About Us</Dropdown.Item>
                         <Dropdown.Item onClick={() => setOpenSettingsModal(true)}>Profile Settings</Dropdown.Item>
-                        {/*<Dropdown.Item onClick={() => setOpenModal(true)}>Favorites</Dropdown.Item>*/}
+                        <Dropdown.Item onClick={() => setOpenModal(true)}>Favorites</Dropdown.Item>
                         <Dropdown.Item className='block xl:hidden text-left'>About Us</Dropdown.Item>
                         <Dropdown.Divider/>
-
                         <Dropdown.Item href="/login">Sign In / Create Account</Dropdown.Item>
                         <Dropdown.Item>Sign Out</Dropdown.Item>
                     </Dropdown>
@@ -123,23 +117,23 @@ export function Navigation() {
 
 
 
-    {/*<Modal dismissible show={openModal} onClose={() => setOpenModal(false )}>*/}
-    {/*    <Modal.Header className={"bg-orange-200"}>Favorite Eats</Modal.Header>*/}
-    {/*    <Modal.Body className={"bg-red-700"}>*/}
+    <Modal dismissible show={openModal} onClose={() => setOpenModal(false )}>
+        <Modal.Header className={"bg-orange-200"}>Favorite Eats</Modal.Header>
+        <Modal.Body className={"bg-red-700"}>
 
-    {/*        <div>*/}
-    {/*            <BusinessCard />*/}
-    {/*            <BusinessCard />*/}
-    {/*            <BusinessCard />*/}
-    {/*            <BusinessCard />*/}
-    {/*            <BusinessCard />*/}
-    {/*            <BusinessCard />*/}
-    {/*        </div>*/}
-    {/*    </Modal.Body>*/}
-    {/*    <Modal.Footer className={"bg-orange-200"}>*/}
+            <div>
+                <BusinessCard />
+                <BusinessCard />
+                <BusinessCard />
+                <BusinessCard />
+                <BusinessCard />
+                <BusinessCard />
+            </div>
+        </Modal.Body>
+        <Modal.Footer className={"bg-orange-200"}>
 
-    {/*    </Modal.Footer>*/}
-    {/*</Modal>*/}
+        </Modal.Footer>
+    </Modal>
 </>
 );
 }
