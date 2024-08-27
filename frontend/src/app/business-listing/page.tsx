@@ -32,7 +32,7 @@ export default function () {
                         </div>
                     </div>
                 </div>
-                <div className='block sm:ml-[384px] px-[5%] sm:max-w-[calc(100lvw-384px)]'>
+                <div className='block sm:ml-[384px] px-[5%] sm:max-w-[calc(100lvw-386px)]'>
                     <h2 className='sm:block hidden text-6xl my-10 underline underline-offset-8'>Tony's Pizzeria</h2>
                     <h3 className='text-2xl sm:text-4xl text-center sm:text-left mt-5 underline underline-offset-8'>Menu Items</h3>
                     <MenuSection />
