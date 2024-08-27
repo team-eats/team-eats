@@ -10,7 +10,7 @@ export default function () {
             <div className='flex'>
                 <div className='w-[384px] -top-[0px] fixed h-[70px] text-gray-500 bg-gray-500 -z-10 border-r-2 border-black select-none'>Filler</div>
                 <div className='fixed'>
-                    <div className="max-w-sm h-screen border-r-2 border-black bg-gray-500">
+                    <div className="max-w-sm h-screen border-r-2 border-black bg-red-700">
                         <img src="https://placehold.co/300x300" alt="Placeholder business image"
                              className='mx-auto pt-10 pb-5'/>
                         <p className='text-xl text-gray-950 mx-[42px] my-2'><span className='text-lg'>Address:</span></p>
