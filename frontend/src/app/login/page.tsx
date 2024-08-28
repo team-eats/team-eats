@@ -61,9 +61,9 @@ export default function() {
                         </div>
                         <div className="flex items-center">
                             <Checkbox id="agree"/>
-                            <div className="block px-1">
+                            <div className="block px-2">
                                 <Label htmlFor="agree" className="flex">
-                                    I agree with the
+                                    I agree with the&nbsp;
                                     <Link href="#" className="text-cyan-600 hover:underline dark:text-cyan-500">
                                         terms and conditions
                                     </Link>
