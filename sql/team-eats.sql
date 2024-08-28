@@ -1,9 +1,18 @@
+DROP TABLE IF EXISTS favorite;
+DROP TABLE IF EXISTS item;
+DROP TABLE IF EXISTS section;
+DROP TABLE IF EXISTS location;
+DROP TABLE IF EXISTS business;
+DROP TABLE IF EXISTS profile;
+
+
 CREATE TABLE IF NOT EXISTS profile(
     profile_id uuid primary key,
     profile_name varchar(100),
     profile_email varchar(255) unique,
     profile_hash char(97),
     profile_is_owner bool,
+    profile_activation_token char(32),
     profile_datetime timestamptz
 );
 
