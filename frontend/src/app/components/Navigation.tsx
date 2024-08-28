@@ -18,9 +18,7 @@ export function Navigation() {
         setEmail('');
     }
     return (
-
         <>
-
             <Navbar fluid rounded>
                 <Navbar.Brand href="/">
                     <img src="/placeholder-logo.png" className="px-2 h-12 hover:border-red-800" alt="placeholder logo"/>
@@ -39,7 +37,7 @@ export function Navigation() {
                             </svg>
                         </div>
                         <input type="text" id="simple-search"
-                               className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg hover:border-red-800 focus:ring-red-800 focus:border-red-800 block w-40 sm:w-full ps-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-red-500 dark:focus:border-red-500 px-14"
+                               className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg hover:border-red-800 focus:ring-red-800 focus:border-red-800 block w-40 sm:w-full ps-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-red-500 dark:focus:border-red-500 px-2"
                                placeholder="Search Eats..." required/>
                     </div>
                     <button type="submit"
@@ -85,7 +83,7 @@ export function Navigation() {
                 </div>
             </Navbar>
 
-            <Modal show={openSettingsModal} size="md" onClose={onCloseSettingsModal} popup>
+            <Modal dismissible show={openSettingsModal} size="md" onClose={onCloseSettingsModal} popup>
                 <Modal.Header />
                 <Modal.Body>
                     <div className="space-y-6">
