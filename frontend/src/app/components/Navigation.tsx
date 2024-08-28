@@ -74,7 +74,6 @@ export function Navigation() {
                         </Dropdown.Header>
                         <Dropdown.Item onClick={() => setOpenSettingsModal(true)}>Profile Settings</Dropdown.Item>
                         <Dropdown.Item onClick={() => setOpenFavoritesModal(true)}>Favorites</Dropdown.Item>
-
                         <Dropdown.Item className='block xl:hidden text-left'>About Us</Dropdown.Item>
                         <Dropdown.Divider/>
                         <Dropdown.Item href="/login" >Sign In / Create Account</Dropdown.Item>
