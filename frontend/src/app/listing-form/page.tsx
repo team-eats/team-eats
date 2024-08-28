@@ -29,8 +29,8 @@ export default function() {
                         <div className="mb-2 block">
                             <Label htmlFor="comment" value="About your restaurant"/>
                         </div>
-                        <Textarea className="hover:b-4" id="comment" placeholder="About your business..." required
-                                  rows=""/>
+                        <Textarea className="hover:b-4" id="comment" placeholder="About your business..."
+                                  =""/>
                     </div>
                     <div>
                         <div className="mb-2 block">
@@ -43,8 +43,8 @@ export default function() {
                     <div className="mb-2 block">
                         <Label htmlFor="comment" value="attach files"/>
                     </div>
-                    <Textarea className="hover:b-4" id="comment" placeholder="Attach files..." required
-                              rows=""/>
+                    <Textarea className="hover:b-4" id="comment" placeholder="Attach files..."
+                              =""/>
                 </div>
             </div>
 
