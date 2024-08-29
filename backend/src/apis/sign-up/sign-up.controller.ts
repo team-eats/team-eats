@@ -26,7 +26,7 @@ const profileHash = await setHash(profilePassword)
 
 const profileActivationToken = setActivationToken()
 
-const basePath: string = `${request.protocol}: //${request.hostname}:8080${request.originalUrl}activation/${profileActivationToken}`
+const basePath: string = `${request.protocol}://${request.hostname}:8080${request.originalUrl}activation/${profileActivationToken}`
 
 const message = `<h2>Welcome to Team Eats App</h2>
 <p>Please confirm your account</p>

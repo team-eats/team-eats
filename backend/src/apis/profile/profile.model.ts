@@ -55,9 +55,24 @@ export type PrivateProfile = z.infer<typeof PrivateProfileSchema>
 export const PublicProfileSchema = PrivateProfileSchema.omit({profileHash: true, profileActivationToken: true, profileIsOwner: true, profileEmail: true})
 export type PublicProfile =z.infer<typeof PublicProfileSchema>
 
+export async function updateProfile (profile: PrivateProfile): Promise<string> {
+    const {profileId, profileName, profileEmail, profileHash, profileIsOwner, profileActivationToken, profileDatetime} = profile
+    await sql`UPDATE profile SET profile_name = ${profileName}, profile_email = ${profileEmail}, profile_hash = ${profileHash}, profile_is_owner = ${profileIsOwner},
+                   profile_activation_token = ${profileActivationToken}, profile_datetime = ${profileDatetime}  WHERE profile_id = ${profileId}`
+    return 'Profile successfully updated'
+}
+
 
 export async function insertProfile(profile: PrivateProfile) : Promise<string> {
     const {profileName, profileEmail, profileHash, profileIsOwner, profileActivationToken, profileDatetime} = profile
     await sql`INSERT INTO profile(profile_id, profile_name, profile_email, profile_hash, profile_is_owner, profile_activation_token, profile_datetime) VALUES (gen_random_uuid(), ${profileName}, ${profileEmail}, ${profileHash}, ${profileIsOwner}, ${profileActivationToken}, ${profileDatetime})`
     return 'Profile successfully created'
+}
+
+export async function selectPrivateProfileByProfileActivationToken (profileActivationToken: string) : Promise<PrivateProfile|null> {
+
+
+    const rowList = await sql`SELECT profile_id, profile_name, profile_email, profile_hash, profile_is_owner, profile_activation_token, profile_datetime FROM  profile WHERE profile_activation_token = ${profileActivationToken}`
+    const result = PrivateProfileSchema.array().max(1).parse(rowList)
+    return result?.length ===1 ? result[0] : null
 }
