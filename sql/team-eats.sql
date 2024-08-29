@@ -20,7 +20,7 @@ CREATE TABLE IF NOT EXISTS business(
     business_id uuid primary key,
     business_profile_id uuid references profile(profile_id),
     business_name varchar(100),
-    business_photo bytea,
+    business_photo varchar(255),
     business_hours varchar(255),
     business_bio varchar(800),
     business_email varchar(255) unique,
@@ -48,7 +48,7 @@ CREATE TABLE IF NOT EXISTS item(
     item_id uuid primary key,
     item_section_id uuid references section(section_id),
     item_description varchar(255),
-    item_photo bytea,
+    item_photo varchar(255),
     item_price money,
     item_order smallint
 );
