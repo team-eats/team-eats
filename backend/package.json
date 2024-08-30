@@ -4,7 +4,6 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-
     "dev": "npx nodemon --delay 1.25 -e ts  --exec \"ts-node ./src/index.ts\"",
     "test": "echo \\\"Error: no src/test specified\\\" && exit 1",
     "clean": "ts-standard --fix",
