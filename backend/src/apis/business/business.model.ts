@@ -1,5 +1,6 @@
-import {number, z} from "zod";
+import {number, string, z} from "zod";
 import {sql} from "../../utils/database.utils";
+import {PrivateProfile} from "../profile/profile.model";
 
 
 export const BusinessSchema = z.object({
@@ -130,16 +131,47 @@ export async function selectBusinessByBusinessName(businessName: string): Promis
     return result.length < 1 ? null : result
 }
 
+export async function selectBusinessByBusinessBio(businessBio: string): Promise<Business[] | null> {
+    const rowList = <Business[]>await sql`SELECT
+        business_id,
+        business_profile_id,
+        business_name,
+        business_photo,
+        business_hours,
+        business_bio,
+        business_email,
+        business_phone
+    FROM business
+    WHERE business_bio = IS NOT NULL`
 
+    const result = BusinessSchema.array().parse(rowList)
 
+//to be continued
 
+}
 
+export async function updateBusiness(business: Business): Promise<string> {
 
+    const {businessName, businessPhoto, businessHours, businessBio, businessEmail, businessPhone} = business
 
-export async function updateBusiness(business: Business): Promise<string> {}
+        await sql`UPDATE business SET 
+            business_name = ${businessName}, 
+            business_photo = ${businessPhoto}, 
+            business_hours = ${businessHours}, 
+            business_bio = ${businessBio},
+            business_email = ${businessEmail},
+            business_phone = ${businessPhone}`
 
+    return 'Profile successfully updated'
+}
 
-
+export async function deleteBusinessByBusinessId(businessId: string): Promise<string> {
+    await sql`
+        DELETE 
+        FROM business 
+        WHERE business_id = ${businessId}`
+    return 'Business Deleted Successfully'
+}
 
 
 
