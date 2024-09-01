@@ -1,4 +1,5 @@
 import {number, z} from "zod";
+import {sql} from "../../utils/database.utils";
 
 
 export const BusinessSchema = z.object({
@@ -49,3 +50,99 @@ export const BusinessSchema = z.object({
         .max(10, {message: 'business phone too long'})
         .min(10, {message: 'business phone too short'})
 })
+
+export type Business = z.infer<typeof BusinessSchema>
+
+export async function insertBusiness(business: Business): Promise<string> {
+    const {businessId, businessProfileId, businessName, businessPhoto, businessHours, businessBio, businessEmail, businessPhone} = business
+
+    await sql`INSERT INTO business (business_id, business_profile_id, business_name, business_photo, business_hours, business_bio, business_email, business_phone)
+    VALUES (gen_random_uuid(), ${businessProfileId}, ${businessName}, ${businessPhoto}, ${businessHours}, ${businessBio}, ${businessEmail}, ${businessPhone})`
+
+    return 'Business Inserted Successfully'
+}
+
+export async function selectBusinessByProfileName(businessProfileName: string): Promise<Business[]> {
+    const rowList = <Business[]>await sql`SELECT 
+        business_id,
+        business_profile_id, 
+        business_name, 
+        business_photo, 
+        business_hours, 
+        business_bio, 
+        business_email, 
+        business_phone
+    FROM business JOIN profile ON business.business_profile_id = profile.profile_id
+    WHERE profile.profile_name = ${businessProfileName}`
+
+    return BusinessSchema.array().parse(rowList)
+}
+
+export async function selectBusinessByProfileId(businessProfileId: string): Promise<Business[]> {
+    const rowList = <Business[]>await sql`SELECT
+        business_id,
+        business_profile_id, 
+        business_name, 
+        business_photo, 
+        business_hours, 
+        business_bio, 
+        business_email, 
+        business_phone
+    FROM business
+    WHERE business_profile_id = ${businessProfileId}`
+
+    return BusinessSchema.array().parse(rowList)
+}
+
+export async function selectBusinessByBusinessId(businessId: string): Promise<Business | null> {
+    const rowList = <Business[]>await sql`SELECT
+        business_id,
+        business_profile_id, 
+        business_name, 
+        business_photo, 
+        business_hours, 
+        business_bio, 
+        business_email, 
+        business_phone
+    FROM business
+    WHERE business_id = ${businessId}`
+
+    const result = BusinessSchema.array().max(1).parse(rowList)
+
+    return result.length === 0 ? null : result[0]
+}
+
+export async function selectBusinessByBusinessName(businessName: string): Promise<Business[] | null> {
+    const rowList = <Business[]>await sql`SELECT
+        business_id,
+        business_profile_id, 
+        business_name, 
+        business_photo, 
+        business_hours, 
+        business_bio, 
+        business_email, 
+        business_phone
+    FROM business
+    WHERE business_name = ${businessName}`
+
+    const result = BusinessSchema.array().parse(rowList)
+
+    return result.length < 1 ? null : result
+}
+
+
+
+
+
+
+
+export async function updateBusiness(business: Business): Promise<string> {}
+
+
+
+
+
+
+
+
+
