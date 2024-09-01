@@ -145,6 +145,7 @@ export async function selectBusinessByBusinessBio(businessBio: string): Promise<
     WHERE business_bio = IS NOT NULL`
 
     const result = BusinessSchema.array().parse(rowList)
+    return 'idfk'
 
 //to be continued
 
