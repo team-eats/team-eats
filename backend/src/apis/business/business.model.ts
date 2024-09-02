@@ -57,8 +57,23 @@ export type Business = z.infer<typeof BusinessSchema>
 export async function insertBusiness(business: Business): Promise<string> {
     const {businessId, businessProfileId, businessName, businessPhoto, businessHours, businessBio, businessEmail, businessPhone} = business
 
-    await sql`INSERT INTO business (business_id, business_profile_id, business_name, business_photo, business_hours, business_bio, business_email, business_phone)
-    VALUES (gen_random_uuid(), ${businessProfileId}, ${businessName}, ${businessPhoto}, ${businessHours}, ${businessBio}, ${businessEmail}, ${businessPhone})`
+    await sql`INSERT INTO business (
+                      business_id,
+                      business_profile_id, 
+                      business_name, 
+                      business_photo, 
+                      business_hours, business_bio, 
+                      business_email, 
+                      business_phone
+    )
+    VALUES (gen_random_uuid(),
+            ${businessProfileId},
+            ${businessName}, 
+            ${businessPhoto}, 
+            ${businessHours},
+            ${businessBio}, 
+            ${businessEmail},
+            ${businessPhone})`
 
     return 'Business Inserted Successfully'
 }
