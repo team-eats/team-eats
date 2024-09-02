@@ -78,6 +78,20 @@ export async function insertBusiness(business: Business): Promise<string> {
     return 'Business Inserted Successfully'
 }
 
+export async function selectAllBusinesses(): Promise<Business[]> {
+    const rowList = <Business[]>await sql`SELECT 
+            business_id,
+            business_profile_id,
+            business_name,
+            business_photo,
+            business_hours,
+            business_bio,
+            business_email,
+            business_phone
+        FROM business`
+    return BusinessSchema.array().parse(rowList)
+}
+
 export async function selectBusinessByProfileName(businessProfileName: string): Promise<Business[]> {
     const rowList = <Business[]>await sql`SELECT 
         business_id,
@@ -94,7 +108,7 @@ export async function selectBusinessByProfileName(businessProfileName: string): 
     return BusinessSchema.array().parse(rowList)
 }
 
-export async function selectBusinessByProfileId(businessProfileId: string): Promise<Business[]> {
+export async function selectBusinessByBusinessProfileId(businessProfileId: string): Promise<Business[]> {
     const rowList = <Business[]>await sql`SELECT
         business_id,
         business_profile_id, 
@@ -162,8 +176,7 @@ export async function selectBusinessByBusinessBio(businessBio: string): Promise<
     const result = BusinessSchema.array().parse(rowList)
     return 'idfk'
 
-//to be continued
-
+//ask how to do plz
 }
 
 export async function updateBusiness(business: Business): Promise<string> {
@@ -178,7 +191,7 @@ export async function updateBusiness(business: Business): Promise<string> {
             business_email = ${businessEmail},
             business_phone = ${businessPhone}`
 
-    return 'Profile successfully updated'
+    return 'Business successfully updated'
 }
 
 export async function deleteBusinessByBusinessId(businessId: string): Promise<string> {
@@ -188,9 +201,3 @@ export async function deleteBusinessByBusinessId(businessId: string): Promise<st
         WHERE business_id = ${businessId}`
     return 'Business Deleted Successfully'
 }
-
-
-
-
-
-
