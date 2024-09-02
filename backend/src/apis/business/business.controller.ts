@@ -3,7 +3,7 @@ import {
     Business,
     BusinessSchema, deleteBusinessByBusinessId,
     insertBusiness, selectAllBusinesses, selectBusinessByBusinessBio, selectBusinessByBusinessId,
-    selectBusinessByBusinessName, selectBusinessByProfileId,
+    selectBusinessByBusinessName, selectBusinessByBusinessProfileId,
     selectBusinessByProfileName
 } from "./business.model";
 import {zodErrorResponse} from "../../utils/response.utils";
@@ -99,7 +99,7 @@ export async function getBusinessesByProfileNameController (request: Request, re
     }
 }
 
-export async function getBusinessByProfileIdController (request: Request, response: Response): Promise<Response<Status>> {
+export async function getBusinessByBusinessProfileIdController (request: Request, response: Response): Promise<Response<Status>> {
     try {
         const validationResult = z.string()
             .uuid({message: 'please provide a valid business profile id.'})
@@ -109,7 +109,7 @@ export async function getBusinessByProfileIdController (request: Request, respon
         }
         const businessProfileId = validationResult.data
 
-        const data = await selectBusinessByProfileId(businessProfileId)
+        const data = await selectBusinessByBusinessProfileId(businessProfileId)
 
         return response.json({
             status: 200,

@@ -93,7 +93,7 @@ export async function selectBusinessByProfileName(businessProfileName: string): 
     return BusinessSchema.array().parse(rowList)
 }
 
-export async function selectBusinessByProfileId(businessProfileId: string): Promise<Business[]> {
+export async function selectBusinessByBusinessProfileId(businessProfileId: string): Promise<Business[]> {
     const rowList = <Business[]>await sql`SELECT
         business_id,
         business_profile_id, 
