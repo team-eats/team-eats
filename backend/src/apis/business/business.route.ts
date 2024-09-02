@@ -30,3 +30,5 @@ router.route('/:businessBio').get(getBusinessByBusinessBio)
 router.route('/:businessId')
     .get(getBusinessByBusinessIdController)
     .delete(isLoggedInController, deleteBusinessByBusinessIdController)
+
+export const businessRoute = { basePath, router }
