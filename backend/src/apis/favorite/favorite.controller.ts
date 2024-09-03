@@ -68,7 +68,8 @@ export async function toggleFavoriteController (request: Request, response: Resp
 
         const profile = request.session.profile
 
-        const favoriteProfileId = profile.profileId
+        // @ts-ignore
+        const favoriteProfileId = (profile.profileId ?? '')
 
         const favorite: Favorite = {
             favoriteProfileId,
@@ -82,9 +83,9 @@ export async function toggleFavoriteController (request: Request, response: Resp
             data: null
         }
 
-        const selectedFavorite: Favorite = await selectFavoriteByFavoriteId(favorite)
+        const selectedFavorite: Favorite | null = await selectFavoriteByFavoriteId(favorite)
 
-        if (selectedLike === null) {
+        if (selectedFavorite === null) {
             status.message = await insertFavorite(favorite)
         } else {
             status.message = await deleteFavorite(favorite)
