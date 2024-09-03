@@ -10,6 +10,7 @@ import {signInRoute} from "./apis/sign-in/sign-in.route";
 import {signOutRoute} from "./apis/sign-out/sign-out.route";
 import { businessRoute } from "./apis/business/business.route";
 import {favoriteRoute} from "./apis/favorite/favorite.route";
+import {profileRoute} from "./apis/profile/profile.route";
 
 // The following class creates the app and instantiates the server
 export class App {
@@ -44,9 +45,10 @@ export class App {
       resave: false
     }))
   }
-  // private method for setting up routes in their basic sense (ie. any route that performs an action on profiles starts with /profiles)
+  // private method for setting up routes in their basic sense (i.e. any route that performs an action on profiles starts with /profiles)
   private routes (): void {
     this.app.use(indexRoute.basePath, indexRoute.router)
+    this.app.use(profileRoute.basePath, profileRoute.router)
     this.app.use(signUpRoute.basePath, signUpRoute.router)
     this.app.use(signInRoute.basePath, signInRoute.router)
     this.app.use(signOutRoute.basePath, signOutRoute.router)

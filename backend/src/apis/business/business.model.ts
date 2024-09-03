@@ -55,15 +55,7 @@ export const BusinessSchema = z.object({
 export type Business = z.infer<typeof BusinessSchema>
 
 export async function insertBusiness(business: Business): Promise<string> {
-    const {
-        businessId,
-        businessProfileId,
-        businessName,
-        businessPhoto,
-        businessHours,
-        businessBio,
-        businessEmail,
-        businessPhone} = business
+    const {businessId, businessProfileId, businessName, businessPhoto, businessHours, businessBio, businessEmail, businessPhone} = business
 
     await sql`INSERT INTO business (
                       business_id,
@@ -87,7 +79,7 @@ export async function insertBusiness(business: Business): Promise<string> {
 }
 
 export async function selectAllBusinesses(): Promise<Business[]> {
-    const rowList = <Business[]>await sql`SELECT 
+    const rowList = await sql`SELECT 
             business_id,
             business_profile_id,
             business_name,
@@ -101,7 +93,7 @@ export async function selectAllBusinesses(): Promise<Business[]> {
 }
 
 export async function selectBusinessByProfileName(businessProfileName: string): Promise<Business[]> {
-    const rowList = <Business[]>await sql`SELECT 
+    const rowList = await sql`SELECT 
         business_id,
         business_profile_id, 
         business_name, 
@@ -117,7 +109,7 @@ export async function selectBusinessByProfileName(businessProfileName: string): 
 }
 
 export async function selectBusinessByBusinessProfileId(businessProfileId: string): Promise<Business[]> {
-    const rowList = <Business[]>await sql`SELECT
+    const rowList = await sql`SELECT
         business_id,
         business_profile_id, 
         business_name, 
@@ -133,7 +125,7 @@ export async function selectBusinessByBusinessProfileId(businessProfileId: strin
 }
 
 export async function selectBusinessByBusinessId(businessId: string): Promise<Business | null> {
-    const rowList = <Business[]>await sql`SELECT
+    const rowList = await sql`SELECT
         business_id,
         business_profile_id, 
         business_name, 
@@ -151,7 +143,7 @@ export async function selectBusinessByBusinessId(businessId: string): Promise<Bu
 }
 
 export async function selectBusinessByBusinessName(businessName: string): Promise<Business[] | null> {
-    const rowList = <Business[]>await sql`SELECT
+    const rowList = await sql`SELECT
         business_id,
         business_profile_id, 
         business_name, 
@@ -169,7 +161,7 @@ export async function selectBusinessByBusinessName(businessName: string): Promis
 }
 
 export async function selectBusinessByBusinessBio(businessBio: string): Promise<Business[]> {
-    const rowList = <Business[]>await sql`SELECT
+    const rowList = await sql`SELECT
         business_id,
         business_profile_id,
         business_name,
@@ -181,21 +173,12 @@ export async function selectBusinessByBusinessBio(businessBio: string): Promise<
     FROM business
     WHERE business_bio IS NOT NULL`
 
-    const result = BusinessSchema.array().parse(rowList)
     return BusinessSchema.array().parse(rowList)
-
-//ask how to do plz
 }
 
 export async function updateBusiness(business: Business): Promise<string> {
 
-    const {
-        businessName,
-        businessPhoto,
-        businessHours,
-        businessBio,
-        businessEmail,
-        businessPhone} = business
+    const {businessName, businessPhoto, businessHours, businessBio, businessEmail, businessPhone} = business
 
         await sql`UPDATE business SET 
             business_name = ${businessName}, 

@@ -5,6 +5,7 @@ import {
     postFavoriteController,
     toggleFavoriteController
 } from "./favorite.controller";
+import {isLoggedInController} from "../../utils/controllers/isLoggedIn.controller";
 
 const basePath = '/apis/favorite'
 

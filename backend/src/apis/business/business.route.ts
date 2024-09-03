@@ -9,6 +9,7 @@ import {
     getBusinessByBusinessProfileIdController,
     getBusinessesByProfileNameController
 } from "./business.controller";
+import {isLoggedInController} from "../../utils/controllers/isLoggedIn.controller";
 
 
 const basePath = '/apis/business'
