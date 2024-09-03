@@ -1,5 +1,4 @@
 import {
-    PrivateProfileSchema,
     PublicProfileSchema,
     selectPrivateProfileByProfileId,
     updateProfile,
@@ -37,8 +36,6 @@ export async function getPublicProfileByProfileIdController (request: Request, r
     }
 }
 
-
-
 export async function putProfileController(request: Request, response: Response): Promise<Response<Status>> {
 
     try {
@@ -53,7 +50,6 @@ export async function putProfileController(request: Request, response: Response)
         if(!validationResultForRequestParams.success) {
             return zodErrorResponse(response, validationResultForRequestParams.error)
         }
-
 
         const profileFromSession = request.session?.profile
         const profileIdFromSession = profileFromSession?.profileId

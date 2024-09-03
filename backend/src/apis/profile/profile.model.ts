@@ -83,7 +83,7 @@ export async function selectPrivateProfileByProfileEmail (profileEmail: string):
 
 export async function insertProfile(profile: PrivateProfile) : Promise<string> {
     const {profileName, profileEmail, profileHash, profileIsOwner, profileActivationToken, profileDatetime} = profile
-    await sql`INSERT INTO profile(profile_id, profile_name, profile_email, profile_hash, profile_is_owner, profile_activation_token, profile_datetime) VALUES (gen_random_uuid(), ${profileName}, ${profileEmail}, ${profileHash}, ${profileIsOwner}, ${profileActivationToken}, now())`
+    await sql`INSERT INTO profile(profile_id, profile_name, profile_email, profile_hash, profile_is_owner, profile_activation_token, profile_datetime) VALUES (gen_random_uuid(), ${profileName}, ${profileEmail}, ${profileHash}, ${profileIsOwner}, ${profileActivationToken}, ${profileDatetime})`
     return 'Profile successfully created'
 }
 
