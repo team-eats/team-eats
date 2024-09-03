@@ -69,7 +69,7 @@ export async function toggleFavoriteController (request: Request, response: Resp
         const profile = request.session.profile
 
         // @ts-ignore
-        const favoriteProfileId = (profile.profileId ?? '')
+        const favoriteProfileId = profile.profileId ?? ''
 
         const favorite: Favorite = {
             favoriteProfileId,
