@@ -3,23 +3,23 @@ import {
     PublicProfileSchema,
     selectPrivateProfileByProfileId,
     updateProfile,
-    PrivateProfile
+    PrivateProfile, selectPublicProfileByProfileId
 } from "./profile.model";
 import {zodErrorResponse} from "../../utils/response.utils";
 
 import {Status} from "../../utils/interfaces/Status";
 import {Request, Response} from "express";
 
-export async function getPrivateProfileByProfileIdController (request: Request, response: Response) : Promise<Response<Status>> {
+export async function getPublicProfileByProfileIdController (request: Request, response: Response) : Promise<Response<Status>> {
     try {
-        const validationResult = PrivateProfileSchema.pick({profileId: true}).safeParse(request.params)
+        const validationResult = PublicProfileSchema.pick({profileId: true}).safeParse(request.params)
 
         if (!validationResult.success) {
             return zodErrorResponse(response, validationResult.error)
         }
         const {profileId} = validationResult.data
 
-        const data = await selectPrivateProfileByProfileId(profileId)
+        const data = await selectPublicProfileByProfileId(profileId ?? '')
 
         return response.json({
                 status: 200,
@@ -36,6 +36,8 @@ export async function getPrivateProfileByProfileIdController (request: Request, 
 
     }
 }
+
+
 
 export async function putProfileController(request: Request, response: Response): Promise<Response<Status>> {
 
@@ -60,17 +62,14 @@ export async function putProfileController(request: Request, response: Response)
 
         if(profileIdFromSession !== profileId) {
             return response.json({status:400, message: 'You cannot update a profile that is not yours', data: null})
-
         }
-
         const { profileName, profileEmail} = validationResultForRequestBody.data
 
-        const profile: PrivateProfile|null = await selectPrivateProfileByProfileId(profileId)
+        const profile: PrivateProfile|null = await selectPrivateProfileByProfileId(profileId ?? '')
 
         if(profile === null) {
             return response.json({status: 400, message: 'profile does not exist', data: null})
         }
-
 //update password and is business owner?
         profile.profileName = profileName
         profile.profileEmail = profileEmail
@@ -89,3 +88,4 @@ export async function putProfileController(request: Request, response: Response)
             data: null})
     }
 }
+
