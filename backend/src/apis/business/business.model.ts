@@ -55,7 +55,15 @@ export const BusinessSchema = z.object({
 export type Business = z.infer<typeof BusinessSchema>
 
 export async function insertBusiness(business: Business): Promise<string> {
-    const {businessId, businessProfileId, businessName, businessPhoto, businessHours, businessBio, businessEmail, businessPhone} = business
+    const {
+        businessId,
+        businessProfileId,
+        businessName,
+        businessPhoto,
+        businessHours,
+        businessBio,
+        businessEmail,
+        businessPhone} = business
 
     await sql`INSERT INTO business (
                       business_id,
@@ -160,7 +168,7 @@ export async function selectBusinessByBusinessName(businessName: string): Promis
     return result.length < 1 ? null : result
 }
 
-export async function selectBusinessByBusinessBio(businessBio: string): Promise<Business[] | null> {
+export async function selectBusinessByBusinessBio(businessBio: string): Promise<Business[]> {
     const rowList = <Business[]>await sql`SELECT
         business_id,
         business_profile_id,
@@ -171,17 +179,23 @@ export async function selectBusinessByBusinessBio(businessBio: string): Promise<
         business_email,
         business_phone
     FROM business
-    WHERE business_bio = IS NOT NULL`
+    WHERE business_bio IS NOT NULL`
 
     const result = BusinessSchema.array().parse(rowList)
-    return 'idfk'
+    return BusinessSchema.array().parse(rowList)
 
 //ask how to do plz
 }
 
 export async function updateBusiness(business: Business): Promise<string> {
 
-    const {businessName, businessPhoto, businessHours, businessBio, businessEmail, businessPhone} = business
+    const {
+        businessName,
+        businessPhoto,
+        businessHours,
+        businessBio,
+        businessEmail,
+        businessPhone} = business
 
         await sql`UPDATE business SET 
             business_name = ${businessName}, 
