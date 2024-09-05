@@ -30,7 +30,7 @@ CREATE TABLE IF NOT EXISTS business(
 CREATE TABLE IF NOT EXISTS location(
     location_id uuid primary key,
     location_business_id uuid references business(business_id),
-    location_business varchar(255),
+    location_of_business varchar(255),
     location_active bool,
     location_start_datetime timestamptz,
     location_end_datetime timestamptz
