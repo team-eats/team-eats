@@ -206,71 +206,71 @@ export async function getBusinessByBusinessBio (request: Request, response: Resp
     }
 }
 
-// export async function putBusinessController(request: Request, response: Response): Promise<Response<Status>> {
-//     try {
-//
-//         const validationResultForRequestBody = BusinessSchema.safeParse(request.body)
-//
-//         if(!validationResultForRequestBody.success) {
-//             return zodErrorResponse(response, validationResultForRequestBody.error)
-//         }
-//
-//         const validationResultForRequestParams = BusinessSchema
-//             .pick({businessProfileId: true})
-//             .safeParse(request.params)
-//
-//         if (!validationResultForRequestParams.success) {
-//             return zodErrorResponse(response, validationResultForRequestParams.error)
-//         }
-//
-//         const profileFromSession = request.session?.profile
-//         const profileIdFromSession = profileFromSession?.profileId
-//
-//         const {businessProfileId} = validationResultForRequestParams.data
-//
-//         if (profileIdFromSession !== businessProfileId) {
-//             return response.json({
-//                 status: 400,
-//                 message: 'you cant update a business you do not own',
-//                 data: null
-//             })
-//         }
-//
-//         const {businessName, businessPhoto, businessHours, businessBio, businessEmail, businessPhone} = validationResultForRequestBody.data
-//
-//         //grab businessByBusinessId
-//         const business: Business|null = await selectBusinessByBusinessId(businessId ?? '')
-//
-//         if(business === null) {
-//             return response.json({
-//                 status: 400,
-//                 message: 'business does not exist',
-//                 data: null
-//             })
-//         }
-//
-//         business.businessName = businessName
-//         business.businessPhoto = businessPhoto
-//         business.businessHours = businessHours
-//         business.businessBio = businessBio
-//         business.businessEmail = businessEmail
-//         business.businessPhone = businessPhone
-//
-//         await updateBusiness(business)
-//
-//         return response.json({
-//             status: 200,
-//             message: 'business has been updated',
-//             data: null
-//         })
-//     } catch (error: unknown) {
-//         return response.json({
-//             status: 500,
-//             message: 'internal server error, could not update business, try again later',
-//             data: null
-//         })
-//     }
-// }
+export async function putBusinessController(request: Request, response: Response): Promise<Response<Status>> {
+    try {
+
+        const validationResultForRequestBody = BusinessSchema.safeParse(request.body)
+
+        if(!validationResultForRequestBody.success) {
+            return zodErrorResponse(response, validationResultForRequestBody.error)
+        }
+
+        const validationResultForRequestParams = BusinessSchema
+            .pick({businessProfileId: true})
+            .safeParse(request.params)
+
+        if (!validationResultForRequestParams.success) {
+            return zodErrorResponse(response, validationResultForRequestParams.error)
+        }
+
+        const profileFromSession = request.session?.profile
+        const profileIdFromSession = profileFromSession?.profileId
+
+        const {businessProfileId} = validationResultForRequestParams.data
+
+        if (profileIdFromSession !== businessProfileId) {
+            return response.json({
+                status: 400,
+                message: 'you cant update a business you do not own',
+                data: null
+            })
+        }
+
+        const {businessName, businessPhoto, businessHours, businessBio, businessEmail, businessPhone} = validationResultForRequestBody.data
+
+        //grab businessByBusinessId
+        const business: Business|null = await selectBusinessByBusinessId(businessId ?? '')
+
+        if(business === null) {
+            return response.json({
+                status: 400,
+                message: 'business does not exist',
+                data: null
+            })
+        }
+
+        business.businessName = businessName
+        business.businessPhoto = businessPhoto
+        business.businessHours = businessHours
+        business.businessBio = businessBio
+        business.businessEmail = businessEmail
+        business.businessPhone = businessPhone
+
+        await updateBusiness(business)
+
+        return response.json({
+            status: 200,
+            message: 'business has been updated',
+            data: null
+        })
+    } catch (error: unknown) {
+        return response.json({
+            status: 500,
+            message: 'internal server error, could not update business, try again later',
+            data: null
+        })
+    }
+}
 
 export async function deleteBusinessByBusinessIdController (request: Request, response: Response): Promise<Response<Status>> {
     try {
