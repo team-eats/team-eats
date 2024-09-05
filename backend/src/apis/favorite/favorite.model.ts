@@ -11,6 +11,7 @@ export const FavoriteSchema = z.object({
         .uuid({message: 'please provide a valid uuid for favoriteBusinessId'}),
     favoriteDatetime: z.string({
         required_error: 'please provide a valid favoriteDatetime or null'})
+        .datetime()
         .nullable()
 })
 
@@ -39,7 +40,7 @@ export async function selectFavoriteByFavoriteId(favorite: Favorite): Promise<Fa
 
     const result = FavoriteSchema.array().max(1).parse(rowList)
 
-    return result.length === 0 ? null : result[0]
+    return result?.length === 0 ? null : result[0]
 }
 
 export async function deleteFavorite(favorite: Favorite): Promise<string> {

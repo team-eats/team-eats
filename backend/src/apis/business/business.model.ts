@@ -139,7 +139,7 @@ export async function selectBusinessByBusinessId(businessId: string): Promise<Bu
 
     const result = BusinessSchema.array().max(1).parse(rowList)
 
-    return result.length === 0 ? null : result[0]
+    return result?.length === 0 ? null : result[0]
 }
 
 export async function selectBusinessByBusinessName(businessName: string): Promise<Business[] | null> {
@@ -157,7 +157,7 @@ export async function selectBusinessByBusinessName(businessName: string): Promis
 
     const result = BusinessSchema.array().parse(rowList)
 
-    return result.length < 1 ? null : result
+    return result?.length < 1 ? null : result
 }
 
 export async function selectBusinessByBusinessBio(businessBio: string): Promise<Business[]> {
