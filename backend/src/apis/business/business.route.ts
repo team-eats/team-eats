@@ -6,7 +6,7 @@ import {
     getBusinessByBusinessBio,
     getBusinessByBusinessIdController,
     getBusinessByBusinessNameController,
-    getBusinessByBusinessProfileIdController,
+    getBusinessesByBusinessProfileIdController,
     getBusinessesByProfileNameController
 } from "./business.controller";
 import {isLoggedInController} from "../../utils/controllers/isLoggedIn.controller";
@@ -22,7 +22,7 @@ router.route('/')
 
 router.route('/profileName/:profileName').get(getBusinessesByProfileNameController)
 
-router.route('/businessProfileId/:businessProfileId').get(getBusinessByBusinessProfileIdController)
+router.route('/businessProfileId/:businessProfileId').get(getBusinessesByBusinessProfileIdController)
 
 router.route('/:businessName').get(getBusinessByBusinessNameController)
 

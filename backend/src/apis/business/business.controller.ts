@@ -3,7 +3,7 @@ import {
     Business,
     BusinessSchema, deleteBusinessByBusinessId,
     insertBusiness, selectAllBusinesses, selectBusinessByBusinessBio, selectBusinessByBusinessId,
-    selectBusinessByBusinessName, selectBusinessByBusinessProfileId,
+    selectBusinessByBusinessName, selectBusinessesByBusinessProfileId,
     selectBusinessByProfileName, updateBusiness
 } from "./business.model";
 import {zodErrorResponse} from "../../utils/response.utils";
@@ -99,7 +99,7 @@ export async function getBusinessesByProfileNameController (request: Request, re
     }
 }
 
-export async function getBusinessByBusinessProfileIdController (request: Request, response: Response): Promise<Response<Status>> {
+export async function getBusinessesByBusinessProfileIdController (request: Request, response: Response): Promise<Response<Status>> {
     try {
         const validationResult = z.string()
             .uuid({message: 'please provide a valid business profile id.'})
@@ -109,7 +109,7 @@ export async function getBusinessByBusinessProfileIdController (request: Request
         }
         const businessProfileId = validationResult.data
 
-        const data = await selectBusinessByBusinessProfileId(businessProfileId)
+        const data = await selectBusinessesByBusinessProfileId(businessProfileId)
 
         return response.json({
             status: 200,
@@ -215,18 +215,10 @@ export async function putBusinessController(request: Request, response: Response
             return zodErrorResponse(response, validationResultForRequestBody.error)
         }
 
-        const validationResultForRequestParams = BusinessSchema
-            .pick({businessProfileId: true})
-            .safeParse(request.params)
-
-        if (!validationResultForRequestParams.success) {
-            return zodErrorResponse(response, validationResultForRequestParams.error)
-        }
-
         const profileFromSession = request.session?.profile
         const profileIdFromSession = profileFromSession?.profileId
 
-        const {businessProfileId} = validationResultForRequestParams.data
+        const {businessId, businessProfileId, businessName, businessPhoto, businessHours, businessBio, businessEmail, businessPhone} = validationResultForRequestBody.data
 
         if (profileIdFromSession !== businessProfileId) {
             return response.json({
@@ -235,8 +227,6 @@ export async function putBusinessController(request: Request, response: Response
                 data: null
             })
         }
-
-        const {businessName, businessPhoto, businessHours, businessBio, businessEmail, businessPhone} = validationResultForRequestBody.data
 
         //grab businessByBusinessId
         const business: Business|null = await selectBusinessByBusinessId(businessId ?? '')
