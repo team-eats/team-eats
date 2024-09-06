@@ -11,7 +11,6 @@ import {PrivateProfile, PrivateProfileSchema, PublicProfileSchema, updateProfile
 import {string, z} from "zod";
 import {Status} from "../../utils/interfaces/Status";
 
-
 export async function createBusinessController(request: Request, response: Response): Promise<Response | undefined> {
     try {
         const validationResult = BusinessSchema.safeParse(request.body);
@@ -81,6 +80,8 @@ export async function getBusinessesByProfileNameController (request: Request, re
         }
 
         const {profileName} = validationResult.data
+
+        // const profileName = validationResult.data.profileName <--- Same as above without deconstruction
 
         const data = await selectBusinessByProfileName(profileName)
 
