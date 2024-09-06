@@ -1,8 +1,7 @@
 import {
     PublicProfileSchema,
-    selectPrivateProfileByProfileId,
     updateProfile,
-    PrivateProfile, selectPublicProfileByProfileId
+    PrivateProfile, selectPublicProfileByProfileId, selectPublicByProfileId, PublicProfile
 } from "./profile.model";
 import {zodErrorResponse} from "../../utils/response.utils";
 
@@ -61,7 +60,7 @@ export async function putProfileController(request: Request, response: Response)
         }
         const { profileName, profileEmail} = validationResultForRequestBody.data
 
-        const profile: PrivateProfile|null = await selectPrivateProfileByProfileId(profileId ?? '')
+        const profile: PublicProfile|null = await selectPublicByProfileId(profileId ?? '')
 
         if(profile === null) {
             return response.json({status: 400, message: 'profile does not exist', data: null})

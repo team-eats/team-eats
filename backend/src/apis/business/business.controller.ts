@@ -11,7 +11,7 @@ import {PrivateProfile, PrivateProfileSchema, PublicProfileSchema, updateProfile
 import {string, z} from "zod";
 import {Status} from "../../utils/interfaces/Status";
 
-export async function createBusinessController(request: Request, response: Response): Promise<Response | undefined> {
+export async function postBusinessController(request: Request, response: Response): Promise<Response | undefined> {
     try {
         const validationResult = BusinessSchema.safeParse(request.body);
         if (!validationResult.success) {
@@ -102,12 +102,15 @@ export async function getBusinessesByProfileNameController (request: Request, re
 
 export async function getBusinessesByBusinessProfileIdController (request: Request, response: Response): Promise<Response<Status>> {
     try {
+
         const validationResult = z.string()
             .uuid({message: 'please provide a valid business profile id.'})
             .safeParse(request.params.businessProfileId)
+
         if (!validationResult.success) {
             return zodErrorResponse(response, validationResult.error)
         }
+
         const businessProfileId = validationResult.data
 
         const data = await selectBusinessesByBusinessProfileId(businessProfileId)
@@ -219,7 +222,14 @@ export async function putBusinessController(request: Request, response: Response
         const profileFromSession = request.session?.profile
         const profileIdFromSession = profileFromSession?.profileId
 
-        const {businessId, businessProfileId, businessName, businessPhoto, businessHours, businessBio, businessEmail, businessPhone} = validationResultForRequestBody.data
+        const {businessId,
+            businessProfileId,
+            businessName,
+            businessPhoto,
+            businessHours,
+            businessBio,
+            businessEmail,
+            businessPhone} = validationResultForRequestBody.data
 
         if (profileIdFromSession !== businessProfileId) {
             return response.json({

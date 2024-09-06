@@ -1,6 +1,6 @@
 import {Router} from "express";
 import {
-    createBusinessController,
+    postBusinessController,
     deleteBusinessByBusinessIdController,
     getAllBusinesses,
     getBusinessByBusinessBio,
@@ -17,16 +17,20 @@ const basePath = '/apis/business'
 const router = Router()
 
 router.route('/')
-    .post(isLoggedInController, createBusinessController)
+    .post(isLoggedInController, postBusinessController)
     .get(getAllBusinesses)
 
-router.route('/profileName/:profileName').get(getBusinessesByProfileNameController)
+router.route('/profileName/:profileName')
+    .get(getBusinessesByProfileNameController)
 
-router.route('/businessProfileId/:businessProfileId').get(getBusinessesByBusinessProfileIdController)
+router.route('/businessProfileId/:businessProfileId')
+    .get(getBusinessesByBusinessProfileIdController)
 
-router.route('/:businessName').get(getBusinessByBusinessNameController)
+router.route('/:businessName')
+    .get(getBusinessByBusinessNameController)
 
-router.route('/:businessBio').get(getBusinessByBusinessBio)
+router.route('/:businessBio')
+    .get(getBusinessByBusinessBio)
 
 router.route('/:businessId')
     .get(getBusinessByBusinessIdController)

@@ -8,7 +8,6 @@ export const PrivateProfileSchema = z.object({
         required_error: 'profileId is required',
         invalid_type_error: 'Please provide a valid profileId'
     })
-
         .uuid({ message: 'please provide a valid profileId' })
         .nullable(),
 
@@ -52,29 +51,65 @@ export const PrivateProfileSchema = z.object({
 
 export type PrivateProfile = z.infer<typeof PrivateProfileSchema>
 
-export const PublicProfileSchema = PrivateProfileSchema.omit({profileHash: true, profileActivationToken: true, profileIsOwner: true})
+export const PublicProfileSchema = PrivateProfileSchema
+    .omit({
+        profileHash: true,
+        profileActivationToken: true,
+        profileIsOwner: true})
+
 export type PublicProfile =z.infer<typeof PublicProfileSchema>
 
 export async function selectPublicProfileByProfileId(profileId: string): Promise<PublicProfile | null> {
 
-    const rowList = await sql`SELECT profile_id, profile_name, profile_email, profile_datetime FROM profile WHERE profile_id = ${profileId}`
+    const rowList = await sql`SELECT 
+            profile_id, 
+            profile_name, 
+            profile_email, 
+            profile_datetime 
+        FROM profile 
+        WHERE profile_id = ${profileId}`
+
     const result = PublicProfileSchema.array().max(1).parse(rowList)
 
     return result?.length === 1 ? result[0] : null
 }
 
-export async function selectPrivateProfileByProfileId(profileId: string): Promise<PrivateProfile | null> {
-    const rowList = await sql`SELECT profile_id, profile_name, profile_email, profile_hash, profile_is_owner, profile_activation_token, profile_datetime FROM profile WHERE profile_id = ${profileId}`
-    const result = PrivateProfileSchema.array().max(1).parse(rowList)
+export async function selectPublicByProfileId(profileId: string): Promise<PublicProfile | null> {
+
+    const rowList = await sql`SELECT 
+            profile_id, 
+            profile_name, 
+            profile_email, 
+            profile_hash, 
+            profile_is_owner, 
+            profile_activation_token, 
+            profile_datetime 
+        FROM profile 
+        WHERE profile_id = ${profileId}`
+
+    const result = PublicProfileSchema.array().max(1).parse(rowList)
+
     return result?.length === 1 ? result[0] : null
 }
 
-export async function updateProfile (profile: PrivateProfile): Promise<string> {
-    const {profileId, profileName, profileEmail, profileHash, profileIsOwner, profileActivationToken, profileDatetime} = profile
-    await sql`UPDATE profile SET profile_name = ${profileName}, profile_email = ${profileEmail}, profile_hash = ${profileHash}, profile_is_owner = ${profileIsOwner},
-                   profile_activation_token = ${profileActivationToken},profile_datetime = ${profileDatetime}  WHERE profile_id = ${profileId}`
+
+export async function updateProfile (profile: PublicProfile): Promise<string> {
+
+    const {
+        profileId,
+        profileName,
+        profileEmail,
+        profileDatetime} = profile
+
+    await sql`UPDATE profile SET 
+                   profile_name = ${profileName}, 
+                   profile_email = ${profileEmail}, 
+                   profile_datetime = ${profileDatetime}  
+               WHERE profile_id = ${profileId}`
+
     return 'Profile successfully updated'
 }
+
 
 export async function selectPrivateProfileByProfileEmail (profileEmail: string): Promise<PrivateProfile | null> {
     const rowList = await sql`SELECT profile_id, profile_name, profile_email, profile_hash, profile_is_owner, profile_activation_token, profile_datetime FROM profile WHERE profile_email = ${profileEmail}`
