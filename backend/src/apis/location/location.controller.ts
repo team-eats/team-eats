@@ -1,23 +1,30 @@
 import {Request, Response} from "express";
 import {Status} from "../../utils/interfaces/Status";
-import {LocationSchema} from "./location.model";
+import {insertLocation, LocationSchema} from "./location.model";
 import {zodErrorResponse} from "../../utils/response.utils";
 
-export async function putLocationController(request: Request, response: Response): Promise<Response<Status>> {
+export async function postLocationController(request: Request, response: Response): Promise<Response<Status>> {
     try{
-        const validationResultForRequestBody = LocationSchema.safeParse(request.body)
+        const validationResult = LocationSchema.safeParse(request.body)
 
-        if(!validationResultForRequestBody.success){
-            return zodErrorResponse(response, validationResultForRequestBody.error)
+        if(!validationResult.success){
+            return zodErrorResponse(response, validationResult.error)
         }
 
-        const validationResultForRequestParams = LocationSchema.pick({locationId: true}).safeParse(request.params)
+        const { locationBusinessId, }
 
-        if (!validationResultForRequestBody.success) {
-            return zodErrorResponse(response, validationResultForRequestParams.error)
-        }
+        const result = await insertLocation()
 
-        const
+        return response.status(200).json({
+            status: 200,
+            message: "location successfully inserted",
+            data: null
+        })
+
+
+        }catch(error: any){
+            return response.json({status: 500, data: null, message: error.message})
+
 
     }
 }
