@@ -55,10 +55,11 @@ export type PrivateProfile = z.infer<typeof PrivateProfileSchema>
 export const PublicProfileSchema = PrivateProfileSchema.omit({profileHash: true, profileActivationToken: true, profileIsOwner: true})
 export type PublicProfile =z.infer<typeof PublicProfileSchema>
 
-export async function selectPublicProfileByProfileId(profileId: string): Promise<PrivateProfile | null> {
+export async function selectPublicProfileByProfileId(profileId: string): Promise<PublicProfile | null> {
 
     const rowList = await sql`SELECT profile_id, profile_name, profile_email, profile_datetime FROM profile WHERE profile_id = ${profileId}`
-    const result = PrivateProfileSchema.array().max(1).parse(rowList)
+    const result = PublicProfileSchema.array().max(1).parse(rowList)
+
     return result?.length === 1 ? result[0] : null
 }
 
