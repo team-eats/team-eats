@@ -42,10 +42,24 @@ export type Location = z.infer<typeof LocationSchema>
 
 export async function insertLocation(location: Location): Promise<string> {
 
-    const {locationBusinessId, locationOfBusiness,locationActive} = location
+    const {locationBusinessId, locationOfBusiness,locationActive,locationStartDatetime, locationEndDatetime} = location
 
-    await sql`INSERT INTO location(loction_id, location_business_Id, location_of_business, location_active, location_start_datetime, location_end_datetime )
-    VALUES (gen_random_uuid(), ${locationBusinessId}, ${locationOfBusiness}, ${locationActive}, null, null)`
+    await sql`INSERT INTO location(
+                     location_id,
+                     location_business_Id,
+                     location_of_business, 
+                     location_active, 
+                     location_start_datetime, 
+                     location_end_datetime )
+    VALUES (
+            gen_random_uuid(),
+            ${locationBusinessId},
+            ${locationOfBusiness}, 
+            ${locationActive},
+            ${locationStartDatetime ?? null},
+            ${locationEndDatetime ?? null}
+           
+           )`
 
     return "location successfully inserted"
 }
@@ -53,10 +67,16 @@ export async function insertLocation(location: Location): Promise<string> {
 
 
 
-export async function updateLocation (location: Location): Promise<string> {
-    const  {locationOfBusiness, locationActive,locationStartDatetime,locationEndDatetime} = location
+export async function updateLocation(location: Location): Promise<string> {
+    const  {locationId, locationOfBusiness, locationActive,locationStartDatetime,locationEndDatetime} = location
 
-    await sql`UPDATE location SET location_of_business = ${locationOfBusiness}, location_active = ${locationActive}, location_start_datetime = ${locationStartDatetime}, location_end_datetime = ${locationEndDatetime}`
+    await sql`UPDATE location SET 
+                    location_of_business = ${locationOfBusiness}, 
+                    location_active = ${locationActive}, 
+                    location_start_datetime = ${locationStartDatetime ?? null}, 
+                    location_end_datetime = ${locationEndDatetime ?? null}
+                    WHERE location_id = ${locationId}`
+
 
     return "location successfully updated"
 }
@@ -65,12 +85,13 @@ export async function updateLocation (location: Location): Promise<string> {
 
 
 export async function selectLocationByLocationId(locationId: string): Promise<Location | null> {
-    const rowList = await sql`SELECT loction_id,
+    const rowList = await sql`SELECT
+                                     location_id,
                                      location_business_id,
                                      location_of_business,
                                      location_active,
                                      location_start_datetime,
-                                     location_end_datetime,
+                                     location_end_datetime
                               FROM location
                               WHERE location_id = ${locationId}`
     const result = LocationSchema.array().max(1).parse(rowList)
@@ -87,7 +108,7 @@ export async function selectAllLocationsByLocationBusinessId(locationBusinessId:
                                      location_of_business,
                                      location_active,
                                      location_start_datetime,
-                                     location_end_datetime,
+                                     location_end_datetime
                                 FROM location
                                 WHERE location_business_id = ${locationBusinessId}`
 const result = LocationSchema.array().parse(rowList)
