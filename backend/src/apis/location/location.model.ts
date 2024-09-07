@@ -116,3 +116,12 @@ const result = LocationSchema.array().parse(rowList)
     return result?.length === 0 ? null : result
 }
 
+
+export async function deleteLocationByLocationId(locationId: string): Promise<string> {
+    await sql`
+        DELETE 
+        FROM location 
+        WHERE location_id = ${locationId}`
+    return "location successfully deleted"
+}
+

@@ -5,7 +5,7 @@ import {
     LocationSchema,
     Location,
     selectAllLocationsByLocationBusinessId,
-    selectLocationByLocationId, updateLocation
+    selectLocationByLocationId, updateLocation, deleteLocationByLocationId
 } from "./location.model";
 import {zodErrorResponse} from "../../utils/response.utils";
 import {Business} from "../business/business.model";
@@ -74,7 +74,7 @@ export async function getLocationByLocationBusinessIdController(request: Request
 
 export async function putLocationController(request: Request, response: Response): Promise<Response<Status>> {
     try {
-         const validationResult = LocationSchema.safeParse(request.body)
+         const validationResult = LocationSchema.safeParse(request.params.locationId)
 
         if (!validationResult.success) {
             return zodErrorResponse(response, validationResult.error)
@@ -117,4 +117,46 @@ export async function putLocationController(request: Request, response: Response
         return response.json({status: 500, data: null, message: 'internal server error, could not update location, try again later'})
     }
 
+}
+
+
+export async function deleteLocationByLocationIdController(request: Request, response: Response):Promise<Response<Status>> {
+    try{
+        const validationResult = z.string()
+            .uuid({message: 'please provide a valid location id.'})
+            .safeParse(request.params.locationId)
+
+        if(!validationResult.success){
+            return zodErrorResponse(response, validationResult.error)
+        }
+
+        const locationId = validationResult.data
+        const location: Location | null = await selectLocationByLocationId(locationId)
+
+        if (location?.locationId !== locationId) {
+            return response.json({
+                status: 403,
+                message: 'you are not allowed to delete this location',
+                data: null
+            })
+        }
+
+        const result = await deleteLocationByLocationId(locationId)
+
+        return response.json({
+            status: 200,
+            message: result,
+            data: null
+        })
+
+
+
+
+    }catch(error){
+        return response.json({
+            status: 500,
+            message: '',
+            data: null
+        })
+    }
 }
