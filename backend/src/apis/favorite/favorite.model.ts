@@ -9,9 +9,8 @@ export const FavoriteSchema = z.object({
     favoriteBusinessId: z.string({
         required_error: 'please provide a valid favoriteBusinessId'})
         .uuid({message: 'please provide a valid uuid for favoriteBusinessId'}),
-    favoriteDatetime: z.string({
+    favoriteDatetime: z.date({
         required_error: 'please provide a valid favoriteDatetime or null'})
-        .datetime()
         .nullable()
 })
 
