@@ -7,7 +7,7 @@ import {
     putLocationController
 } from "./location.controller";
 
-const basePath = 'apis/location'
+const basePath = '/apis/location'
 
 const router = Router()
 
@@ -20,3 +20,5 @@ router.route('/locationBusinessId/:locationBusinessId')
 router.route('/:locationId')
 .put(putLocationController)
 .delete(isLoggedInController, deleteLocationByLocationIdController)
+
+export const locationRoute = { basePath, router }
