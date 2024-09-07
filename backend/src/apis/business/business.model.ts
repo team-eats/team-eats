@@ -195,7 +195,6 @@ export async function deleteBusinessByBusinessId(businessId: string): Promise<st
     await sql`
         DELETE 
         FROM business 
-        WHERE business_id = ${businessId}
-        ON DELETE CASCADE`
+        WHERE business_id = ${businessId}`
     return 'Business Deleted Successfully'
 }

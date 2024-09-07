@@ -54,7 +54,7 @@ CREATE TABLE IF NOT EXISTS item(
 );
 
 CREATE TABLE IF NOT EXISTS favorite(
-    favorite_profile_id uuid references profile(profile_id),
+    favorite_profile_id uuid references profile(profile_id) ON DELETE CASCADE,
     favorite_business_id uuid references business(business_id) ON DELETE CASCADE,
     favorite_datetime timestamptz
 );

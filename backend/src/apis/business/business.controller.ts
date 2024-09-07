@@ -282,12 +282,12 @@ export async function deleteBusinessByBusinessIdController (request: Request, re
             return zodErrorResponse(response, validationResult.error)
         }
 
-        const profile: PrivateProfile = request.session.profile as PrivateProfile
-        const businessProfileId: string = profile.profileId as string
         const businessId = validationResult.data
         const business = await selectBusinessByBusinessId(businessId)
 
-        if (business?.businessProfileId !== businessProfileId) {
+        const profileIdFromSession = request.session?.profile?.profileId
+
+        if (business?.businessProfileId !== profileIdFromSession) {
             return response.json({
                 status: 403,
                 message: 'you are not allowed to delete this business',
