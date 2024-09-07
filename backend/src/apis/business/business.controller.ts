@@ -219,8 +219,7 @@ export async function putBusinessController(request: Request, response: Response
             return zodErrorResponse(response, validationResultForRequestBody.error)
         }
 
-        const profileFromSession = request.session?.profile
-        const profileIdFromSession = profileFromSession?.profileId
+        const profileIdFromSession = request.session?.profile?.profileId
 
         const {businessId,
             businessProfileId,

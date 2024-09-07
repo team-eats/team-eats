@@ -8,7 +8,7 @@ import {
     selectLocationByLocationId, updateLocation, deleteLocationByLocationId
 } from "./location.model";
 import {zodErrorResponse} from "../../utils/response.utils";
-import {Business} from "../business/business.model";
+import {Business, selectBusinessByBusinessId} from "../business/business.model";
 import {z} from "zod";
 
 export async function postLocationController(request: Request, response: Response): Promise<Response<Status>> {
@@ -29,6 +29,19 @@ export async function postLocationController(request: Request, response: Respons
             locationStartDatetime,
             locationEndDatetime
         }
+
+        const profileIdFromSession = request.session?.profile?.profileId
+
+        const business = await selectBusinessByBusinessId(locationBusinessId)
+
+        if(business?.businessProfileId !== profileIdFromSession) {
+            return response.json({
+                status: 401,
+                message: 'you cannot post a location on a business you do not own',
+                data: null
+            })
+        }
+
 
         const result = await insertLocation(location)
 
@@ -133,6 +146,18 @@ export async function deleteLocationByLocationIdController(request: Request, res
 
         const locationId = validationResult.data
         const location: Location | null = await selectLocationByLocationId(locationId)
+
+        const profileIdFromSession = request.session?.profile?.profileId
+
+        const business = await selectBusinessByBusinessId(location?.locationBusinessId ?? '')
+
+        if(business?.businessProfileId !== profileIdFromSession) {
+            return response.json({
+                status: 401,
+                message: 'you cannot delete a location on a business you do not own',
+                data: null
+            })
+        }
 
         if (location?.locationId !== locationId) {
             return response.json({
