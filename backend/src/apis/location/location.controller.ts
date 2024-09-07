@@ -81,6 +81,7 @@ export async function putLocationController(request: Request, response: Response
         }
 
         const {
+            locationId,
             locationBusinessId,
             locationOfBusiness,
             locationActive,
@@ -97,7 +98,7 @@ export async function putLocationController(request: Request, response: Response
             locationEndDatetime
         }
 
-        const location: Location | null = await selectLocationByLocationId(locationId)
+        const location: Location | null = await selectLocationByLocationId(locationId ?? '')
 
         if (location === null) {
             return response.json({status: 400, data: null, message: 'location not found'})
