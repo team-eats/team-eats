@@ -7,7 +7,7 @@ import {
     getBusinessByBusinessIdController,
     getBusinessByBusinessNameController,
     getBusinessesByBusinessProfileIdController,
-    getBusinessesByProfileNameController
+    getBusinessesByProfileNameController, putBusinessController
 } from "./business.controller";
 import {isLoggedInController} from "../../utils/controllers/isLoggedIn.controller";
 
@@ -34,6 +34,7 @@ router.route('/:businessBio')
 
 router.route('/:businessId')
     .get(getBusinessByBusinessIdController)
+    .put(putBusinessController)
     .delete(isLoggedInController, deleteBusinessByBusinessIdController)
 
 export const businessRoute = { basePath, router }
