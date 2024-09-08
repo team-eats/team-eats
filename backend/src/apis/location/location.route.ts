@@ -18,7 +18,7 @@ router.route('/locationBusinessId/:locationBusinessId')
 .get(getLocationByLocationBusinessIdController)
 
 router.route('/:locationId')
-.put(putLocationController)
+.put(isLoggedInController, putLocationController)
 .delete(isLoggedInController, deleteLocationByLocationIdController)
 
 export const locationRoute = { basePath, router }
