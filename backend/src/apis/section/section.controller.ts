@@ -1,5 +1,4 @@
 import {Status} from "../../utils/interfaces/Status";
-import {LocationSchema} from "../location/location.model";
 import {zodErrorResponse} from "../../utils/response.utils";
 import {
     deleteSectionBySectionId,
@@ -16,7 +15,7 @@ import {z} from "zod";
 
 export async function postSectionController(request: Request, response: Response): Promise<Response<Status>> {
     try {
-        const validationResult = LocationSchema.safeParse(request.body)
+        const validationResult = SectionSchema.safeParse(request.body)
 
         if (!validationResult.success) {
             return zodErrorResponse (response, validationResult.error)
@@ -182,15 +181,3 @@ export async function deleteSectionBySectionIdController (request: Request, resp
         })
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-// get section by section id or business id??
