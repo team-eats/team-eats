@@ -12,6 +12,7 @@ import { businessRoute } from "./apis/business/business.route";
 import {favoriteRoute} from "./apis/favorite/favorite.route";
 import {profileRoute} from "./apis/profile/profile.route";
 import {locationRoute} from "./apis/location/location.route";
+import {sectionRoute} from "./apis/section/section.route";
 
 // The following class creates the app and instantiates the server
 export class App {
@@ -54,6 +55,7 @@ export class App {
     this.app.use(signInRoute.basePath, signInRoute.router)
     this.app.use(signOutRoute.basePath, signOutRoute.router)
     this.app.use(businessRoute.basePath, businessRoute.router)
+    this.app.use(sectionRoute.basePath, sectionRoute.router)
     this.app.use(favoriteRoute.basePath, favoriteRoute.router)
     this.app.use(locationRoute.basePath, locationRoute.router)
   }
