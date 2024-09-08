@@ -55,7 +55,7 @@ export const ItemSchema = z.object ({
 
         await sql` INSERT INTO item (item_id, item_section_id,
                    item_description, item_photo, item_price, item_order)
-                   VALUES (gen_random_uuid(), ${itemSectionId}, ${itemDescription}, ${itemPhoto}, ${itemPrice}, ${itemPrice}, ${itemOrder})`
+                   VALUES (gen_random_uuid(), ${itemSectionId}, ${itemDescription}, ${itemPhoto}, ${itemPrice}, ${itemOrder})`
         return 'Item successfully submitted'
     }
 
