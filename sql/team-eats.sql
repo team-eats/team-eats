@@ -1,8 +1,8 @@
-DROP TABLE IF EXISTS favorite;
+-- DROP TABLE IF EXISTS favorite;
 DROP TABLE IF EXISTS item;
-DROP TABLE IF EXISTS section;
-DROP TABLE IF EXISTS location;
-DROP TABLE IF EXISTS business;
+-- DROP TABLE IF EXISTS section;
+-- DROP TABLE IF EXISTS location;
+-- DROP TABLE IF EXISTS business;
 -- DROP TABLE IF EXISTS profile;
 
 
@@ -47,6 +47,7 @@ CREATE TABLE IF NOT EXISTS section(
 CREATE TABLE IF NOT EXISTS item(
     item_id uuid primary key,
     item_section_id uuid references section(section_id) ON DELETE CASCADE,
+    item_name varchar(100),
     item_description varchar(255),
     item_photo varchar(255),
     item_price money,

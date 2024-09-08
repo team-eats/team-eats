@@ -20,11 +20,16 @@ export const ItemSchema = z.object ({
     })
         .uuid({message: 'please provide a valid itemSection uuid'}),
 
+    itemName: z.string({
+        required_error: 'please provide an item name',
+        invalid_type_error: 'ItemName must be a string'
+    }).max(100, {message: 'please provide an item name not exceeding 100 characters.'}).min(1,{message: 'please provide an item name greater than 1 character.'}),
+
     itemDescription: z.string({
         required_error: 'please provide an item description',
         invalid_type_error: 'itemId must be a string'
     })
-        .max(255, {message: 'please provide an item description not exceeding 255 character'}).min(1, {message: 'please provide an item description greater than 1 character'}),
+        .max(255, {message: 'please provide an item description not exceeding 255 character.'}).min(1, {message: 'please provide an item description greater than 1 character.'}),
 
     itemPhoto: z.string({
         required_error: 'please provide a valid item photo.',
@@ -49,18 +54,18 @@ export const ItemSchema = z.object ({
     export async function insertItem(item: Item) : Promise<string> {
         //deconstruct the object
 
-        const {itemId, itemSectionId, itemDescription, itemPhoto, itemPrice, itemOrder} = item
+        const {itemId, itemSectionId, itemName, itemDescription, itemPhoto, itemPrice, itemOrder} = item
 
         //insert item into item table
 
-        await sql` INSERT INTO item (item_id, item_section_id,
+        await sql` INSERT INTO item (item_id, item_section_id, item_name,
                    item_description, item_photo, item_price, item_order)
-                   VALUES (gen_random_uuid(), ${itemSectionId}, ${itemDescription}, ${itemPhoto}, ${itemPrice}, ${itemOrder})`
+                   VALUES (gen_random_uuid(), ${itemSectionId}, ${itemName}, ${itemDescription}, ${itemPhoto}, ${itemPrice}, ${itemOrder})`
         return 'Item successfully submitted'
     }
 
     export async function selectItemByItemId (itemId: string) : Promise<Item | null> {
-        const rowList = await sql`SELECT item_id, item_section_id, item_description, item_photo, item_price, item_order FROM item WHERE item_id = ${itemId}`
+        const rowList = await sql`SELECT item_id, item_section_id, item_name, item_description, item_photo, item_price, item_order FROM item WHERE item_id = ${itemId}`
 
         // enforce that the result is an array of one profile or null
         const result = ItemSchema.array().max(1).parse(rowList)
@@ -71,9 +76,10 @@ export const ItemSchema = z.object ({
     //update an item to item table
 
     export async function updateItem(item: Item) : Promise<string> {
-        const {itemDescription, itemPhoto, itemPrice, itemOrder} = item
+        const {itemName, itemDescription, itemPhoto, itemPrice, itemOrder} = item
 
         await sql`UPDATE item SET
+                item_name = ${itemName},
                  item_description = ${itemDescription},
                  item_photo= ${itemPhoto},
                  item_price = ${itemPrice},

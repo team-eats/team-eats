@@ -14,12 +14,13 @@ export async function postItemController (request: Request, response: Response) 
             return zodErrorResponse(response, validationResult.error)
         }
 
-        const {itemSectionId,itemDescription,  itemPhoto, itemPrice, itemOrder} = validationResult.data
+        const {itemSectionId, itemName, itemDescription,  itemPhoto, itemPrice, itemOrder} = validationResult.data
 
 
         const item: Item = {
             itemId: null,
             itemSectionId,
+            itemName,
             itemDescription,
             itemPhoto,
             itemPrice,
@@ -101,6 +102,7 @@ export async function putItemByItemIdController(request: Request, response: Resp
         const {
             itemId,
             itemSectionId,
+            itemName,
             itemDescription,
             itemPhoto,
             itemPrice,
@@ -131,6 +133,7 @@ export async function putItemByItemIdController(request: Request, response: Resp
             data: null})
         }
 
+        item.itemName = itemName
         item.itemDescription = itemDescription
         item.itemPhoto = itemPhoto
         item.itemPrice = itemPrice
