@@ -47,55 +47,82 @@ export const ItemSchema = z.object ({
     })
 })
 
-    export type Item = z.infer<typeof ItemSchema>
+export type Item = z.infer<typeof ItemSchema>
 
     //add, select, update, delete
 
-    export async function insertItem(item: Item) : Promise<string> {
+export async function insertItem(item: Item) : Promise<string> {
         //deconstruct the object
 
-        const {itemId, itemSectionId, itemName, itemDescription, itemPhoto, itemPrice, itemOrder} = item
+    const {itemId, itemSectionId, itemName, itemDescription, itemPhoto, itemPrice, itemOrder} = item
 
         //insert item into item table
 
-        await sql` INSERT INTO item (item_id, item_section_id, item_name,
-                   item_description, item_photo, item_price, item_order)
-                   VALUES (gen_random_uuid(), ${itemSectionId}, ${itemName}, ${itemDescription}, ${itemPhoto}, ${itemPrice}, ${itemOrder})`
-        return 'Item successfully submitted'
-    }
+    await sql` INSERT INTO item (
+                    item_id, 
+                    item_section_id, 
+                    item_name, 
+                    item_description, 
+                    item_photo, 
+                    item_price, 
+                    item_order)
+               VALUES (
+                   gen_random_uuid(), 
+                   ${itemSectionId}, 
+                   ${itemName}, 
+                   ${itemDescription}, 
+                   ${itemPhoto}, 
+                   ${itemPrice}, 
+                   ${itemOrder})`
 
-    export async function selectItemByItemId (itemId: string) : Promise<Item | null> {
-        const rowList = await sql`SELECT item_id, item_section_id, item_name, item_description, item_photo, item_price, item_order FROM item WHERE item_id = ${itemId}`
+    return 'Item successfully submitted'
+}
+
+export async function selectItemByItemId (itemId: string) : Promise<Item | null> {
+    const rowList = await sql`SELECT 
+            item_id, 
+            item_section_id, 
+            item_name, 
+            item_description, 
+            item_photo, 
+            item_price, 
+            item_order 
+        FROM item 
+        WHERE item_id = ${itemId}`
 
         // enforce that the result is an array of one profile or null
-        const result = ItemSchema.array().max(1).parse(rowList)
+    const result = ItemSchema.array().max(1).parse(rowList)
 
-        return result?.length === 1 ? result[0] : null
-    }
+    return result?.length === 1 ? result[0] : null
+}
 
     //update an item to item table
 
-    export async function updateItem(item: Item) : Promise<string> {
-        const {itemName, itemDescription, itemPhoto, itemPrice, itemOrder} = item
+export async function updateItem(item: Item) : Promise<string> {
+    const {
+        itemId,
+        itemName,
+        itemDescription,
+        itemPhoto,
+        itemPrice,
+        itemOrder} = item
 
-        await sql`UPDATE item SET
-                item_name = ${itemName},
-                 item_description = ${itemDescription},
-                 item_photo= ${itemPhoto},
-                 item_price = ${itemPrice},
-                 item_order = ${itemOrder}`
+    await sql`UPDATE item SET
+             item_name = ${itemName},
+             item_description = ${itemDescription},
+             item_photo= ${itemPhoto},
+             item_price = ${itemPrice},
+             item_order = ${itemOrder}
+        WHERE item_id = ${itemId}`
 
-        return 'Item successfully submitted'
-    }
+    return 'Item successfully submitted'
+}
 
 
-    export async function deleteItemByItemId(itemId: string): Promise<string> {
-        //delete the item from the item table in database by itemId
-        await sql`DELETE
-            FROM item 
-            WHERE item_id = ${itemId}`
-
-        return 'Item successfully deleted.'
-
-    }
-
+export async function deleteItemByItemId(itemId: string): Promise<string> {
+    //delete the item from the item table in database by itemId
+    await sql`DELETE
+        FROM item 
+        WHERE item_id = ${itemId}`
+    return 'Item successfully deleted.'
+}
