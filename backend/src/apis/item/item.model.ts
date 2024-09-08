@@ -70,20 +70,21 @@ export const ItemSchema = z.object ({
         // enforce that the result is an array of one profile or null
         const result = ItemSchema.array().max(1).parse(rowList)
 
-        return result?.length === 1 ? result[0] : null
+        return result?.length === 0 ? null: result[0]
     }
 
     //update an item to item table
 
     export async function updateItem(item: Item) : Promise<string> {
-        const {itemName, itemDescription, itemPhoto, itemPrice, itemOrder} = item
+        const {itemId, itemName, itemDescription, itemPhoto, itemPrice, itemOrder} = item
 
         await sql`UPDATE item SET
-                item_name = ${itemName},
+                 item_name = ${itemName},
                  item_description = ${itemDescription},
                  item_photo= ${itemPhoto},
                  item_price = ${itemPrice},
-                 item_order = ${itemOrder}`
+                 item_order = ${itemOrder}
+                 WHERE item_id = ${itemId}`
 
         return 'Item successfully submitted'
     }
