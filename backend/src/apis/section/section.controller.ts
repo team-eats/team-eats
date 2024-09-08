@@ -91,7 +91,7 @@ export async function getSectionBySectionIdController(request: Request, response
 
 export async function putSectionController(request: Request, response: Response): Promise<Response<Status>> {
     try {
-        const validationResult = SectionSchema.safeParse(request.body.sectionId)
+        const validationResult = SectionSchema.safeParse(request.body)
 
         if (!validationResult.success) {
             return zodErrorResponse(response, validationResult.error)
