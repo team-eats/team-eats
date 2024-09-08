@@ -62,7 +62,7 @@ export async function insertSection(section: Section): Promise<string> {
     return 'Section Inserted Successfully'
 }
 
-export async function getSectionBySectionId(sectionId: string): Promise<Section | null> {
+export async function selectSectionBySectionId(sectionId: string): Promise<Section | null> {
     const rowList = await sql`SELECT
                                     section_id,
                                     section_business_id,
