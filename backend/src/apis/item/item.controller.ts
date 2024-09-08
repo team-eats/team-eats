@@ -1,21 +1,22 @@
 import {zodErrorResponse} from "../../utils/response.utils";
 import {Status} from "../../utils/interfaces/Status";
-import {ItemSchema} from "./item.model";
+import {deleteItemByItemId, insertItem, Item, ItemSchema, selectItemByItemId, updateItem} from "./item.model";
 import {z} from "zod";
+import {Request, Response} from "express";
+import {selectSectionBySectionId} from "../section/section.model";
+import {selectBusinessByBusinessId} from "../business/business.model";
 
 
-export async function postItemByItemIdController (request: Request, response: Response) : Promise<Response | undefined> {
+export async function postItemController (request: Request, response: Response) : Promise<Response | undefined> {
     try {
         const validationResult = ItemSchema.safeParse(request.body)
         if (!validationResult.success) {
             return zodErrorResponse(response, validationResult.error)
         }
 
-        const {itemDescription, itemPhoto, itemPrice, itemOrder} = validationResult.data
+        const {itemSectionId,itemDescription,  itemPhoto, itemPrice, itemOrder} = validationResult.data
 
-        const item: ItemId = request.session.profile as ItemId
 
-        const itemId: string = item.itemId as string
         const item: Item = {
             itemId: null,
             itemSectionId,
@@ -25,7 +26,21 @@ export async function postItemByItemIdController (request: Request, response: Re
             itemOrder
         }
 
-        const result await insertItem(item)
+        const profileIdFromSession = request.session?.profile?.profileId
+
+        const section = await selectSectionBySectionId(itemSectionId)
+
+        const business = await selectBusinessByBusinessId(section?.sectionBusinessId ?? '')
+
+        if (business?.businessProfileId !== profileIdFromSession) {
+            return response.json ({
+                status: 401,
+                message: 'you cannot post a section on a business you do not own.',
+                data: null
+            })
+        }
+
+        const result = await insertItem(item)
 
         const status: Status = {status: 200, message: result, data: null}
         return response.json(status)
@@ -43,16 +58,16 @@ export async function getItemByItemIdController(request: Request, response: Resp
     try{
 
         //validate itemId coming from request parameters
-        const validateResult = ItemSchema.pick({itemId: true}).safeParse(request.params)
+        const validationResult = z.string().uuid({message: 'please provide a valid itemId.'}).safeParse(request.params.itemId)
 
-        // if validation is unsuccssful, return a preformatted response to client.
+        // if validation is unsuccessful, return a preformatted response to client.
         if (!validationResult.success) {
             return zodErrorResponse(response, validationResult.error)
         }
 
         //grab the itemId off of the validated request parameters
 
-        const {itemId} = validationResult.data
+        const itemId = validationResult.data
 
         //grab the item by itemId
 
@@ -65,7 +80,11 @@ export async function getItemByItemIdController(request: Request, response: Resp
             data})
     } catch (error: unknown) {
         console.error(error)
-        return response.json({status: 500, message: 'internal servor error', data: null})
+        return response.json({
+            status: 500,
+            message: 'internal server error',
+            data: null
+        })
     }
 }
 
@@ -76,27 +95,34 @@ export async function putItemByItemIdController(request: Request, response: Resp
         const validationResultForRequestBody = ItemSchema.safeParse(request.body)
 
         if(!validationResultForRequestBody.success) {
-            return zodErrorResponse(response, validationResultRequestBody.error)
+            return zodErrorResponse(response, validationResultForRequestBody.error)
         }
 
-        const validationResultForRequestParams = ItemSchema.pick({itemId: true}).safeParse(request.params)
+        const {
+            itemId,
+            itemSectionId,
+            itemDescription,
+            itemPhoto,
+            itemPrice,
+            itemOrder
+        } = validationResultForRequestBody.data
 
-        if(!validationResultForRequestParams.success) {
-            return zodErrorResponse(response, validationResultForRequestParams.error)
+        const profileIdFromSession = request.session?.profile?.profileId
+
+
+        const section = await selectSectionBySectionId(itemSectionId)
+
+        const business = await selectBusinessByBusinessId(section?.sectionBusinessId ?? '')
+
+        if (business?.businessProfileId !== profileIdFromSession) {
+            return response.json ({
+                status: 401,
+                message: 'you cannot post a section on a business you do not own.',
+                data: null
+            })
         }
 
-        const itemFromSession = request.session?.item
-        const itemIdFromSession = itemFromSession?.itemId
-
-        const {itemId} = validationResultForRequestParams.data
-
-        if (itemIdFromSession !== itemId) {
-            return response.json({status: 400, message: 'you cannot update an item that exists', data: null})
-        }
-
-        const {itemId, itemSectionId, itemDescription, itemPhoto, itemPrice, itemOrder} = validationResultForRequestBody.data
-
-        const item: ItemId | null = await selectItemByItemId(itemId)
+        const item: Item | null = await selectItemByItemId(itemId ?? '')
 
         if(item === null) {
         return response.json({
@@ -115,25 +141,48 @@ export async function putItemByItemIdController(request: Request, response: Resp
         return response.json({status: 200, message:'item successfully updated', data: null})
 
     } catch (error: unknown) {
-        return response.json({status: 500, message: 'internal servor error', data: null})
+        return response.json({status: 500, message: 'internal server error', data: null})
     }
 }
 
 
 export async function deleteItemByItemIdController (request: Request, response: Response): Promise<Response<Status>> {
     try {
-        const validationResult = z.string().uuid
-        ({message: 'please provide a valid itemId'}).safeParse(request.params.itemId)
-
+        const validationResult = ItemSchema.safeParse(request.body)
         if (!validationResult.success) {
             return zodErrorResponse(response, validationResult.error)
         }
 
-        //get the profile from the session
-        const profile: PublicProfile = request.session.profile as string
+        const {itemId, itemSectionId} = validationResult.data
 
-        //set the item id to the item id from the session
-        const Item
+        const profileIdFromSession = request.session?.profile?.profileId
 
+
+        const section = await selectSectionBySectionId(itemSectionId)
+
+        const business = await selectBusinessByBusinessId(section?.sectionBusinessId ?? '')
+
+        if (business?.businessProfileId !== profileIdFromSession) {
+            return response.json ({
+                status: 403,
+                message: 'you cannot delete this item.',
+                data: null
+            })
+        }
+
+        const result = await deleteItemByItemId(itemId ?? '')
+
+        return response.json({
+            status: 200,
+            message: result,
+            data: null
+        })
+
+    } catch (error) {
+        return response.json({
+            status: 500,
+            message: '',
+            data: null
+        })
     }
 }
