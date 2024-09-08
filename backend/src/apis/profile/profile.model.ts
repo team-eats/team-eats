@@ -46,7 +46,6 @@ export const PrivateProfileSchema = z.object({
     })
         .length(32, { message: 'profile activation token is to long' })
         .nullable(),
-
 })
 
 export type PrivateProfile = z.infer<typeof PrivateProfileSchema>
@@ -76,22 +75,21 @@ export async function selectPublicProfileByProfileId(profileId: string): Promise
 
 export async function selectPublicByProfileId(profileId: string): Promise<PublicProfile | null> {
 
-    const rowList = await sql`SELECT 
-            profile_id, 
-            profile_name, 
-            profile_email, 
-            profile_hash, 
-            profile_is_owner, 
-            profile_activation_token, 
-            profile_datetime 
-        FROM profile 
+    const rowList = await sql`SELECT
+            profile_id,
+            profile_name,
+            profile_email,
+            profile_hash,
+            profile_is_owner,
+            profile_activation_token,
+            profile_datetime
+        FROM profile
         WHERE profile_id = ${profileId}`
 
     const result = PublicProfileSchema.array().max(1).parse(rowList)
 
     return result?.length === 1 ? result[0] : null
 }
-
 
 export async function updateProfile (profile: PublicProfile): Promise<string> {
 
@@ -110,23 +108,67 @@ export async function updateProfile (profile: PublicProfile): Promise<string> {
     return 'Profile successfully updated'
 }
 
-
 export async function selectPrivateProfileByProfileEmail (profileEmail: string): Promise<PrivateProfile | null> {
-    const rowList = await sql`SELECT profile_id, profile_name, profile_email, profile_hash, profile_is_owner, profile_activation_token, profile_datetime FROM profile WHERE profile_email = ${profileEmail}`
+
+    const rowList = await sql`SELECT 
+            profile_id, 
+            profile_name, 
+            profile_email, 
+            profile_hash, 
+            profile_is_owner, 
+            profile_activation_token, 
+            profile_datetime 
+        FROM profile 
+        WHERE profile_email = ${profileEmail}`
+
     const result = PrivateProfileSchema.array().max(1).parse(rowList)
+
     return result?.length === 1 ? result[0] : null
 }
 
 export async function insertProfile(profile: PrivateProfile) : Promise<string> {
-    const {profileName, profileEmail, profileHash, profileIsOwner, profileActivationToken, profileDatetime} = profile
-    await sql`INSERT INTO profile(profile_id, profile_name, profile_email, profile_hash, profile_is_owner, profile_activation_token, profile_datetime) VALUES (gen_random_uuid(), ${profileName}, ${profileEmail}, ${profileHash}, ${profileIsOwner}, ${profileActivationToken}, ${profileDatetime})`
+
+    const {
+        profileName,
+        profileEmail,
+        profileHash,
+        profileIsOwner,
+        profileActivationToken,
+        profileDatetime} = profile
+
+    await sql`INSERT INTO profile(
+        profile_id, 
+        profile_name, 
+        profile_email, 
+        profile_hash, 
+        profile_is_owner, 
+        profile_activation_token, 
+        profile_datetime) 
+    VALUES 
+        (gen_random_uuid(), 
+        ${profileName}, 
+        ${profileEmail}, 
+        ${profileHash}, 
+        ${profileIsOwner}, 
+        ${profileActivationToken}, 
+        ${profileDatetime})`
     return 'Profile successfully created'
 }
 
 export async function selectPrivateProfileByProfileActivationToken (profileActivationToken: string) : Promise<PrivateProfile|null> {
 
+    const rowList = await sql`SELECT 
+            profile_id, 
+            profile_name, 
+            profile_email, 
+            profile_hash, 
+            profile_is_owner, 
+            profile_activation_token, 
+            profile_datetime 
+        FROM profile 
+        WHERE profile_activation_token = ${profileActivationToken}`
 
-    const rowList = await sql`SELECT profile_id, profile_name, profile_email, profile_hash, profile_is_owner, profile_activation_token, profile_datetime FROM  profile WHERE profile_activation_token = ${profileActivationToken}`
     const result = PrivateProfileSchema.array().max(1).parse(rowList)
+
     return result?.length ===1 ? result[0] : null
 }

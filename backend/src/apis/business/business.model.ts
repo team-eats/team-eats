@@ -62,7 +62,8 @@ export async function insertBusiness(business: Business): Promise<string> {
                       business_profile_id, 
                       business_name, 
                       business_photo, 
-                      business_hours, business_bio, 
+                      business_hours, 
+                      business_bio, 
                       business_email, 
                       business_phone
     )
@@ -102,7 +103,8 @@ export async function selectBusinessByProfileName(businessProfileName: string): 
         business_bio, 
         business_email, 
         business_phone
-    FROM business JOIN profile ON business.business_profile_id = profile.profile_id
+    FROM business 
+    JOIN profile ON business.business_profile_id = profile.profile_id
     WHERE profile.profile_name = ${businessProfileName}`
 
     return BusinessSchema.array().parse(rowList)

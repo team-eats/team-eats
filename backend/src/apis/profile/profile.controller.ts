@@ -1,12 +1,16 @@
 import {
     PublicProfileSchema,
     updateProfile,
-    PrivateProfile, selectPublicProfileByProfileId, selectPublicByProfileId, PublicProfile
+    PrivateProfile,
+    selectPublicProfileByProfileId,
+    selectPublicByProfileId,
+    PublicProfile
 } from "./profile.model";
 import {zodErrorResponse} from "../../utils/response.utils";
-
 import {Status} from "../../utils/interfaces/Status";
 import {Request, Response} from "express";
+
+
 
 export async function getPublicProfileByProfileIdController (request: Request, response: Response) : Promise<Response<Status>> {
     try {
@@ -56,15 +60,23 @@ export async function putProfileController(request: Request, response: Response)
         const {profileId} = validationResultForRequestParams.data
 
         if(profileIdFromSession !== profileId) {
-            return response.json({status:400, message: 'You cannot update a profile that is not yours', data: null})
+            return response.json({
+                status:400,
+                message: 'You cannot update a profile that is not yours',
+                data: null})
         }
+
         const { profileName, profileEmail} = validationResultForRequestBody.data
 
         const profile: PublicProfile|null = await selectPublicByProfileId(profileId ?? '')
 
         if(profile === null) {
-            return response.json({status: 400, message: 'profile does not exist', data: null})
+            return response.json({
+                status: 400,
+                message: 'profile does not exist',
+                data: null})
         }
+
 //update password and is business owner?
         profile.profileName = profileName
         profile.profileEmail = profileEmail
@@ -83,4 +95,3 @@ export async function putProfileController(request: Request, response: Response)
             data: null})
     }
 }
-
