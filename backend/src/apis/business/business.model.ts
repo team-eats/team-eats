@@ -180,7 +180,7 @@ export async function selectBusinessByBusinessBio(businessBio: string): Promise<
 
 export async function updateBusiness(business: Business): Promise<string> {
 
-    const {businessName, businessPhoto, businessHours, businessBio, businessEmail, businessPhone} = business
+    const {businessId, businessName, businessPhoto, businessHours, businessBio, businessEmail, businessPhone} = business
 
         await sql`UPDATE business SET 
             business_name = ${businessName}, 
@@ -188,7 +188,8 @@ export async function updateBusiness(business: Business): Promise<string> {
             business_hours = ${businessHours}, 
             business_bio = ${businessBio},
             business_email = ${businessEmail},
-            business_phone = ${businessPhone}`
+            business_phone = ${businessPhone}
+            WHERE business_id =${businessId}`
 
     return 'Business successfully updated'
 }

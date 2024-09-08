@@ -87,7 +87,7 @@ export async function getLocationByLocationBusinessIdController(request: Request
 
 export async function putLocationController(request: Request, response: Response): Promise<Response<Status>> {
     try {
-         const validationResult = LocationSchema.safeParse(request.params.locationId)
+         const validationResult = LocationSchema.safeParse(request.body)
 
         if (!validationResult.success) {
             return zodErrorResponse(response, validationResult.error)
@@ -95,21 +95,11 @@ export async function putLocationController(request: Request, response: Response
 
         const {
             locationId,
-            locationBusinessId,
             locationOfBusiness,
             locationActive,
             locationStartDatetime,
             locationEndDatetime
         } = validationResult.data
-
-        const newLocation: Location = {
-            locationId: '',
-            locationBusinessId,
-            locationOfBusiness,
-            locationActive,
-            locationStartDatetime,
-            locationEndDatetime
-        }
 
         const location: Location | null = await selectLocationByLocationId(locationId ?? '')
 
@@ -117,6 +107,17 @@ export async function putLocationController(request: Request, response: Response
             return response.json({status: 400, data: null, message: 'location not found'})
         }
 
+        const profileIdFromSession = request.session?.profile?.profileId
+
+        const business = await selectBusinessByBusinessId(location?.locationBusinessId ?? '')
+
+        if(business?.businessProfileId !== profileIdFromSession) {
+            return response.json({
+                status: 401,
+                message: 'you cannot update a location on a business you do not own',
+                data: null
+            })
+        }
 
         location.locationOfBusiness = locationOfBusiness
         location.locationActive = locationActive
