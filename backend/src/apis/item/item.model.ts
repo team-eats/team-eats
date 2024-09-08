@@ -93,7 +93,7 @@ export async function selectItemByItemId (itemId: string) : Promise<Item | null>
         // enforce that the result is an array of one profile or null
     const result = ItemSchema.array().max(1).parse(rowList)
 
-    return result?.length === 1 ? result[0] : null
+    return result?.length === 0 ? null: result[0]
 }
 
     //update an item to item table
