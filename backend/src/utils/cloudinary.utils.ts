@@ -2,7 +2,7 @@ import { Express } from 'express'
 import { Readable } from 'stream'
 import { v2 as cloudinaryUtils, UploadStream, UploadApiOptions } from 'cloudinary'
 
-export const uploadToCloudinary = async (file: Express.Multer.File) => {
+export const uploadToCloudinary = async (file: Express.Multer.File): Promise<string> => {
     cloudinaryUtils.config({
         api_key: process.env.CLOUDINARY_KEY,
         api_secret: process.env.CLOUDINARY_SECRET,
