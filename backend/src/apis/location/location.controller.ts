@@ -47,7 +47,7 @@ export async function postLocationController(request: Request, response: Respons
 
         return response.status(200).json({
             status: 200,
-            message: 'location successfully inserted',
+            message: result,
             data: null
         })
 
