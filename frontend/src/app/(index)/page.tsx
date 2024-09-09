@@ -1,8 +1,9 @@
 
 import {Section} from "@/app/components/Section";
+import {fetchProfileByProfileId} from "@/app/utils/models/profile.model";
 
 export default function Home() {
-    const business = fetch()
+    const profile = await fetchProfileByProfileId()
 
     return (
         <>
