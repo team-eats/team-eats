@@ -2,7 +2,7 @@
 import {Section} from "@/app/components/Section";
 
 export default function Home() {
-    const business = fetch()
+
 
     return (
         <>
