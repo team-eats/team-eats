@@ -36,7 +36,7 @@ export const ItemSchema = z.object ({
         invalid_type_error: 'itemPhoto must be a string.',
     }).nullable(),
 
-    itemPrice: z.number({
+    itemPrice: z.coerce.number({
         required_error: 'please provide dollar amount.',
         invalid_type_error: 'item must have a price.',
     }),
