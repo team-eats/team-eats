@@ -54,26 +54,32 @@ export type Item = z.infer<typeof ItemSchema>
 export async function insertItem(item: Item) : Promise<string> {
         //deconstruct the object
 
-    const {itemId, itemSectionId, itemName, itemDescription, itemPhoto, itemPrice, itemOrder} = item
+    const {itemId,
+        itemSectionId,
+        itemName,
+        itemDescription,
+        itemPhoto,
+        itemPrice,
+        itemOrder} = item
 
         //insert item into item table
 
     await sql` INSERT INTO item (
-                    item_id, 
-                    item_section_id, 
-                    item_name, 
-                    item_description, 
-                    item_photo, 
-                    item_price, 
-                    item_order)
-               VALUES (
-                   gen_random_uuid(), 
-                   ${itemSectionId}, 
-                   ${itemName}, 
-                   ${itemDescription}, 
-                   ${itemPhoto}, 
-                   ${itemPrice}, 
-                   ${itemOrder})`
+            item_id, 
+            item_section_id, 
+            item_name,
+            item_description, 
+            item_photo, 
+            item_price, 
+            item_order)
+        VALUES (
+            gen_random_uuid(), 
+            ${itemSectionId}, 
+            ${itemName}, 
+            ${itemDescription}, 
+            ${itemPhoto}, 
+            ${itemPrice}, 
+            ${itemOrder})`
 
     return 'Item successfully submitted'
 }
@@ -89,16 +95,16 @@ export async function selectItemByItemId (itemId: string) : Promise<Item | null>
             item_order 
         FROM item 
         WHERE item_id = ${itemId}`
-
+console.log(rowList[0].itemPrice)
         // enforce that the result is an array of one profile or null
     const result = ItemSchema.array().max(1).parse(rowList)
 
-    return result?.length === 0 ? null: result[0]
+    return result?.length === 0 ? null : result[0]
 }
 
-    //update an item to item table
 
-export async function updateItem(item: Item) : Promise<string> {
+    //update an item to item table
+export async function updateItem (item: Item) : Promise<string> {
     const {
         itemId,
         itemName,
@@ -107,22 +113,24 @@ export async function updateItem(item: Item) : Promise<string> {
         itemPrice,
         itemOrder} = item
 
-    await sql`UPDATE item SET
-             item_name = ${itemName},
-             item_description = ${itemDescription},
-             item_photo= ${itemPhoto},
-             item_price = ${itemPrice},
-             item_order = ${itemOrder}
-        WHERE item_id = ${itemId}`
+    await sql `UPDATE item SET 
+                 item_name = ${itemName},
+                 item_description = ${itemDescription},
+                 item_photo = ${itemPhoto},
+                 item_price = ${itemPrice},
+                 item_order = ${itemOrder}
+             WHERE item_id = ${itemId}`
 
-    return 'Item successfully submitted'
+    return 'item updated successfully'
 }
 
 
 export async function deleteItemByItemId(itemId: string): Promise<string> {
-    //delete the item from the item table in database by itemId
+        //delete the item from the item table in database by itemId
     await sql`DELETE
         FROM item 
         WHERE item_id = ${itemId}`
+
     return 'Item successfully deleted.'
+
 }

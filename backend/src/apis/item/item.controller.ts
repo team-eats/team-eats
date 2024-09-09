@@ -79,6 +79,7 @@ export async function getItemByItemIdController(request: Request, response: Resp
             status: 200,
             message: null,
             data})
+
     } catch (error: unknown) {
         console.error(error)
         return response.json({
@@ -91,8 +92,8 @@ export async function getItemByItemIdController(request: Request, response: Resp
 
 export async function putItemByItemIdController(request: Request, response: Response): Promise<Response<Status>> {
     try {
-        //validate updated item coming from request body
 
+        //validate updated item coming from request body
         const validationResultForRequestBody = ItemSchema.safeParse(request.body)
 
         if(!validationResultForRequestBody.success) {
@@ -110,7 +111,6 @@ export async function putItemByItemIdController(request: Request, response: Resp
         } = validationResultForRequestBody.data
 
         const profileIdFromSession = request.session?.profile?.profileId
-
 
         const section = await selectSectionBySectionId(itemSectionId)
 
@@ -144,6 +144,7 @@ export async function putItemByItemIdController(request: Request, response: Resp
         return response.json({status: 200, message:'item successfully updated', data: null})
 
     } catch (error: unknown) {
+        console.error(error)
         return response.json({status: 500, message: 'internal server error', data: null})
     }
 }
@@ -159,7 +160,6 @@ export async function deleteItemByItemIdController (request: Request, response: 
         const {itemId, itemSectionId} = validationResult.data
 
         const profileIdFromSession = request.session?.profile?.profileId
-
 
         const section = await selectSectionBySectionId(itemSectionId)
 

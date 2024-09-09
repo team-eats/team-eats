@@ -50,7 +50,7 @@ CREATE TABLE IF NOT EXISTS item(
     item_name varchar(100),
     item_description varchar(255),
     item_photo varchar(255),
-    item_price money,
+    item_price numeric,
     item_order smallint
 );
 

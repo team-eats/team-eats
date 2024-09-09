@@ -21,5 +21,5 @@ router.route('/:itemId')
     .delete(isLoggedInController, deleteItemByItemIdController)
     .get(getItemByItemIdController)
 
-export const itemRoute = {basePath, router}
+export const itemRoute = { basePath, router }
 
