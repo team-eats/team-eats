@@ -1,6 +1,4 @@
 
-
-
 import {z} from "zod";
 import {sql} from "../../utils/database.utils";
 
@@ -49,10 +47,10 @@ export const ItemSchema = z.object ({
 
 export type Item = z.infer<typeof ItemSchema>
 
-    //add, select, update, delete
+//add, select, update, delete
 
 export async function insertItem(item: Item) : Promise<string> {
-        //deconstruct the object
+    //deconstruct the object
 
     const {itemId,
         itemSectionId,
@@ -62,7 +60,7 @@ export async function insertItem(item: Item) : Promise<string> {
         itemPrice,
         itemOrder} = item
 
-        //insert item into item table
+    //insert item into item table
 
     await sql` INSERT INTO item (
             item_id, 
@@ -95,15 +93,15 @@ export async function selectItemByItemId (itemId: string) : Promise<Item | null>
             item_order 
         FROM item 
         WHERE item_id = ${itemId}`
-console.log(rowList[0].itemPrice)
-        // enforce that the result is an array of one profile or null
+    console.log(rowList[0].itemPrice)
+    // enforce that the result is an array of one profile or null
     const result = ItemSchema.array().max(1).parse(rowList)
 
     return result?.length === 0 ? null : result[0]
 }
 
 
-    //update an item to item table
+//update an item to item table
 export async function updateItem (item: Item) : Promise<string> {
     const {
         itemId,
@@ -126,7 +124,7 @@ export async function updateItem (item: Item) : Promise<string> {
 
 
 export async function deleteItemByItemId(itemId: string): Promise<string> {
-        //delete the item from the item table in database by itemId
+    //delete the item from the item table in database by itemId
     await sql`DELETE
         FROM item 
         WHERE item_id = ${itemId}`
