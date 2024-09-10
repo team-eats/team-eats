@@ -1,8 +1,6 @@
 import {z} from 'zod'
 import {sql} from "../../utils/database.utils";
 
-
-
 export const PrivateProfileSchema = z.object({
     profileId: z.string({
         required_error: 'profileId is required',
