@@ -1,6 +1,9 @@
 import {BusinessCard} from "@/app/components/BusinessCard";
+import {fetchAllBusinesses} from "@/app/utils/models/business/business.model";
 
-export default function results(){
+export default async function results(){
+    const businesses = await fetchAllBusinesses()
+    console.log(businesses)
     return (
         <>
             <section className={"container mx-auto "}>
@@ -14,18 +17,8 @@ export default function results(){
 
 
 
-                        <BusinessCard/>
-                        <BusinessCard/>
-                        <BusinessCard/>
-                        <BusinessCard/>
-                    <BusinessCard/>
-                    <BusinessCard/>
-                    <BusinessCard/>
-                    <BusinessCard/>
-                    <BusinessCard/>
-                    <BusinessCard/>
-                    <BusinessCard/>
-                    <BusinessCard/>
+                    {businesses.map(business =><BusinessCard key={business.businessId} business={business} />)}
+
 
 
                     </div>
