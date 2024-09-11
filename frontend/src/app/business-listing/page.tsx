@@ -2,7 +2,7 @@
 
 import { Carousel } from "flowbite-react";
 import React from "react";
-import {MenuSection} from "@/app/components/MenuSection";
+import {MenuSection} from "@/app/business-listing/MenuSection";
 import {fetchBusinessByBusinessId} from "@/app/utils/models/business/business.model";
 
 export default function () {
