@@ -1,5 +1,5 @@
 
-import {Section} from "@/app/components/Section";
+import {HomepageSection} from "@/app/(index)/HomepageSection";
 
 export default function Home() {
 
@@ -14,9 +14,9 @@ export default function Home() {
             </div>
 
             <div>
-                <Section />
-                <Section />
-                <Section />
+                <HomepageSection />
+                <HomepageSection />
+                <HomepageSection />
             </div>
 
         </>
