@@ -2,10 +2,11 @@
 'use client'
 
 import {BusinessCard} from "@/app/components/BusinessCard";
-import {Card} from "flowbite-react";
-import {MenuItemCard} from "@/app/components/MenuItemCard";
+import {fetchAllBusinesses} from "@/app/utils/models/business/business.model";
 
-export function Section() {
+export async function HomepageSection() {
+    const businesses = await fetchAllBusinesses()
+    console.log(businesses)
     return (
         <section className="mx-full my-5 mb-16 ">
             <div>
@@ -13,12 +14,7 @@ export function Section() {
             </div>
 
             <div className="bg-red-700 p-3 shadow-lg overflow-x-auto flex flex-row gap-3 mx-auto h-[24rem]">
-                <MenuItemCard />
-                <BusinessCard />
-                <BusinessCard />
-                <BusinessCard />
-                <BusinessCard />
-                <BusinessCard />
+                {businesses.map(business =><BusinessCard key={business.businessId} business={business} />)}
             </div>
         </section>
     )

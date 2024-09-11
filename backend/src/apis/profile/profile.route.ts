@@ -1,4 +1,8 @@
-import {getPublicProfileByProfileIdController, putProfileController} from "./profile.controller";
+import {
+    deleteProfileByProfileIdController,
+    getPublicProfileByProfileIdController,
+    putProfileController
+} from "./profile.controller";
 import {Router} from "express";
 import {isLoggedInController} from "../../utils/controllers/isLoggedIn.controller";
 
@@ -12,6 +16,7 @@ const router: Router = Router()
 router.route('/:profileId')
     .get(getPublicProfileByProfileIdController)
     .put(isLoggedInController, putProfileController)
+    .delete(isLoggedInController, deleteProfileByProfileIdController)
 
 
 export const profileRoute = { basePath, router }
