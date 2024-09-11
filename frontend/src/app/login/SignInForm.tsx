@@ -26,7 +26,7 @@ const formSchema = z.object({
 type FormSchema = z.infer<typeof formSchema>
 
 export function SignInForm() {
-    const router = useRouter()
+    // const router = useRouter()
 
     const initialValues = {
         profileEmail: '',
@@ -113,6 +113,7 @@ function SignInFormContent(props: FormikProps<FormSchema>) {
                         onChange={handleChange}
                         id="password1"
                         type="password"
+                        name="profilePassword"
                     />
 
                     <DisplayError errors={errors} touched={touched} field={'profilePassword'}/>

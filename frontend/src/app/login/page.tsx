@@ -1,10 +1,8 @@
 
 "use client";
 
-import { Button, Checkbox, Label, TextInput } from "flowbite-react";
-import Link from "next/link";
 import {SignUpForm} from "@/app/login/SignUpForm";
-import {SignInForm} from "@/app/login/SingInForm";
+import {SignInForm} from "@/app/login/SignInForm";
 
 
 export default function() {
@@ -27,8 +25,6 @@ export default function() {
                 <div>
                     <SignUpForm />
                 </div>
-
-
 
             </div>
         </>
