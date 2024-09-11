@@ -4,6 +4,7 @@
 import { Button, Checkbox, Label, TextInput } from "flowbite-react";
 import Link from "next/link";
 import {SignUpForm} from "@/app/login/SignUpForm";
+import {SignInForm} from "@/app/login/SingInForm";
 
 
 export default function() {
@@ -14,24 +15,9 @@ export default function() {
 
 
                 <div>
-                    <form className="flex w-72 md:w-[20rem] flex-col gap-4 border-2 border-gray-600 p-5 rounded-lg">
-                        <h2 className="text-2xl">Login</h2>
-                        <div>
-                            <div className="mb-2 block">
-                                <Label htmlFor="email2" value="Your email"/>
-                            </div>
-                            <TextInput id="email2" type="email" placeholder="email@address.com" required shadow/>
-                        </div>
-
-                        <div>
-                            <div className="mb-2 block">
-                                <Label htmlFor="password2" value="Your password"/>
-                            </div>
-                            <TextInput id="password2" type="password" required shadow/>
-                        </div>
-                        <Button type="submit"
-                                className="my-3l">Login</Button>
-                    </form>
+                    <div>
+                        <SignInForm />
+                    </div>
                 </div>
 
                 <div>
@@ -41,6 +27,7 @@ export default function() {
                 <div>
                     <SignUpForm />
                 </div>
+
 
 
             </div>
