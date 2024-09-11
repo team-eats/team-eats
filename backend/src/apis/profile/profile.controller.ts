@@ -4,11 +4,12 @@ import {
     PrivateProfile,
     selectPublicProfileByProfileId,
     selectPublicByProfileId,
-    PublicProfile
+    PublicProfile, deleteProfileByProfileId
 } from "./profile.model";
 import {zodErrorResponse} from "../../utils/response.utils";
 import {Status} from "../../utils/interfaces/Status";
 import {Request, Response} from "express";
+import {z} from "zod";
 
 
 
@@ -93,5 +94,43 @@ export async function putProfileController(request: Request, response: Response)
             status: 500,
             message: 'internal server error',
             data: null})
+    }
+}
+
+export async function deleteProfileByProfileIdController(request: Request, response: Response): Promise<Response<Status>> {
+    try {
+        const validationResult = z.string()
+            .uuid({message: 'please provide a valid profile uuid'})
+            .safeParse(request.params.profileId)
+
+        if (!validationResult.success) {
+            return zodErrorResponse(response, validationResult.error)
+        }
+
+        const profileId = validationResult.data
+
+        const profileIdFromSession = request.session?.profile?.profileId
+
+        if (profileIdFromSession !== validationResult.data) {
+            return response.json({
+                status: 400,
+                message: 'you cannot delete a profile that is not yours',
+                data: null
+            })
+        }
+
+        const result = await deleteProfileByProfileId(profileId)
+
+        return response.json({
+            status: 200,
+            message: result,
+            data: null
+        })
+    } catch (error) {
+        return response.json({
+            status: 500,
+            message: '',
+            data: []
+        })
     }
 }

@@ -59,7 +59,7 @@ export async function insertSection(section: Section): Promise<string> {
         ${sectionDescription},
         ${sectionOrder})`
 
-    return 'Section Inserted Successfully'
+    return 'HomepageSection Inserted Successfully'
 }
 
 export async function selectSectionBySectionId(sectionId: string): Promise<Section | null> {
@@ -87,7 +87,7 @@ export async function updateSection(section: Section): Promise<string> {
             section_description = ${sectionDescription},
             section_order = ${sectionOrder}
         WHERE section_id = ${sectionId}`
-    return 'Section Updated Successfully'
+    return 'HomepageSection Updated Successfully'
 }
 
 export async function deleteSectionBySectionId(sectionId: string): Promise<string> {
@@ -95,5 +95,5 @@ export async function deleteSectionBySectionId(sectionId: string): Promise<strin
         DELETE 
         FROM section 
         WHERE section_id = ${sectionId}`
-    return 'Deleted Section Successfully'
+    return 'Deleted HomepageSection Successfully'
 }
