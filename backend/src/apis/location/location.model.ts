@@ -58,13 +58,10 @@ export async function insertLocation(location: Location): Promise<string> {
             ${locationActive},
             ${locationStartDatetime ?? null},
             ${locationEndDatetime ?? null}
-           
            )`
 
     return "location successfully inserted"
 }
-
-
 
 
 export async function updateLocation(location: Location): Promise<string> {
@@ -82,8 +79,6 @@ export async function updateLocation(location: Location): Promise<string> {
 }
 
 
-
-
 export async function selectLocationByLocationId(locationId: string): Promise<Location | null> {
     const rowList = await sql`SELECT
                                      location_id,
@@ -97,8 +92,6 @@ export async function selectLocationByLocationId(locationId: string): Promise<Lo
     const result = LocationSchema.array().max(1).parse(rowList)
     return result?.length === 0 ? null : result[0]
 }
-
-
 
 
 export async function selectAllLocationsByLocationBusinessId(locationBusinessId: string): Promise<Location[] | null> {
@@ -124,4 +117,3 @@ export async function deleteLocationByLocationId(locationId: string): Promise<st
         WHERE location_id = ${locationId}`
     return "location successfully deleted"
 }
-
