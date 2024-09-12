@@ -9,16 +9,22 @@ import {Button, Label, TextInput} from "flowbite-react";
 import {DisplayError} from "@/app/components/DisplayError";
 import {DisplayStatus} from "@/app/components/DisplayStatus";
 import {FormDebugger} from "@/app/components/FormDebugger";
+import {DisplayUploadErrorProps, ImageUploadDropZone} from "@/app/components/ImageUploadDropZone";
+import React from "react";
 
-const BusinessListingSchema = BusinessSchema
+const businessListingSchema = BusinessSchema
     .omit({businessId: true, businessProfileId: true})
+    .extend({
+        businessPhoto:z
+            .any()
+            .optional()
+    })
 
-type BusinessListing = z.infer<typeof BusinessListingSchema>
+type BusinessListing = z.infer<typeof businessListingSchema>
 
 export default function(){
     const initialValues = {
         businessName:'',
-        businessPhoto:'',
         businessHours:'',
         businessBio:'',
         businessEmail:'',
@@ -27,7 +33,7 @@ export default function(){
 
     const handleSubmit = (values: BusinessListing, actions: FormikHelpers<BusinessListing>) => {
         const {setStatus, resetForm} = actions
-        fetch('/apis/business', {
+        fetch(`/apis/business`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -53,7 +59,9 @@ export default function(){
 
     return (
         <>
-           <Formik initialValues={initialValues} onSubmit ={handleSubmit} validationSchema={toFormikValidationSchema(BusinessListingSchema)}>
+           <Formik
+               initialValues=
+                   {initialValues} onSubmit ={handleSubmit} validationSchema={toFormikValidationSchema(businessListingSchema)}>
                {BusinessFormContent}
            </Formik>
         </>
@@ -69,8 +77,13 @@ export function BusinessFormContent(props: FormikProps<BusinessListing>) {
         handleChange,
         handleBlur,
         handleSubmit,
-        handleReset
+        handleReset,
+        setFieldValue,
+        setFieldError,
+        setFieldTouched
     } = props;
+
+    const [selectedImage, setSelectedImage] = React.useState<string | null> (null)
 
     return (
         <>
@@ -90,82 +103,91 @@ export function BusinessFormContent(props: FormikProps<BusinessListing>) {
                     />
                 <DisplayError errors={errors} touched={touched} field={'businessName'}/>
             </div>
-            <div>
-                <div className="">
-                    <Label htmlFor="businessPhoto" value="business photo"/>
-                </div>
-                <ImageUploadDropZone
-                    formikProps ={{
-                            setFieldError
-                    }}
+            <div className="">
+                <Label htmlFor="businessPhoto" value="business photo"/>
+            </div>
+            <ImageUploadDropZone
+                formikProps={{
+                            setFieldError,
+                            setFieldTouched,
+                            handleBlur,
+                            handleChange,
+                            setFieldValue,
+                            fieldValue: 'businessPhoto'}}
+                            setSelectedImage={setSelectedImage}
+            />
+
+            <DisplayUploadErrorProps errors={errors} field={'businessPhoto'}/>
+            <div className={"flex"}>
+                <Button className={"mr-1"} type="submit"> Submit</Button>
+                <Button className={'m1-1'} color={"red"} type={"reset"}> Reset </Button>
             </div>
 
-            <DisplayError errors={errors} touched={touched} field={'businessName'}/>
+            <div>
                 <div>
-                    <div>
-                    <Label htmlFor="businessHours" value="business hours" />
-                    </div>
-                    <TextInput
-                        onChange={handleChange}
-                        onBlur={handleBlur}
-                        autoComplete='organization'
-                        id="businessHours"
-                        name={"businessHours"}
-                        type='text'
-                        value={values.businessHours}
-                        />
+                <Label htmlFor="businessHours" value="Business Hours" />
                 </div>
+                <TextInput
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    autoComplete='organization'
+                    id="businessHours"
+                    name={"businessHours"}
+                    type='text'
+                    value={values.businessHours}
+                    />
+            </div>
             <DisplayError errors={errors} touched={touched} field={'businessHours'} />
+            <div>
                 <div>
-                    <div>
-                        <Label htmlFor="businessBio" value="Business Bio" />
-                    </div>
-                    <TextInput
+                    <Label htmlFor="businessBio" value="Business Bio" />
+                </div>
+                <TextInput
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    autoComplete='organization'
+                    id="businessBio"
+                    name={"businessBio"}
+                    type='text'
+                    value={values.businessBio}
+                    />
+            </div>
+            <DisplayError errors={errors} touched={touched} field={'businessBio'} />
+            <div>
+                <div>
+                    <Label htmlFor="businessEmail" value="Business Email" />
+                </div>
+                <TextInput
                         onChange={handleChange}
                         onBlur={handleBlur}
-                        autoComplete='organization'
-                        id="businessBio"
-                        name={"businessBio"}
-                        type='text'
-                        value={values.businessBio}
-                        />
+                        autoComplete='email'
+                        id='businessEmail'
+                        name={"businessEmail"}
+                        type="email"
+                        value={values.businessEmail}
+                 />
+                <DisplayError errors={errors} touched={touched} field={'businessEmail'}/>
+            </div>
+            <div>
+                <div className='mb-2 block'>
+                    <Label htmlFor="businessPhone" value="Business Phone" />
                 </div>
-            <DisplayError errors={errors} touched={touched} field={'businessBio'} />
-                <div>
-                    <div>
-                        <Label htmlFor="businessEmail" value="Business Email" />
-                    </div>
-                    <TextInput
-                            onChange={handleChange}
-                            onBlur={handleBlur}
-                            autoComplete='email'
-                            id='businessEmail'
-                            name={"businessEmail"}
-                            type="email"
-                            value={values.businessEmail}
-                     />
-                     <DisplayError errors={errors} touched={touched} field={'businessEmail'}/>
-                    </div>
-                    <div>
-                        <div className='mb-2 block'>
-                            <Label htmlFor="businessPhone" value="Business Phone" />
-                        </div>
-                        <TextInput
-                            onChange={handleChange}
-                            onBlur={handleBlur}
-                            autoComplete='phone'
-                            id="businessPhone"
-                            name={'businessPhone'}
-                            type="text"
-                            value={values.businessPhone}
-                        />
-                        <DisplayError errors={errors} touched={touched} field={'businessPhone'} />
-                    </div>
-                    <Button color={'success'} type="submit">Submit</Button>
-                    <Button color={'failure'} type="reset" onClick={handleReset}>Reset</Button>
-                    <DisplayStatus status={status}/>
+                <TextInput
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    autoComplete='phone'
+                    id="businessPhone"
+                    name={'businessPhone'}
+                    type="text"
+                    value={values.businessPhone}
+                />
+                <DisplayError errors={errors} touched={touched} field={'businessPhone'} />
+            </div>
+            <Button color={'success'} type="submit">Submit</Button>
+            <Button color={'failure'} type="reset" onClick={handleReset}>Reset</Button>
+            <DisplayStatus status={status}/>
         </form>
-                    <FormDebugger {...props} />
+            <FormDebugger {...props} />
         </>
     )
 }
