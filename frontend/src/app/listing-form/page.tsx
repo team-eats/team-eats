@@ -5,8 +5,10 @@ import {BusinessSchema} from "@/app/utils/models/business/business.validator";
 import {z} from "zod";
 import {Formik, FormikHelpers, FormikProps} from "formik";
 import {toFormikValidationSchema} from "zod-formik-adapter";
-import {Label, TextInput} from "flowbite-react";
+import {Button, Label, TextInput} from "flowbite-react";
 import {DisplayError} from "@/app/components/DisplayError";
+import {DisplayStatus} from "@/app/components/DisplayStatus";
+import {FormDebugger} from "@/app/components/FormDebugger";
 
 const BusinessListingSchema = BusinessSchema
     .omit({businessId: true, businessProfileId: true})
@@ -71,6 +73,7 @@ export function BusinessFormContent(props: FormikProps<BusinessListing>) {
     } = props;
 
     return (
+        <>
         <form onSubmit = {handleSubmit} className="">
             <div>
                 <div>
@@ -95,9 +98,9 @@ export function BusinessFormContent(props: FormikProps<BusinessListing>) {
                     formikProps ={{
                             setFieldError
                     }}
-
             </div>
-            DisplayError errors={errors} touched={touched} field={'businessName'}/>
+
+            <DisplayError errors={errors} touched={touched} field={'businessName'}/>
                 <div>
                     <div>
                     <Label htmlFor="businessHours" value="business hours" />
@@ -112,9 +115,57 @@ export function BusinessFormContent(props: FormikProps<BusinessListing>) {
                         value={values.businessHours}
                         />
                 </div>
-                <DisplayError errors={errors} touched={touched} field={'businessHours'} />
-
-
+            <DisplayError errors={errors} touched={touched} field={'businessHours'} />
+                <div>
+                    <div>
+                        <Label htmlFor="businessBio" value="Business Bio" />
+                    </div>
+                    <TextInput
+                        onChange={handleChange}
+                        onBlur={handleBlur}
+                        autoComplete='organization'
+                        id="businessBio"
+                        name={"businessBio"}
+                        type='text'
+                        value={values.businessBio}
+                        />
+                </div>
+            <DisplayError errors={errors} touched={touched} field={'businessBio'} />
+                <div>
+                    <div>
+                        <Label htmlFor="businessEmail" value="Business Email" />
+                    </div>
+                    <TextInput
+                            onChange={handleChange}
+                            onBlur={handleBlur}
+                            autoComplete='email'
+                            id='businessEmail'
+                            name={"businessEmail"}
+                            type="email"
+                            value={values.businessEmail}
+                     />
+                     <DisplayError errors={errors} touched={touched} field={'businessEmail'}/>
+                    </div>
+                    <div>
+                        <div className='mb-2 block'>
+                            <Label htmlFor="businessPhone" value="Business Phone" />
+                        </div>
+                        <TextInput
+                            onChange={handleChange}
+                            onBlur={handleBlur}
+                            autoComplete='phone'
+                            id="businessPhone"
+                            name={'businessPhone'}
+                            type="text"
+                            value={values.businessPhone}
+                        />
+                        <DisplayError errors={errors} touched={touched} field={'businessPhone'} />
+                    </div>
+                    <Button color={'success'} type="submit">Submit</Button>
+                    <Button color={'failure'} type="reset" onClick={handleReset}>Reset</Button>
+                    <DisplayStatus status={status}/>
         </form>
+                    <FormDebugger {...props} />
+        </>
     )
 }
