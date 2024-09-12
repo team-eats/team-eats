@@ -1,57 +1,120 @@
 "use client";
 
-import {Label, Textarea, TextInput} from "flowbite-react";
-import { HiMail } from "react-icons/hi";
 
-export default function() {
-    return(
+import {BusinessSchema} from "@/app/utils/models/business/business.validator";
+import {z} from "zod";
+import {Formik, FormikHelpers, FormikProps} from "formik";
+import {toFormikValidationSchema} from "zod-formik-adapter";
+import {Label, TextInput} from "flowbite-react";
+import {DisplayError} from "@/app/components/DisplayError";
+
+const BusinessListingSchema = BusinessSchema
+    .omit({businessId: true, businessProfileId: true})
+
+type BusinessListing = z.infer<typeof BusinessListingSchema>
+
+export default function(){
+    const initialValues = {
+        businessName:'',
+        businessPhoto:'',
+        businessHours:'',
+        businessBio:'',
+        businessEmail:'',
+        businessPhone:''
+    }
+
+    const handleSubmit = (values: BusinessListing, actions: FormikHelpers<BusinessListing>) => {
+        const {setStatus, resetForm} = actions
+        fetch('/apis/business', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(values)
+        })
+            .then(response => response.json())
+            .then(data => {
+                let type = 'failure'
+                if (data.status === 200) {
+                    type = 'success'
+                    resetForm()
+                }
+                setStatus({type, message:data.message})
+            })
+            .catch(error => {
+                console.log(error)
+                setStatus({type: 'failure', message:'input is an error, try again.'})
+
+            })
+
+    }
+
+    return (
         <>
-            <div className="mx-auto text-center">
-                <p className="text-4xl">
-                New Listing Form
-                </p>
-            </div>
-            <div className="flex justify-evenly">
-                <div className="my-4">
-                    <div className="max-w-md hover:border-4">
-                        <TextInput id="email4" type="email" icon={HiMail} placeholder="Name" required/>
-                    </div>
-                    <div className="max-w-md hover:border-4">
-                        <TextInput id="email4" type="email" icon={HiMail} placeholder="Address" required/>
-                    </div>
-                    <div className="max-w-md hover:border-4">
-                        <TextInput id="email4" type="email" icon={HiMail} placeholder="Business Name" required/>
-                    </div>
-                    <div className="max-w-md hover:border-4">
-                        <TextInput id="email4" type="email" icon={HiMail} placeholder="Business Phone Number" required/>
-                    </div>
-                    <div className="max-w-md hover:border-4">
-                        <div className="mb-2 block">
-                            <Label htmlFor="comment" value="About your restaurant"/>
-                        </div>
-                        <Textarea className="hover:b-4" id="comment" placeholder="About your business..."
-                                  =""/>
-                    </div>
-                    <div>
-                        <div className="mb-2 block">
-                            <Label htmlFor="large" value="Large input"/>
-                        </div>
-                        <TextInput id="large" type="text" sizing="lg"/>
-                    </div>
-                </div>
-                <div className="max-w-md hover:border-4">
-                    <div className="mb-2 block">
-                        <Label htmlFor="comment" value="attach files"/>
-                    </div>
-                    <Textarea className="hover:b-4" id="comment" placeholder="Attach files..."
-                              =""/>
-                </div>
-            </div>
-
-                <div
-                    className="mx-auto mt-8 w-64 py-6 px-2 border-2 text-2xl text-center bg-black text-white hover:bg-border-white hover:border-4 hover:bg-red-950">Submit
-                    listing
-                </div>
+           <Formik initialValues={initialValues} onSubmit ={handleSubmit} validationSchema={toFormikValidationSchema(BusinessListingSchema)}>
+               {BusinessFormContent}
+           </Formik>
         </>
+    )
+}
+
+export function BusinessFormContent(props: FormikProps<BusinessListing>) {
+    const {
+        status,
+        values,
+        errors,
+        touched,
+        handleChange,
+        handleBlur,
+        handleSubmit,
+        handleReset
+    } = props;
+
+    return (
+        <form onSubmit = {handleSubmit} className="">
+            <div>
+                <div>
+                    <Label htmlFor="businessName" value="Business Name"/>
+                </div>
+                <TextInput
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    autoComplete='organization'
+                    id="businessName"
+                    name={'businessName'}
+                    type='text'
+                    value={values.businessName}
+                    />
+                <DisplayError errors={errors} touched={touched} field={'businessName'}/>
+            </div>
+            <div>
+                <div className="">
+                    <Label htmlFor="businessPhoto" value="business photo"/>
+                </div>
+                <ImageUploadDropZone
+                    formikProps ={{
+                            setFieldError
+                    }}
+
+            </div>
+            DisplayError errors={errors} touched={touched} field={'businessName'}/>
+                <div>
+                    <div>
+                    <Label htmlFor="businessHours" value="business hours" />
+                    </div>
+                    <TextInput
+                        onChange={handleChange}
+                        onBlur={handleBlur}
+                        autoComplete='organization'
+                        id="businessHours"
+                        name={"businessHours"}
+                        type='text'
+                        value={values.businessHours}
+                        />
+                </div>
+                <DisplayError errors={errors} touched={touched} field={'businessHours'} />
+
+
+        </form>
     )
 }
