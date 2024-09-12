@@ -11,6 +11,8 @@ import {DisplayStatus} from "@/app/components/DisplayStatus";
 import {FormDebugger} from "@/app/components/FormDebugger";
 import {DisplayUploadErrorProps, ImageUploadDropZone} from "@/app/components/ImageUploadDropZone";
 import React from "react";
+import {getSession} from "@/app/utils/session.utils";
+import {redirect} from "next/navigation";
 
 const businessListingSchema = BusinessSchema
     .omit({businessId: true, businessProfileId: true})
@@ -22,7 +24,14 @@ const businessListingSchema = BusinessSchema
 
 type BusinessListing = z.infer<typeof businessListingSchema>
 
-export default function(){
+
+export default async function(){
+    const session = await getSession()
+    console.log('session',session)
+    if (!session) {
+        return(redirect('/login'))
+    }
+
     const initialValues = {
         businessName:'',
         businessHours:'',
@@ -118,10 +127,7 @@ export function BusinessFormContent(props: FormikProps<BusinessListing>) {
             />
 
             <DisplayUploadErrorProps errors={errors} field={'businessPhoto'}/>
-            <div className={"flex"}>
-                <Button className={"mr-1"} type="submit"> Submit</Button>
-                <Button className={'m1-1'} color={"red"} type={"reset"}> Reset </Button>
-            </div>
+
 
             <div>
                 <div>
