@@ -41,7 +41,7 @@ export async function clearSession() {
     cookieStore.delete("connect.sid")
 }
 
-async  function setJwtToken(jwtToken: string):Promise<Session | undefined> {
+async function setJwtToken(jwtToken: string):Promise<Session | undefined> {
     try {
         const  parsedJwtToken = jwtDecode(jwtToken) as any
 
