@@ -224,7 +224,7 @@ export function BusinessFormContent(props: FormikProps<BusinessListing>) {
     />
     <DisplayError errors={errors} touched={touched} field={'businessPhone'} />
     </div>
-    <Button color={'success'} type="submit">Submit</Button>
+        <Button color={'success'} type="submit">Submit</Button>
         <Button color={'failure'} type="reset" onClick={handleReset}>Reset</Button>
         <DisplayStatus status={status}/>
     </form>
