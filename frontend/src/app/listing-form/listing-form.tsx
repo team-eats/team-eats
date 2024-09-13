@@ -48,7 +48,7 @@ export function ListingForm(props: Props){
         //     businessEmail,
         //     businessPhone
         // }
-        const {setStatus, resetForm} = actions
+        // const {setStatus, resetForm} = actions
         fetch(`/apis/business`, {
             method: 'POST',
             headers: {
