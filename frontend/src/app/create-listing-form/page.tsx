@@ -1,5 +1,5 @@
 import {getSession} from "@/app/utils/session.utils";
-import {ListingForm} from "@/app/listing-form/listing-form";
+import {ListingForm} from "@/app/create-listing-form/listing-form";
 
 
 export default async function (){
