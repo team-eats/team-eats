@@ -2,6 +2,7 @@ import {getSession} from "@/app/utils/session.utils";
 import {ListingForm} from "@/app/listing-form/listing-form";
 
 
+
 export default async function (){
     const session = await getSession()
     if (session === undefined) {
@@ -12,7 +13,7 @@ export default async function (){
 
     return (
         <>
-            <ListingForm session = {session} />
+            <ListingForm session={session} />
         </>
     )
 }

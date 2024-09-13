@@ -25,16 +25,16 @@ type BusinessListing = z.infer<typeof businessListingSchema>
 
 type Props = {session: Session}
 
-export function ListingForm(props: Props) {
+export function ListingForm(props: Props){
     const session = props.session;
 
 
     const initialValues = {
-        businessName: '',
-        businessHours: '',
-        businessBio: '',
-        businessEmail: '',
-        businessPhone: ''
+        businessName:'',
+        businessHours:'',
+        businessBio:'',
+        businessEmail:'',
+        businessPhone:''
     }
 
     const handleSubmit = (values: BusinessListing, actions: FormikHelpers<BusinessListing>) => {
@@ -52,7 +52,7 @@ export function ListingForm(props: Props) {
         const {setStatus, resetForm} = actions
 
         if (values.businessPhoto) {
-            fetch("/apis/image/", {
+            fetch("/apis/image/",{
                 method: "POST",
                 headers: {
                     'Authorization': session.authorization ?? ""
@@ -78,10 +78,10 @@ export function ListingForm(props: Props) {
             fetch(`/apis/business`, {
                 method: 'POST',
                 headers: {
-                    'Authorization': session.authorization,
+                    'Authorization':session.authorization,
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify(values)
+                body: JSON.stringify(newValues)
             })
                 .then(response => response.json())
                 .then(data => {
@@ -90,23 +90,25 @@ export function ListingForm(props: Props) {
                         type = 'success'
                         resetForm()
                     }
-                    setStatus({type, message: data.message})
+                    setStatus({type, message:data.message})
                 })
                 .catch(error => {
                     console.log(error)
-                    setStatus({type: 'failure', message: 'input is an error, try again.'})
+                    setStatus({type: 'failure', message:'input is an error, try again.'})
 
                 })
-            return (
-                <>
-                    <Formik initialValues={initialValues} onSubmit={handleSubmit}
-                            validationSchema={toFormikValidationSchema(businessListingSchema)}>
-                        {BusinessFormContent}
-                    </Formik>
-                </>
-            )
         }
     }
+
+    return (
+        <>
+            <Formik
+                initialValues=
+                    {initialValues} onSubmit ={handleSubmit} validationSchema={toFormikValidationSchema(businessListingSchema)}>
+                {BusinessFormContent}
+            </Formik>
+        </>
+    )
 }
 
 export function BusinessFormContent(props: FormikProps<BusinessListing>) {
@@ -124,12 +126,12 @@ export function BusinessFormContent(props: FormikProps<BusinessListing>) {
         setFieldTouched
     } = props;
 
-    const [selectedImage, setSelectedImage] = React.useState<string | null>(null)
+    const [selectedImage, setSelectedImage] = React.useState<string | null> (null)
 
     return (
         <>
-            <form onSubmit={handleSubmit} className="">
-                {selectedImage ? <img src={selectedImage} alt={"uploadedImage"}/> : <></>}
+            <form onSubmit = {handleSubmit} className="">
+                {selectedImage?<img src={selectedImage} alt={"uploadedImage"} />: <></>}
                 <div>
                     <div>
                         <Label htmlFor="businessName" value="Business Name"/>
@@ -155,14 +157,16 @@ export function BusinessFormContent(props: FormikProps<BusinessListing>) {
                         handleBlur,
                         handleChange,
                         setFieldValue,
-                        fieldValue: 'businessPhoto'
-                    }}
+                        fieldValue: 'businessPhoto'}}
                     setSelectedImage={setSelectedImage}
                 />
+
                 <DisplayUploadErrorProps errors={errors} field={'businessPhoto'}/>
+
+
                 <div>
                     <div>
-                        <Label htmlFor="businessHours" value="Business Hours"/>
+                        <Label htmlFor="businessHours" value="Business Hours" />
                     </div>
                     <TextInput
                         onChange={handleChange}
@@ -174,10 +178,10 @@ export function BusinessFormContent(props: FormikProps<BusinessListing>) {
                         value={values.businessHours}
                     />
                 </div>
-                <DisplayError errors={errors} touched={touched} field={'businessHours'}/>
+                <DisplayError errors={errors} touched={touched} field={'businessHours'} />
                 <div>
                     <div>
-                        <Label htmlFor="businessBio" value="Business Bio"/>
+                        <Label htmlFor="businessBio" value="Business Bio" />
                     </div>
                     <TextInput
                         onChange={handleChange}
@@ -189,10 +193,10 @@ export function BusinessFormContent(props: FormikProps<BusinessListing>) {
                         value={values.businessBio}
                     />
                 </div>
-                <DisplayError errors={errors} touched={touched} field={'businessBio'}/>
+                <DisplayError errors={errors} touched={touched} field={'businessBio'} />
                 <div>
                     <div>
-                        <Label htmlFor="businessEmail" value="Business Email"/>
+                        <Label htmlFor="businessEmail" value="Business Email" />
                     </div>
                     <TextInput
                         onChange={handleChange}
@@ -207,7 +211,7 @@ export function BusinessFormContent(props: FormikProps<BusinessListing>) {
                 </div>
                 <div>
                     <div className='mb-2 block'>
-                        <Label htmlFor="businessPhone" value="Business Phone"/>
+                        <Label htmlFor="businessPhone" value="Business Phone" />
                     </div>
                     <TextInput
                         onChange={handleChange}
@@ -218,7 +222,7 @@ export function BusinessFormContent(props: FormikProps<BusinessListing>) {
                         type="text"
                         value={values.businessPhone}
                     />
-                    <DisplayError errors={errors} touched={touched} field={'businessPhone'}/>
+                    <DisplayError errors={errors} touched={touched} field={'businessPhone'} />
                 </div>
                 <Button color={'success'} type="submit">Submit</Button>
                 <Button color={'failure'} type="reset" onClick={handleReset}>Reset</Button>
