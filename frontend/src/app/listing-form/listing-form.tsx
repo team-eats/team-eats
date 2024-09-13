@@ -39,15 +39,15 @@ export function ListingForm(props: Props){
 
     const handleSubmit = (values: BusinessListing, actions: FormikHelpers<BusinessListing>) => {
         //todo using values build out a new object that contains businessId(null) and businessProfileId(session.profile.profileId) and pass it to json.stringify on line 49
-        const {
-            businessId: null,
-            businessProfileId: session.profile.profileId,
-            businessName,
-            businessHours,
-            businessBio,
-            businessEmail,
-            businessPhone
-        }
+        // const {
+        //     businessId: null,
+        //     businessProfileId: session.profile.profileId,
+        //     businessName,
+        //     businessHours,
+        //     businessBio,
+        //     businessEmail,
+        //     businessPhone
+        // }
         const {setStatus, resetForm} = actions
         fetch(`/apis/business`, {
             method: 'POST',
@@ -203,5 +203,4 @@ export function BusinessFormContent(props: FormikProps<BusinessListing>) {
     </form>
     <FormDebugger {...props} />
     </>
-)
-}
+)}
