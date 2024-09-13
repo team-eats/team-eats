@@ -39,15 +39,17 @@ export function ListingForm(props: Props){
 
     const handleSubmit = (values: BusinessListing, actions: FormikHelpers<BusinessListing>) => {
         //todo using values build out a new object that contains businessId(null) and businessProfileId(session.profile.profileId) and pass it to json.stringify on line 49
-        const {
+
+        const newValues = {
             businessId: null,
             businessProfileId: session.profile.profileId,
-            businessName,
-            businessHours,
-            businessBio,
-            businessEmail,
-            businessPhone
+            businessName: `${values.businessName}`,
+            businessHours: `${values.businessHours}`,
+            businessBio: `${values.businessBio}`,
+            businessEmail: `${values.businessEmail}`,
+            businessPhone: `${values.businessPhone}`
         }
+
         const {setStatus, resetForm} = actions
         fetch(`/apis/business`, {
             method: 'POST',
@@ -55,7 +57,7 @@ export function ListingForm(props: Props){
                 'Authorization':session.authorization,
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify(values)
+            body: JSON.stringify(newValues)
         })
             .then(response => response.json())
             .then(data => {
