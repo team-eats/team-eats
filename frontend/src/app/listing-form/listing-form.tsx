@@ -39,16 +39,42 @@ export function ListingForm(props: Props){
 
     const handleSubmit = (values: BusinessListing, actions: FormikHelpers<BusinessListing>) => {
         //todo using values build out a new object that contains businessId(null) and businessProfileId(session.profile.profileId) and pass it to json.stringify on line 49
-        // const {
-        //     businessId: null,
-        //     businessProfileId: session.profile.profileId,
-        //     businessName,
-        //     businessHours,
-        //     businessBio,
-        //     businessEmail,
-        //     businessPhone
-        // }
+        const newValues = {
+            businessId: null,
+            businessProfileId: session.profile.profileId,
+            businessName: values.businessName,
+            businessHours: values.businessHours,
+            businessBio: values.businessBio,
+            businessEmail: values.businessEmail,
+            businessPhone: values.businessPhone,
+            businessPhoto: null
+        }
         const {setStatus, resetForm} = actions
+
+        if (values.businessPhoto) {
+            fetch("/apis/image/",{
+                method: "POST",
+                headers: {
+                    'Authorization': session.authorization ?? ""
+                },
+                body: values.businessPhoto
+            })
+                .then(response => response.json())
+                .then(json => {
+                    if (json.status !== 200) {
+                    setStatus({type: 'failure', message: json.message})
+                    } else {
+                        newValues.businessPhoto = json.message
+                        postBusiness()
+                    }
+                })
+        } else {
+            newValues.businessPhoto = null
+            postBusiness()
+        }
+
+
+function postBusiness() {
         fetch(`/apis/business`, {
             method: 'POST',
             headers: {
@@ -105,6 +131,7 @@ export function BusinessFormContent(props: FormikProps<BusinessListing>) {
     return (
         <>
             <form onSubmit = {handleSubmit} className="">
+                {selectedImage?<img src={selectedImage} alt={"uploadedImage"} />: <></>}
     <div>
         <div>
             <Label htmlFor="businessName" value="Business Name"/>

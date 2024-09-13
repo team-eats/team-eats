@@ -22,7 +22,7 @@ export const BusinessSchema = z.object({
         .min(1, {message: 'please make a longer business name'}),
 
     businessPhoto: z.string({
-        required_error: 'please provide a valid business photo address or null',
+        required_error: 'please provide a valid business photo url or null',
         invalid_type_error: 'business image url must be a string or null'})
         .trim()
         .url({message: 'business image address must be url'})
