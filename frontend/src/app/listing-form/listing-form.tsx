@@ -230,5 +230,4 @@ export function BusinessFormContent(props: FormikProps<BusinessListing>) {
     </form>
     <FormDebugger {...props} />
     </>
-)
-}
+    )
