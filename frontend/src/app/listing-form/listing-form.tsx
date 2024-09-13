@@ -97,7 +97,7 @@ function postBusiness() {
                 setStatus({type: 'failure', message:'input is an error, try again.'})
 
             })
-}
+
     }
 
     return (
