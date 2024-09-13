@@ -37,7 +37,7 @@ export function SignInForm() {
         const {profileEmail, profilePassword} = values
         const {setStatus, resetForm} = actions
 
-        fetch('/apis/sign-in',{
+        fetch('/api/sign-in',{
             method: 'POST',
             body: JSON.stringify({profileEmail, profilePassword}),
             headers: {

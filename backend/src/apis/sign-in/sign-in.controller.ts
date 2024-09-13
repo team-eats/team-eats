@@ -30,13 +30,15 @@ export async function signInController(request: Request, response: Response): Pr
             return response.json(signInFailedStatus)
         }
 
-        const {profileId, profileName} = profile
+        const {profileId,profileDatetime,  profileName} = profile
 
         const signature: string = uuid()
 
         const authorization: string = generateJwt({
             profileId,
-            profileName
+            profileName,
+            profileDatetime,
+            profileEmail
         }, signature)
 
         request.session.profile = profile
