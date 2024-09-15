@@ -13,7 +13,7 @@ export default async function (props: Props) {
 
     const businessName = props.params.businessName
 
-    const business = await fetchBusinessByName()
+    const business = await fetchBusinessByName(businessName)
 
     return (
         <>

@@ -26,10 +26,10 @@ router.route('/profileName/:profileName')
 router.route('/businessProfileId/:businessProfileId')
     .get(getBusinessesByBusinessProfileIdController)
 
-router.route('/:businessName')
+router.route('/businessName/:businessName')
     .get(getBusinessByBusinessNameController)
 
-router.route('/:businessBio')
+router.route('/businessBio/:businessBio')
     .get(getBusinessByBusinessBio)
 
 router.route('/:businessId')
