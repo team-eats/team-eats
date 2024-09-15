@@ -23,13 +23,13 @@ export const SectionSchema = z.object({
         required_error: 'please provide a section description',
         invalid_type_error: 'section description must be a string'})
         .max(255, {message: 'section description must not be longer than 255 characters'})
-    .min(1, {message: 'section description must be at least 1 character'}),
+        .min(1, {message: 'section description must be at least 1 character'}),
 
     sectionOrder: z.number({
         required_error: 'please provide a section order',
         invalid_type_error: 'section order must be a number'})
         .int()
-        .min(0, {message: 'section order must be at least1'})
+        .min(1, {message: 'section order must be at least 1'})
 
 })
 
