@@ -114,7 +114,7 @@ export function Navigation() {
                 <Modal.Header className={"bg-orange-200"}>Favorite Eats</Modal.Header>
                 <Modal.Body className={"bg-red-700"}>
                     <div>
-                        <BusinessCard business={} />
+                        {/*<BusinessCard business={} />*/}
                     </div>
             </Modal.Body>
             <Modal.Footer className={"bg-orange-200"}>
