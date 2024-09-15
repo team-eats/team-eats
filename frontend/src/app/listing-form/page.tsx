@@ -12,8 +12,8 @@ export default async function (){
     }
 
     return (
-        <>
+        <div className='p-4'>
             <ListingForm session={session} />
-        </>
+        </div>
     )
 }

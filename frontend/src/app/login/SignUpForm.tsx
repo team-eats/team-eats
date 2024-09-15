@@ -51,8 +51,9 @@ export function SignUpForm() {
             .then(data => {
                 let type = 'failure'
                 if (data.status === 200) {
-                    type = 'success'
-                    resetForm()
+                    resetForm();
+                    type = 'success';
+
                 }
                 setStatus({type, message: data.message})
             })

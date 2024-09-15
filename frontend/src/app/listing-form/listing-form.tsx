@@ -101,13 +101,15 @@ export function ListingForm(props: Props){
     }
 
     return (
-        <>
+        <div className='flex justify-center items-center min-h-screen bg-gray-100 mx-auto max-w-3xl'>
+            <div className="bg-white p-6 rounded-lg shadow-lg w-full">
             <Formik
                 initialValues=
                     {initialValues} onSubmit ={handleSubmit} validationSchema={toFormikValidationSchema(businessListingSchema)}>
                 {BusinessFormContent}
             </Formik>
-        </>
+            </div>
+        </div>
     )
 }
 
@@ -131,7 +133,7 @@ export function BusinessFormContent(props: FormikProps<BusinessListing>) {
     return (
         <>
             <form onSubmit = {handleSubmit} className="">
-                {selectedImage?<img src={selectedImage} alt={"uploadedImage"} />: <></>}
+                {selectedImage?<img src={selectedImage} alt={"uploadedImage"} className="w-full h-auto mb-4" />: <></>}
                 <div>
                     <div>
                         <Label htmlFor="businessName" value="Business Name"/>
@@ -144,6 +146,7 @@ export function BusinessFormContent(props: FormikProps<BusinessListing>) {
                         name={'businessName'}
                         type='text'
                         value={values.businessName}
+                        className="w-full"
                     />
                     <DisplayError errors={errors} touched={touched} field={'businessName'}/>
                 </div>
@@ -176,6 +179,7 @@ export function BusinessFormContent(props: FormikProps<BusinessListing>) {
                         name={"businessHours"}
                         type='text'
                         value={values.businessHours}
+                        className="w-full"
                     />
                 </div>
                 <DisplayError errors={errors} touched={touched} field={'businessHours'} />
@@ -183,7 +187,7 @@ export function BusinessFormContent(props: FormikProps<BusinessListing>) {
                     <div>
                         <Label htmlFor="businessBio" value="Business Bio" />
                     </div>
-                    <TextInput
+                    <textarea
                         onChange={handleChange}
                         onBlur={handleBlur}
                         autoComplete='organization'
@@ -191,6 +195,8 @@ export function BusinessFormContent(props: FormikProps<BusinessListing>) {
                         name={"businessBio"}
                         type='text'
                         value={values.businessBio}
+                        maxLength="800"
+                        className={"w-full p-2 border border-gray-300 rounded"}
                     />
                 </div>
                 <DisplayError errors={errors} touched={touched} field={'businessBio'} />
@@ -206,7 +212,7 @@ export function BusinessFormContent(props: FormikProps<BusinessListing>) {
                         name={"businessEmail"}
                         type="email"
                         value={values.businessEmail}
-                    />
+                        className="w-full"                    />
                     <DisplayError errors={errors} touched={touched} field={'businessEmail'}/>
                 </div>
                 <div>
@@ -221,6 +227,7 @@ export function BusinessFormContent(props: FormikProps<BusinessListing>) {
                         name={'businessPhone'}
                         type="text"
                         value={values.businessPhone}
+                        className="w-full"
                     />
                     <DisplayError errors={errors} touched={touched} field={'businessPhone'} />
                 </div>

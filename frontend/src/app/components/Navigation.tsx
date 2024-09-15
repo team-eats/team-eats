@@ -1,9 +1,20 @@
 'use client'
 
 import {Button, Modal, Dropdown, Navbar, Label, TextInput} from "flowbite-react";
-import { useState } from "react";
+import React, { useState } from "react";
 import {BusinessCard} from "@/app/components/BusinessCard";
+import Image from 'next/image';
+import {SignInForm} from "@/app/login/SignInForm"
+import {SignUpForm} from "@/app/login/SignUpForm";
+import {SignOutButton} from "@/app/components/SignOutButton";
 
+
+
+
+const businessData= [
+
+    { businessPhoto: "/images/card-top.jpg", businessName: 'SouthWestern Express', businessBio: 'No Bio' }
+];
 
 
 
@@ -13,10 +24,27 @@ export function Navigation() {
     const [openSettingsModal, setOpenSettingsModal] = useState(false);
     const [email, setEmail] = useState('');
 
+    const [openSignInModal, setOpenSignInModal] = useState(false);
+    const [openSignUpModal, setOpenSignUpModal] = useState(false);
+
     function onCloseSettingsModal() {
         setOpenSettingsModal(false);
         setEmail('');
+
     }
+
+    function onCloseSignInModal() {
+        setOpenSignInModal(false);
+       setEmail('');
+    }
+
+    function onCloseSignUpModal() {
+
+        setOpenSignUpModal(false);
+        setEmail('')
+    }
+
+
     return (
 
         <>
@@ -72,16 +100,21 @@ export function Navigation() {
                             <span className="block text-sm">Team Eats</span>
                             <span className="block truncate text-sm font-medium">Options</span>
                         </Dropdown.Header>
+                        <Dropdown.Item href="/listing-form">
+                            Business Listing
+                        </Dropdown.Item>
                         <Dropdown.Item onClick={() => setOpenSettingsModal(true)}>Profile Settings</Dropdown.Item>
                         <Dropdown.Item onClick={() => setOpenFavoritesModal(true)}>Favorites</Dropdown.Item>
                         <Dropdown.Item className='block xl:hidden text-left'>About Us</Dropdown.Item>
                         <Dropdown.Divider/>
-                        <Dropdown.Item href="/login" >Sign In / Create Account</Dropdown.Item>
-                        <Dropdown.Item>Sign Out</Dropdown.Item>
+                        <Dropdown.Item onClick={() => setOpenSignInModal(true)}>Sign In</Dropdown.Item>
+                        <Dropdown.Item onClick={() => setOpenSignUpModal(true)}>Sign Up</Dropdown.Item>
+                        <Dropdown.Item><SignOutButton /></Dropdown.Item>
                     </Dropdown>
                 </div>
             </Navbar>
 
+            {/*Settings Modal*/}
             <Modal show={openSettingsModal} size="md" onClose={onCloseSettingsModal} popup>
                 <Modal.Header />
                 <Modal.Body>
@@ -110,21 +143,40 @@ export function Navigation() {
                 </Modal.Body>
             </Modal>
 
-            <Modal dismissible show={openFavoritesModal} onClose={() => setOpenFavoritesModal(false )}>
-                <Modal.Header className={"bg-orange-200"}>Favorite Eats</Modal.Header>
+            {/*Sign In Modal*/}
+            <Modal show={openSignInModal} size="md" onClose={onCloseSignInModal}
+            popup>
+                <Modal.Header className={"bg-orange-200"}>Sign In</Modal.Header>
                 <Modal.Body className={"bg-red-700"}>
-                    <div>
-                        <BusinessCard />
-                        <BusinessCard />
-                        <BusinessCard />
-                        <BusinessCard />
-                        <BusinessCard />
-                        <BusinessCard />
-                    </div>
+                    <SignInForm />
             </Modal.Body>
-            <Modal.Footer className={"bg-orange-200"}>
-            </Modal.Footer>
+        </Modal>
+
+
+    {/*Favorites Modal*/}
+            <Modal dismissible show={openFavoritesModal} onClose={() => setOpenFavoritesModal(false)}>
+                <Modal.Header className="bg-orange-200">Favorite Eats</Modal.Header>
+                <Modal.Body className="bg-red-700">
+                    <div>
+                        {businessData.map((business, index) => (
+                            <BusinessCard key={index} business={business} />
+                        ))}
+                    </div>
+                </Modal.Body>
+                <Modal.Footer className="bg-orange-200">
+                    <Button onClick={() => setOpenFavoritesModal(false)}>Close</Button>
+                </Modal.Footer>
             </Modal>
+
+    {/* Sign Up Modal */}
+    <Modal show={openSignUpModal} size="md" onClose={onCloseSignUpModal} popup>
+        <Modal.Header />
+        <Modal.Body>
+            <SignUpForm />
+        </Modal.Body>
+    </Modal>
+
+
         </>
     );
 }

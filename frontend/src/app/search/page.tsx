@@ -17,7 +17,7 @@ export default async function results(){
 
 
 
-                    {businesses.map(business =><BusinessCard key={business.businessId} business={business} />)}
+                    {businesses.map(business =><BusinessCard key={business.businessId} section={section.sectionName} />)}
 
 
 
