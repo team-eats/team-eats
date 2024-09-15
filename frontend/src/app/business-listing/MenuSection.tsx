@@ -1,18 +1,22 @@
-'use client'
 
+import React from "react";
 import {MenuItemCard} from "@/app/business-listing/MenuItemCard";
+import {Props} from "next/script";
 
-export function MenuSection() {
+export function MenuSection(props: Props) {
+
+    const Section = (props: string) => {
+
+    }
+
     return(
         <>
-            <h3 className='text-2xl'>Appetizers</h3>
+            <h3 className='text-2xl'>{Section.text}</h3>
+
             <div className='overflow-x-auto flex gap-3'>
-                <MenuItemCard />
-                <MenuItemCard />
-                <MenuItemCard />
-                <MenuItemCard />
-                <MenuItemCard />
+            <MenuItemCard />
             </div>
         </>
     )
 }
+
