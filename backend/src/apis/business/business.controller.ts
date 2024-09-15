@@ -160,7 +160,6 @@ export async function getBusinessByBusinessIdController (request: Request, respo
 export async function getBusinessByBusinessNameController (request: Request, response: Response): Promise<Response<Status>> {
     try {
         const validationResult = z.string()
-            .uuid({message: 'please provide a valid business name.'})
             .safeParse(request.params.businessName)
 
         if (!validationResult.success) {

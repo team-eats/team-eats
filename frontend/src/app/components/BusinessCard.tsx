@@ -4,7 +4,7 @@
 import { Card } from "flowbite-react";
 import Image from "next/image";
 import ReactCardFlip from "react-card-flip";
-import {useState} from "react";
+import React, {useState} from "react";
 import {Business} from "@/app/utils/models/business/business.validator";
 import Link from "next/link";
 
@@ -25,7 +25,7 @@ export function BusinessCard(props: businessCardProps) {
     return (
         <Card
             className="min-w-[16rem] max-w-[16rem] h-[22rem] box-border mx-auto container"
-            renderImage={() => <Image width={150} height={200} src="/images/blog/image-1.jpg" alt="image 1" />}>
+            renderImage={() => <Link href={`/business-listing/${business.businessName}`}><Image width={150} height={200} src="/images/blog/image-1.jpg" alt="image 1" /></Link>}>
 
             <ReactCardFlip flipDirection={'horizontal'} isFlipped={isFlipped}>
                 <div onClick={flipCard}>
