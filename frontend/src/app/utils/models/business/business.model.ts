@@ -44,5 +44,24 @@ export async function fetchBusinessByBusinessId(businessId: string): Promise<Bus
     return BusinessSchema.parse(data)
 }
 
+export async function fetchBusinessByName(businessName: string): Promise<Business> {
+    noStore()
+
+    const {data} = await fetch (`${process.env.PUBLIC_API_URL}/apis/businessName/${businessName}`, {
+        method: "get",
+        headers: {
+            "Content-Type": "application/json",
+        },
+    }).then((response: Response) => {
+        if (!response.ok) {
+            throw new Error('Error fetching business name')
+        } else {
+            return response.json()
+        }
+    })
+
+    return BusinessSchema.parse(data)
+}
+
 
 // export async function fetchBusinessByBusinessProfileId
