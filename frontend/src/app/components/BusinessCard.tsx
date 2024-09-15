@@ -6,6 +6,7 @@ import Image from "next/image";
 import ReactCardFlip from "react-card-flip";
 import {useState} from "react";
 import {Business} from "@/app/utils/models/business/business.validator";
+import Link from "next/link";
 
 type businessCardProps = {
     business: Business
