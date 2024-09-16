@@ -1,9 +1,18 @@
 'use client'
 
 import {Button, Modal, Dropdown, Navbar, Label, TextInput} from "flowbite-react";
-import { useState } from "react";
-import {BusinessCard} from "@/app/components/BusinessCard";
+import React, { useState } from "react";
+import Image from 'next/image';
+import {SignInForm} from "@/app/login/SignInForm"
+import {SignUpForm} from "@/app/login/SignUpForm";
 
+
+
+
+const businessData= [
+
+    { businessPhoto: "/images/card-top.jpg", businessName: 'SouthWestern Express', businessBio: 'No Bio' }
+];
 
 
 
@@ -13,18 +22,35 @@ export function Navigation() {
     const [openSettingsModal, setOpenSettingsModal] = useState(false);
     const [email, setEmail] = useState('');
 
+    const [openSignInModal, setOpenSignInModal] = useState(false);
+    const [openSignUpModal, setOpenSignUpModal] = useState(false);
+
     function onCloseSettingsModal() {
         setOpenSettingsModal(false);
         setEmail('');
+
     }
+
+    function onCloseSignInModal() {
+        setOpenSignInModal(false);
+        setEmail('');
+    }
+
+    function onCloseSignUpModal() {
+
+        setOpenSignUpModal(false);
+        setEmail('')
+    }
+
+
     return (
 
         <>
             <Navbar fluid rounded>
                 <Navbar.Brand href="/">
-                    <img src="/placeholder-logo.png" className="px-2 h-12 hover:border-red-800" alt="placeholder logo"/>
+                    <img src="/placeholder-logo.png" className="h-12 hover:border-red-800" alt="placeholder logo"/>
                     <span
-                        className="hidden sm:block self-center whitespace-nowrap text-black text-5xl hover:text-red-950 hover:rounded-xl hover:border-red-800dark:text-white">Team Eats</span>
+                        className="self-center whitespace-nowrap text-black text-5xl hover:text-red-950 hover:rounded-xl hover:border-red-800dark:text-white">Team Eats</span>
                 </Navbar.Brand>
                 <form action= "/search" className="flex items-center max-w-sm py-4">
                     <label htmlFor="simple-search" className="sr-only">Search</label>
@@ -37,8 +63,8 @@ export function Navigation() {
                                       d="M3 5v10M3 5a2 2 0 1 0 0-4 2 2 0 0 0 0 4Zm0 10a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm12 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm0 0V6a3 3 0 0 0-3-3H9m1.5-2-2 2 2 2"/>
                             </svg>
                         </div>
-                        <input type="text" id="simple-search"
-                               className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg hover:border-red-800 focus:ring-red-800 focus:border-red-800 block w-40 sm:w-full ps-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-red-500 dark:focus:border-red-500 px-14"
+                        <input name= "searchTerm" type="text" id="simple-search"
+                               className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg hover:border-red-800 focus:ring-red-800 focus:border-red-800 block w-full ps-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-red-500 dark:focus:border-red-500 px-14"
                                placeholder="Search Eats..." required/>
                     </div>
                     <button type="submit"
@@ -72,16 +98,21 @@ export function Navigation() {
                             <span className="block text-sm">Team Eats</span>
                             <span className="block truncate text-sm font-medium">Options</span>
                         </Dropdown.Header>
+                        <Dropdown.Item href="/listing-form">
+                            Business Listing
+                        </Dropdown.Item>
                         <Dropdown.Item onClick={() => setOpenSettingsModal(true)}>Profile Settings</Dropdown.Item>
                         <Dropdown.Item onClick={() => setOpenFavoritesModal(true)}>Favorites</Dropdown.Item>
                         <Dropdown.Item className='block xl:hidden text-left'>About Us</Dropdown.Item>
                         <Dropdown.Divider/>
-                        <Dropdown.Item href="/login" >Sign In / Create Account</Dropdown.Item>
+                        <Dropdown.Item onClick={() => setOpenSignInModal(true)}>Sign In</Dropdown.Item>
+                        <Dropdown.Item onClick={() => setOpenSignUpModal(true)}>Sign Up</Dropdown.Item>
                         <Dropdown.Item>Sign Out</Dropdown.Item>
                     </Dropdown>
                 </div>
             </Navbar>
 
+            {/*Settings Modal*/}
             <Modal show={openSettingsModal} size="md" onClose={onCloseSettingsModal} popup>
                 <Modal.Header />
                 <Modal.Body>
@@ -110,16 +141,25 @@ export function Navigation() {
                 </Modal.Body>
             </Modal>
 
-            <Modal dismissible show={openFavoritesModal} onClose={() => setOpenFavoritesModal(false )}>
-                <Modal.Header className={"bg-orange-200"}>Favorite Eats</Modal.Header>
+            {/*Sign In Modal*/}
+            <Modal show={openSignInModal} size="md" onClose={onCloseSignInModal}
+                   popup>
+                <Modal.Header className={"bg-orange-200"}>Sign In</Modal.Header>
                 <Modal.Body className={"bg-red-700"}>
-                    <div>
-                        {/*<BusinessCard business={} />*/}
-                    </div>
-            </Modal.Body>
-            <Modal.Footer className={"bg-orange-200"}>
-            </Modal.Footer>
+                    <SignInForm />
+                </Modal.Body>
             </Modal>
+
+
+            {/* Sign Up Modal */}
+            <Modal show={openSignUpModal} size="md" onClose={onCloseSignUpModal} popup>
+                <Modal.Header />
+                <Modal.Body>
+                    <SignUpForm />
+                </Modal.Body>
+            </Modal>
+
+
         </>
     );
 }
