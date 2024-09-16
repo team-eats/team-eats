@@ -1,3 +1,5 @@
+
+
 import {BusinessCard} from "@/app/components/BusinessCard";
 import {fetchAllBusinesses} from "@/app/utils/models/business/business.model";
 
