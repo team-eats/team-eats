@@ -127,7 +127,7 @@ function SignInFormContent(props: FormikProps<FormSchema>) {
                 <DisplayStatus status={status} />
             </form>
 
-            <FormDebugger {...props} />
+            {/*<FormDebugger {...props} />*/}
         </>
     )
 }

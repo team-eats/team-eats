@@ -5,18 +5,17 @@
 import { Card } from "flowbite-react";
 import Image from "next/image";
 import ReactCardFlip from "react-card-flip";
-import {useState} from "react";
 
 
-export interface Business {
-    business: {
-        businessPhoto: string;
-        businessName: string;
-        businessBio: string;
-    };
-}
 
-export function BusinessCard({ business }: Business) {
+import React, {useState} from "react";
+import {Business} from "@/app/utils/models/business/business.validator";
+import Link from "next/link";
+
+
+
+
+export function BusinessCard({ business }: {business: Business}) {
     const [isFlipped, setIsFlipped] = useState(false);
 
     function flipCard() {
@@ -28,14 +27,13 @@ export function BusinessCard({ business }: Business) {
     return (
         <Card
             className="min-w-[16rem] max-w-[16rem] h-[22rem] box-border mx-auto container"
-            renderImage={() => (
-                <Image width={200} height={250} src={imageUrl} alt={`${business.businessName} photo`}
-                    className="object-cover"/>
-            )}
-        >
-            <ReactCardFlip flipDirection="horizontal" isFlipped={isFlipped}>
-                <div onClick={flipCard} className="p-4 cursor-pointer">
-                    <h5 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
+
+            renderImage={() => <Link href={`/business-listing/${business.businessName}`}><Image width={150} height={200} src="/images/blog/image-1.jpg" alt="image 1" /></Link>}>
+
+            <ReactCardFlip flipDirection={'horizontal'} isFlipped={isFlipped}>
+                <div onClick={flipCard}>
+                    <h5 className="card text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
+
                         {business.businessName}
                     </h5>
                     <p className="font-normal text-gray-700 dark:text-gray-400">Come to {business.businessName}!</p>

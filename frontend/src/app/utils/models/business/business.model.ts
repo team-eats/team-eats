@@ -19,7 +19,6 @@ export async function fetchAllBusinesses() : Promise<Business[]> {
             return response.json()
         }
 
-
     })
 
     return BusinessSchema.array().parse(data)
@@ -44,4 +43,29 @@ export async function fetchBusinessByBusinessId(businessId: string): Promise<Bus
     return BusinessSchema.parse(data)
 }
 
+
+
+export async function fetchBusinessByName(businessName: string): Promise<Business | null> {
+    noStore()
+
+console.log('fetching businesses?')
+
+    const {data} = await fetch (`${process.env.PUBLIC_API_URL}/apis/business/businessName/${businessName}`, {
+        method: "get",
+        headers: {
+            "Content-Type": "application/json",
+        },
+    }).then((response: Response) => {
+        if (!response.ok) {
+            throw new Error('Error fetching business name')
+        } else {
+            return response.json()
+        }
+    })
+
+    return BusinessSchema.nullable().parse(data)
+}
+
+
+// export async function fetchBusinessByBusinessProfileId
 

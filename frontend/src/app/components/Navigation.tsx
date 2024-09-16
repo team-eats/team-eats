@@ -2,11 +2,13 @@
 
 import {Button, Modal, Dropdown, Navbar, Label, TextInput} from "flowbite-react";
 import React, { useState } from "react";
-import {BusinessCard} from "@/app/components/BusinessCard";
+
+
 import Image from 'next/image';
 import {SignInForm} from "@/app/login/SignInForm"
 import {SignUpForm} from "@/app/login/SignUpForm";
 import {SignOutButton} from "@/app/components/SignOutButton";
+
 
 
 
@@ -15,6 +17,13 @@ const businessData= [
     { businessPhoto: "/images/card-top.jpg", businessName: 'SouthWestern Express', businessBio: 'No Bio' }
 ];
 
+
+
+
+
+
+export function Navigation() {
+    const [openFavoritesModal, setOpenFavoritesModal] = useState(false);
 
 
     const [openSettingsModal, setOpenSettingsModal] = useState(false);
@@ -31,7 +40,9 @@ const businessData= [
 
     function onCloseSignInModal() {
         setOpenSignInModal(false);
-       setEmail('');
+
+        setEmail('');
+
     }
 
     function onCloseSignUpModal() {
@@ -105,7 +116,11 @@ const businessData= [
                         <Dropdown.Divider/>
                         <Dropdown.Item onClick={() => setOpenSignInModal(true)}>Sign In</Dropdown.Item>
                         <Dropdown.Item onClick={() => setOpenSignUpModal(true)}>Sign Up</Dropdown.Item>
+
                         <Dropdown.Item><SignOutButton /></Dropdown.Item>
+
+                        <Dropdown.Item>Sign Out</Dropdown.Item>
+
                     </Dropdown>
                 </div>
             </Navbar>
@@ -141,36 +156,22 @@ const businessData= [
 
             {/*Sign In Modal*/}
             <Modal show={openSignInModal} size="md" onClose={onCloseSignInModal}
-            popup>
+popup>
                 <Modal.Header className={"bg-orange-200"}>Sign In</Modal.Header>
                 <Modal.Body className={"bg-red-700"}>
                     <SignInForm />
-            </Modal.Body>
-        </Modal>
-
-
-    {/*Favorites Modal*/}
-            <Modal dismissible show={openFavoritesModal} onClose={() => setOpenFavoritesModal(false)}>
-                <Modal.Header className="bg-orange-200">Favorite Eats</Modal.Header>
-                <Modal.Body className="bg-red-700">
-                    <div>
-                        {businessData.map((business, index) => (
-                            <BusinessCard key={index} business={business} />
-                        ))}
-                    </div>
                 </Modal.Body>
-                <Modal.Footer className="bg-orange-200">
-                    <Button onClick={() => setOpenFavoritesModal(false)}>Close</Button>
-                </Modal.Footer>
             </Modal>
 
-    {/* Sign Up Modal */}
-    <Modal show={openSignUpModal} size="md" onClose={onCloseSignUpModal} popup>
-        <Modal.Header />
-        <Modal.Body>
-            <SignUpForm />
-        </Modal.Body>
-    </Modal>
+
+            {/* Sign Up Modal */}
+            <Modal show={openSignUpModal} size="md" onClose={onCloseSignUpModal} popup>
+                <Modal.Header />
+                <Modal.Body>
+                    <SignUpForm />
+                </Modal.Body>
+            </Modal>
+
 
 
         </>
