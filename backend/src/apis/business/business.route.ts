@@ -32,6 +32,9 @@ router.route('/businessName/:businessName')
 router.route('/businessBio/:businessBio')
     .get(getBusinessByBusinessBio)
 
+router.route('/search/:search')
+    .get(getBusinessByBusinessBio, getBusinessByBusinessNameController)
+
 router.route('/:businessId')
     .get(getBusinessByBusinessIdController)
     .put(putBusinessController)

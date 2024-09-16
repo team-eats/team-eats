@@ -4,7 +4,6 @@ import {Business, BusinessSchema} from "@/app/utils/models/business/business.val
 
 
 
-
 export async function fetchAllBusinesses() : Promise<Business[]> {
     noStore()
     const {data} = await fetch(`${process.env.PUBLIC_API_URL}/apis/business`, {
@@ -47,8 +46,6 @@ export async function fetchBusinessByBusinessId(businessId: string): Promise<Bus
 export async function fetchBusinessByName(businessName: string): Promise<Business | null> {
     noStore()
 
-console.log('fetching businesses?')
-
     const {data} = await fetch (`${process.env.PUBLIC_API_URL}/apis/business/businessName/${businessName}`, {
         method: "get",
         headers: {
@@ -64,6 +61,9 @@ console.log('fetching businesses?')
 
     return BusinessSchema.nullable().parse(data)
 }
+
+
+//export async function fetchBusinessByBusinessBio
 
 
 // export async function fetchBusinessByBusinessProfileId
