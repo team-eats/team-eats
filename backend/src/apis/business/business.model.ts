@@ -162,6 +162,22 @@ export async function selectBusinessByBusinessName(businessName: string): Promis
     return result?.length < 1 ? null : result[0]
 }
 
+export async function selectSearchBusinessesByName(businessName: string): Promise<Business[] | null> {
+    const rowList = await sql`SELECT
+        business_id,
+        business_profile_id, 
+        business_name, 
+        business_photo, 
+        business_hours, 
+        business_bio, 
+        business_email, 
+        business_phone
+    FROM business
+    WHERE business_name = LEVENSHTEIN ${businessName} <= 2`
+
+    return BusinessSchema.array().parse(rowList)
+}
+
 export async function selectBusinessByBusinessBio(businessBio: string): Promise<Business[]> {
     const rowList = await sql`SELECT
         business_id,
