@@ -3,6 +3,7 @@ import React from "react";
 import {MenuSection} from "@/app/business-listing/MenuSection";
 import {fetchBusinessByBusinessId} from "@/app/utils/models/business/business.model";
 import {fetchBusinessByName} from "@/app/utils/models/business/business.model";
+import {getSession} from "@/app/utils/session.utils";
 
 
 type Props = {
@@ -44,7 +45,7 @@ export default async function (props: Props) {
 
                     <h2 className='block text-6xl my-10 underline underline-offset-8'>{business.businessName}</h2>
 
-                    <MenuSection />
+                    <MenuSection businessId={business.businessId}  session={props.session}/>
 
                 </div>
             </div>
