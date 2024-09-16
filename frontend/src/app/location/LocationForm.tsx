@@ -7,7 +7,6 @@ import {Session} from "@/app/utils/session.utils";
 import {toFormikValidationSchema} from "zod-formik-adapter";
 import {Button, Datepicker, Label, TextInput} from "flowbite-react";
 import {DisplayError} from "@/app/components/DisplayError";
-import DateTimePicker from "react-datetime-picker";
 import {FormDebugger} from "@/app/components/FormDebugger";
 import 'react-datetime-picker/dist/DateTimePicker.css';
 import 'react-calendar/dist/Calendar.css';
@@ -17,7 +16,22 @@ import {DisplayStatus} from "@/app/components/DisplayStatus";
 
 
 const CreateLocationSchema = LocationSchema
-    .omit({locationId: true, locationBusinessId: true})
+    .omit({locationId: true, locationBusinessId: true, locationActive: true})
+    .extend({
+        locationDate: z.coerce.date({
+            required_error: 'please provide a valid date',
+            invalid_type_error: 'date must be a string'}),
+
+        locationStartTime: z.string({
+            required_error: 'please provide a valid start time',
+            invalid_type_error: 'start time must be a string'})
+            .time(),
+
+        locationEndTime: z.string({
+            required_error: 'please provide a valid end time',
+            invalid_type_error: 'end time must be a string'})
+            .time()
+    })
 
 type CreateLocation = z.infer<typeof CreateLocationSchema>
 
@@ -28,20 +42,41 @@ export function LocationForm(props: Props) {
 
     const initialValues = {
         locationOfBusiness: '',
-        locationActive: false,
+        locationDate: new Date(),
+        locationStartTime: '10:00',
+        locationEndTime: '22:00',
         locationStartDatetime: new Date(),
         locationEndDatetime: new Date()
     }
 
     const handleSubmit = (values: CreateLocation, actions: FormikHelpers<CreateLocation>) => {
         const {setStatus, resetForm} = actions
+        console.log(values)
+
+        const {
+            locationDate,
+            locationStartTime,
+            locationEndTime
+        } = values
+
+        const locationStartDatetime = `${locationDate} ${locationStartTime}`
+        const locationEndDateTime = `${locationDate} ${locationEndTime}`
+
+        const newValues = {
+            locationOfBusiness: values.locationOfBusiness,
+            locationStartDatetime: locationStartDatetime,
+            locationEndDatetime: locationEndDateTime
+        }
+
+        console.log(newValues)
+
         fetch('/apis/location', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': session.authorization
             },
-            body: JSON.stringify(values)
+            body: JSON.stringify(newValues)
         })
             .then(response => response.json())
             .then(data => {
@@ -95,21 +130,9 @@ export function LocationFormContent(props: FormikProps<CreateLocation>) {
                     <DisplayError errors={errors} touched={touched} field={'locationOfBusiness'}/>
                 </div>
 
-                {/*<div>*/}
-                {/*    <Label htmlFor='locationStartDatetime' value='Start time'/>*/}
-
-                {/*    <DateTimePicker onChange={handleChange} id='locationStartDateTime' name={'locationStartDatetime'} value={values.locationStartDatetime} minDate={new Date()}/>*/}
-                {/*</div>*/}
-
-                {/*<div>*/}
-                {/*    <Label htmlFor='locationEndDatetime' value='End time'/>*/}
-
-                {/*    <DateTimePicker onChange={handleChange} id='locationEndDateTime' name={'locationEndDatetime'} value={values.locationEndDatetime}/>*/}
-                {/*</div>*/}
-                
                 <div>
                     <Label htmlFor={'locationDate'} value={'Date:'} />
-                    <Datepicker name='locationDate' minDate={new Date()} />
+                    <Datepicker onChange={handleChange} name='locationDate' minDate={new Date()} value={values.locationDate} />
                 </div>
 
                 <div className='flex gap-6'>
@@ -122,13 +145,17 @@ export function LocationFormContent(props: FormikProps<CreateLocation>) {
                                 className="absolute inset-y-0 end-0 top-0 flex items-center pe-3.5 pointer-events-none">
                                 <svg className="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true"
                                      xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
-                                    <path fill-rule="evenodd"
+                                    <path fillRule="evenodd"
                                           d="M2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10S2 17.523 2 12Zm11-4a1 1 0 1 0-2 0v4a1 1 0 0 0 .293.707l3 3a1 1 0 0 0 1.414-1.414L13 11.586V8Z"
-                                          clip-rule="evenodd"/>
+                                          clipRule="evenodd"/>
                                 </svg>
                             </div>
                             <input type="time" id="start-time"
-                                   className="bg-gray-50 border leading-none border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" value={'locationStartTime'} required/>
+                                   className="bg-gray-50 border leading-none border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                   onChange={handleChange}
+                                   value={values.locationStartTime}
+                                   name="locationStartDatetime"
+                                   required/>
                         </div>
                     </div>
                     <div>
@@ -140,14 +167,17 @@ export function LocationFormContent(props: FormikProps<CreateLocation>) {
                                 className="absolute inset-y-0 end-0 top-0 flex items-center pe-3.5 pointer-events-none">
                                 <svg className="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true"
                                      xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
-                                    <path fill-rule="evenodd"
+                                    <path fillRule="evenodd"
                                           d="M2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10S2 17.523 2 12Zm11-4a1 1 0 1 0-2 0v4a1 1 0 0 0 .293.707l3 3a1 1 0 0 0 1.414-1.414L13 11.586V8Z"
-                                          clip-rule="evenodd"/>
+                                          clipRule="evenodd"/>
                                 </svg>
                             </div>
                             <input type="time" id="end-time"
                                    className="bg-gray-50 border leading-none border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                   value="00:00" required/>
+                                   onChange={handleChange}
+                                   value={values.locationEndTime}
+                                   name="locationEndDatetime"
+                                   required/>
                         </div>
                     </div>
                 </div>
