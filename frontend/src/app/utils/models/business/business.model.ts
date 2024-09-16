@@ -45,4 +45,3 @@ export async function fetchBusinessByBusinessId(businessId: string): Promise<Bus
 }
 
 
-// export async function fetchBusinessByBusinessProfileId

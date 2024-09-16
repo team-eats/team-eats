@@ -16,8 +16,6 @@ export interface Business {
     };
 }
 
-
-
 export function BusinessCard({ business }: Business) {
     const [isFlipped, setIsFlipped] = useState(false);
 
@@ -25,11 +23,14 @@ export function BusinessCard({ business }: Business) {
         setIsFlipped(!isFlipped);
     }
 
+    //Ensure business.businessPhoto is not null or undefined
+    const imageUrl = business.businessPhoto || "/images/default.jpg";
     return (
         <Card
             className="min-w-[16rem] max-w-[16rem] h-[22rem] box-border mx-auto container"
             renderImage={() => (
-                <Image width={150} height={200} src="/images/blog/image-1.jpg" alt="image 1" />
+                <Image width={200} height={250} src={imageUrl} alt={`${business.businessName} photo`}
+                    className="object-cover"/>
             )}
         >
             <ReactCardFlip flipDirection="horizontal" isFlipped={isFlipped}>

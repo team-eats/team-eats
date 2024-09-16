@@ -4,8 +4,8 @@ import {BusinessCard} from "@/app/components/BusinessCard";
 import {fetchAllBusinesses} from "@/app/utils/models/business/business.model";
 
 export async function HomepageSection() {
-    const businesses = await fetchAllBusinesses()
-    console.log(businesses)
+    const businesses = await fetchAllBusinesses();
+    console.log(businesses);
     return (
         <section className="mx-full my-5 mb-16 ">
             <div>

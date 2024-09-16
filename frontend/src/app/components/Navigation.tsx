@@ -10,7 +10,6 @@ import {SignOutButton} from "@/app/components/SignOutButton";
 
 
 
-
 const businessData= [
 
     { businessPhoto: "/images/card-top.jpg", businessName: 'SouthWestern Express', businessBio: 'No Bio' }
