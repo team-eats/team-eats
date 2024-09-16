@@ -5,6 +5,8 @@ import {SectionSchema,} from "@/app/utils/models/section/section.validator";
 import {z} from "zod";
 import {Session} from "@/app/utils/session.utils";
 import {FormikHelpers} from "formik";
+import React from "react";
+import {toFormikValidationSchema} from "zod-formik-adapter";
 
 const menuSectionSchema = SectionSchema
     .omit({sectionId: true, sectionBusinessId: true})
@@ -18,7 +20,7 @@ export function MenuSection(props:Props) {
     const session = props.session;
 
 
-    const initialValues  = {
+    const initialValues = {
         sectionName: '',
         sectionDescription: '',
         sectionOrder: 0
@@ -48,7 +50,7 @@ export function MenuSection(props:Props) {
                 .then(response => response.json())
                 .then(data => {
                     let type = 'failure'
-                    if(data.status === 200) {
+                    if (data.status === 200) {
                         type = 'success'
                         resetForm()
                     }
@@ -61,18 +63,39 @@ export function MenuSection(props:Props) {
         }
     }
 
-
-
-   return(
+    return (
         <>
-            <h3 className='text-2xl'>Appetizers</h3>
-            <div className='overflow-x-auto flex gap-3'>
-                <MenuItemCard />
-                <MenuItemCard />
-                <MenuItemCard />
-                <MenuItemCard />
-                <MenuItemCard />
-            </div>
+            <formiK>
+                initialValues=
+                {initialValue} onsubmit ={handleSubmit} validationSchema={toFormikValidationSchema(menuSectionSchema)}>
+                {MenuSectionFormContent}
+            </formiK>
+
         </>
     )
+
 }
+
+export function MenuSectionFormContent
+
+
+
+
+
+
+
+
+
+//    return(
+//         <>
+//             <h3 className='text-2xl'>Appetizers</h3>
+//             <div className='overflow-x-auto flex gap-3'>
+//                 <MenuItemCard />
+//                 <MenuItemCard />
+//                 <MenuItemCard />
+//                 <MenuItemCard />
+//                 <MenuItemCard />
+//             </div>
+//         </>
+//     )
+// }
