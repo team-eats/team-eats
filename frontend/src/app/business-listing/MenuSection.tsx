@@ -1,178 +1,18 @@
- 'use server'
+'use client'
 
 import {MenuItemCard} from "@/app/business-listing/MenuItemCard";
-import {SectionSchema,} from "@/app/utils/models/section/section.validator";
-import {z} from "zod";
-import {Session} from "@/app/utils/session.utils";
-import {Formik, FormikHelpers, FormikProps} from "formik";
-import React from "react";
-import {toFormikValidationSchema} from "zod-formik-adapter";
-import {Button, Label, TextInput} from "flowbite-react";
-import {DisplayError} from "@/app/components/DisplayError";
-import {DisplayStatus} from "@/app/components/DisplayStatus";
-import {FormDebugger} from "@/app/components/FormDebugger";
-import {fetchBusinessByBusinessId} from "@/app/utils/models/business/business.model";
 
-const menuSectionSchema = SectionSchema
-    .omit({sectionId: true, sectionBusinessId: true})
-
-type MenuSection = z.infer<typeof menuSectionSchema>
-
-type Props = {session: Session|undefined, businessId: string} // do we need this to show we are logged in, so we can put a section in a menu?
-
-
-export async function MenuSection(props:Props) {
-    const session = props.session;
-    const businessId = props.businessId;
-
-
-    const initialValues = {
-        sectionName: '',
-        sectionDescription: '',
-        sectionOrder: 0
-    }
-
-
-    const handleSubmit = (values: MenuSection, actions: FormikHelpers<MenuSection>) => {
-
-        const newSectionValues = {
-            sectionId: null,
-            sectionBusinessId: businessId, // is this needed, or do we need to alter this in sessions?  adding something in the session to show we own a business.
-            sectionName: values.sectionName,
-            sectionDescription: values.sectionDescription,
-            sectionOrder: values.sectionOrder
-        }
-        const {setStatus, resetForm} = actions
-        fetch('/apis/section/', {
-            method: 'POST',
-            headers: {
-                'Authorization': session.authorization,
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(newSectionValues)
-        })
-            .then(response => response.json())
-            .then(data => {
-                let type = 'failure'
-                if (data.status === 200) {
-                    type = 'success'
-                    resetForm()
-                }
-                setStatus({type, message: data.message})
-            })
-            .catch(error => {
-                console.log(error)
-                setStatus({type: 'failure', message: 'input is an error, try again.'})
-            })
-    }
-
-    return (
+export function MenuSection() {
+    return(
         <>
-            <Formik
-                initialValues={initialValues} onsubmit ={handleSubmit} validationSchema={toFormikValidationSchema(menuSectionSchema)}>
-                {MenuSectionFormContent}
-            </Formik>
-
+            <h3 className='text-2xl'>Appetizers</h3>
+            <div className='overflow-x-auto flex gap-3'>
+                <MenuItemCard />
+                <MenuItemCard />
+                <MenuItemCard />
+                <MenuItemCard />
+                <MenuItemCard />
+            </div>
         </>
     )
-
 }
-
-export async function MenuSectionFormContent(props: FormikProps<MenuSection>) {
-
-    const {
-        status,
-        values,
-        errors,
-        touched,
-        handleChange,
-        handleBlur,
-        handleSubmit,
-        handleReset,
-    } = props;
-
-
-    return (
-
-        <>
-
-            <form onSubmit={handleSubmit} className="">
-                <div>
-                    <div>
-                        <Label htmlFor="sectionName" value="Section Name"/>
-                    </div>
-                    <TextInput
-                        onchange={handleSubmit}
-                        onBlur={handleBlur}
-                        autoComplete='organization'
-                        id="sectionName"
-                        name={'sectionName'}
-                        type='text'
-                        value={values.sectionName}
-                    />
-                    <DisplayError errors={errors} touched={touched} field={'sectionName'}/>
-                </div>
-
-                <div>
-
-                    <div>
-                        <Label htmlFor="sectionDescription" value="Section Description"/>
-                    </div>
-                    <TextInput
-                        onchange={handleChange}
-                        onBlur={handleBlur}
-                        autoComplete='organization'
-                        id="sectioDescription"
-                        name={"sectionDescription"}
-                        type='text'
-                        value={values.sectionDescription}
-                    />
-                    <DisplayError errors={errors} touched={touched} field={'sectionDescription'}/>
-                </div>
-
-                <div>
-                    <div>
-                        <Label htmlFor="sectionOrder" value="Section Order"/>
-                    </div>
-                    <TextInput
-                        onChange={handleChange}
-                        onBlur={handleBlur}
-                        autoComplete='organization'
-                        id="sectionOrder"
-                        name={"sectionOrder"}
-                        type='number'
-                        value={values.sectionOrder}
-                    />
-
-                    <DisplayError errors={errors} touched={touched} field={'sectionOrder'}/>
-                </div>
-                <Button color={'success'} type="submit" onClick={handleReset}>Submit</Button>
-                <DisplayStatus status={status}/>
-            </form>
-            <FormDebugger {...props} />
-
-
-        </>
-    )
-
-
-}
-
-
-
-
-
-
-//    return(
-//         <>
-//             <h3 className='text-2xl'>Appetizers</h3>
-//             <div className='overflow-x-auto flex gap-3'>
-//                 <MenuItemCard />
-//                 <MenuItemCard />
-//                 <MenuItemCard />
-//                 <MenuItemCard />
-//                 <MenuItemCard />
-//             </div>
-//         </>
-//     )
-// }

@@ -4,6 +4,7 @@ import {MenuSection} from "@/app/business-listing/MenuSection";
 import {fetchBusinessByBusinessId} from "@/app/utils/models/business/business.model";
 import {fetchBusinessByName} from "@/app/utils/models/business/business.model";
 import {getSession} from "@/app/utils/session.utils";
+import {redirect} from "next/navigation";
 
 
 type Props = {
@@ -15,6 +16,11 @@ export default async function (props: Props) {
     const businessName = props.params.businessName
 
     const business = await fetchBusinessByName(businessName)
+
+    if(business === null) {
+        redirect('/')
+    }
+
 
     return (
         <>
