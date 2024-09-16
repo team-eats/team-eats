@@ -10,7 +10,7 @@ export default function () {
             <div className='block sm:flex'>
                 <div className='hidden sm:flex min-w-[384px] sm:w-[384px] sm:-top-[0px] sm:fixed sm:h-[94px] text-red-700 bg-red-700 sm:-z-10 sm:border-r-2 sm:border-black select-none'>Filler</div>
                 <div className='sm:fixed'>
-                    <div className="sm:max-w-sm sm:h-screen sm:border-r-2 sm:border-black bg-red-700">
+                    <div className="min-w-[384px] sm:h-screen sm:border-r-2 sm:border-black bg-red-700">
                         <h2 className='block sm:hidden text-center text-4xl pt-5 underline underline-offset-8'>Tony's Pizzeria</h2>
                         <img src="https://placehold.co/300x300" alt="Placeholder business image"
                              className='mx-auto pt-10 pb-5'/>
