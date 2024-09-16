@@ -1,10 +1,18 @@
+'use client'
+
 import {LocationSchema} from "@/app/utils/models/location/location.validator";
 import {z} from "zod";
 import {Formik, FormikHelpers, FormikProps} from "formik";
 import {Session} from "@/app/utils/session.utils";
 import {toFormikValidationSchema} from "zod-formik-adapter";
-import {Label, TextInput} from "flowbite-react";
+import {Button, Label, TextInput} from "flowbite-react";
 import {DisplayError} from "@/app/components/DisplayError";
+import DateTimePicker from "react-datetime-picker";
+import {FormDebugger} from "@/app/components/FormDebugger";
+import 'react-datetime-picker/dist/DateTimePicker.css';
+import 'react-calendar/dist/Calendar.css';
+import 'react-clock/dist/Clock.css';
+import {DisplayStatus} from "@/app/components/DisplayStatus";
 
 
 
@@ -51,11 +59,9 @@ export function LocationForm(props: Props) {
     }
 
     return (
-        <>
-            <Formik initialValues={initialValues} onSubmit={handleSubmit} validationSchema={toFormikValidationSchema(CreateLocationSchema)}>
-                {LocationFormContent}
-            </Formik>
-        </>
+        <Formik initialValues={initialValues} onSubmit={handleSubmit} validationSchema={toFormikValidationSchema(CreateLocationSchema)}>
+            {LocationFormContent}
+        </Formik>
     )
 }
 
@@ -86,15 +92,28 @@ export function LocationFormContent(props: FormikProps<CreateLocation>) {
                         type='text'
                         value={values.locationOfBusiness}
                     />
-                    <DisplayError errors={errors} touched={touched}  field={'locationOfBusiness'}/>
+                    <DisplayError errors={errors} touched={touched} field={'locationOfBusiness'}/>
                 </div>
 
                 <div>
                     <Label htmlFor='locationStartDatetime' value='Start time'/>
 
+                    <DateTimePicker onChange={handleChange} id='locationStartDateTime' name={'locationStartDatetime'} value={values.locationStartDatetime} minDate={new Date()}/>
+                </div>
 
+                <div>
+                    <Label htmlFor='locationEndDatetime' value='End time'/>
+
+                    <DateTimePicker onChange={handleChange} id='locationEndDateTime' name={'locationEndDatetime'} value={values.locationEndDatetime}/>
+                </div>
+
+                <div>
+                    <Button onClick={handleReset}>Reset</Button>
+                    <Button color={'success'} type='submit'>Submit</Button>
+                    <DisplayStatus status={status} />
                 </div>
             </form>
+            <FormDebugger {...props} />
         </>
     )
 }
