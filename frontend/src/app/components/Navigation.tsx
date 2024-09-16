@@ -17,9 +17,6 @@ const businessData= [
 
 
 
-export function Navigation() {
-    const [openFavoritesModal, setOpenFavoritesModal] = useState(false);
-
     const [openSettingsModal, setOpenSettingsModal] = useState(false);
     const [email, setEmail] = useState('');
 
