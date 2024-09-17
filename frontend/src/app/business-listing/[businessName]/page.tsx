@@ -1,9 +1,6 @@
-
 import React from "react";
 import {MenuSection} from "@/app/business-listing/MenuSection";
-import {fetchBusinessByBusinessId} from "@/app/utils/models/business/business.model";
 import {fetchBusinessByName} from "@/app/utils/models/business/business.model";
-import {getSession} from "@/app/utils/session.utils";
 import {redirect} from "next/navigation";
 import {fetchAllLocationsByLocationBusinessId} from "@/app/utils/models/location/location.model";
 
@@ -25,11 +22,20 @@ export default async function (props: Props) {
     }
 
     // Do in backend
-    // for (let i in location) {
-    //     if (location[i].locationStartDatetime.getTime() < new Date().getTime() && location[i].locationEndDatetime.getTime() > new Date().getTime()) {
-    //
-    //     }
-    // }
+    function currentLocation() {
+        for (let i in location) {
+            if (!location[0].locationActive) {
+                if (location[i].locationStartDatetime.getTime() <= new Date().getTime() && location[i].locationEndDatetime.getTime() >= new Date().getTime()) {
+                    return location[i].locationOfBusiness;
+                }
+            } else {
+                return location[0].locationOfBusiness;
+            }
+        }
+        return 'This business has no current location';
+    }
+
+    let address = currentLocation()
 
     return (
         <>
@@ -42,7 +48,7 @@ export default async function (props: Props) {
                         <img src="https://placehold.co/300x300" alt="Placeholder business image"
                              className='mx-auto pt-10 pb-5'/>
 
-                        <p className='text-xl text-gray-950 mx-[42px] my-2'><span className='text-lg'>Address:</span></p>
+                        <p className='text-xl text-gray-950 mx-[42px] my-2'><span className='text-lg'>Address: </span>{address}</p>
                         {/*<p className='text-xl text-gray-950 mx-[42px] my-2'><span className='text-lg'>Hours:</span></p>*/}
 
                         <p className='text-xl text-gray-950 mx-[42px] my-2'><span className='text-lg'>{business.businessPhone}</span></p>
