@@ -177,9 +177,9 @@ export async function selectSearchBusinessesByName(searchTerm: string): Promise<
     FROM business
     INNER JOIN section ON section.section_business_id = business.business_id
     INNER JOIN item ON item.item_section_id = section.section_id
-    WHERE business_name LIKE ${formattedValue} 
+    WHERE business_name LIKE ${formattedValue}
     OR section_name LIKE ${formattedValue}
-    OR item_name % ${formattedValue}`
+    OR item_name LIKE ${formattedValue}`
 
     return BusinessSchema.array().parse(rowList)
 }
