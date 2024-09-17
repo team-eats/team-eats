@@ -2,7 +2,7 @@ import {Router} from "express";
 import {isLoggedInController} from "../../utils/controllers/isLoggedIn.controller";
 import {
     deleteItemByItemIdController,
-    getItemByItemIdController,
+    getItemByItemIdController, getItemsByItemSectionIdController,
     postItemController,
     putItemByItemIdController
 } from "./item.controller";
@@ -15,6 +15,9 @@ const router = Router ()
 
 router.route('/')
     .post(isLoggedInController, postItemController)
+
+router.route('/itemSectionId/:itemSectionId')
+    .get(getItemsByItemSectionIdController)
 
 router.route('/:itemId')
     .put(isLoggedInController, putItemByItemIdController)
