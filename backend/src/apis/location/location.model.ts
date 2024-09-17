@@ -26,12 +26,12 @@ export const LocationSchema = z.object({
         invalid_type_error: 'location active must be a boolean',
     }),
 
-    locationStartDatetime: z.date({
+    locationStartDatetime: z.coerce.date({
         required_error: 'please provide a valid location start datetime',
     })
         .nullable(),
 
-    locationEndDatetime: z.date({required_error: 'please provide a valid location end datetime',
+    locationEndDatetime: z.coerce.date({required_error: 'please provide a valid location end datetime',
 
     })
         .nullable()
