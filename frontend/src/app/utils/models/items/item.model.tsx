@@ -19,5 +19,3 @@ export async function fetchMenuItemByItemSectionId(itemSectionId: string): Promi
     return ItemSchema.array().parse(data)
 
 }
-
-export async function fetch
