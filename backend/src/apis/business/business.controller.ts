@@ -4,7 +4,7 @@ import {
     BusinessSchema, deleteBusinessByBusinessId,
     insertBusiness, selectAllBusinesses, selectBusinessByBusinessBio, selectBusinessByBusinessId,
     selectBusinessByBusinessName, selectBusinessesByBusinessProfileId,
-    selectBusinessByProfileName, updateBusiness
+    selectBusinessByProfileName, updateBusiness, selectSearchBusinessesByName
 } from "./business.model";
 import {zodErrorResponse} from "../../utils/response.utils";
 import {PrivateProfile, PrivateProfileSchema, PublicProfileSchema, updateProfile} from "../profile/profile.model";
@@ -204,6 +204,32 @@ export async function getBusinessByBusinessBio (request: Request, response: Resp
         return response.json({
             status: 500,
             message: '',
+            data: []
+        })
+    }
+}
+
+export async function getSearchBusinessByNameController (request: Request, response: Response): Promise<Response<Status>> {
+    try {
+        const validationResult = z.string({required_error: "please provide a valid search term", invalid_type_error:'invalid search term'}).max(100, {message: 'search term too long'}).safeParse(request.params.search)
+
+        if (!validationResult.success) {
+            return zodErrorResponse(response, validationResult.error)
+        }
+        // validate using zod
+        console.log('can i has cheese?')
+        //call to the search sqlEnabled function
+
+        const data = await selectSearchBusinessesByName(validationResult.data)
+
+        const status: Status = {status: 200, message: null, data}
+        return response.json(status)
+
+    } catch (error) {
+        console.error(error)
+        return response.json({
+            status: 500,
+            message: 'error getting search businesses',
             data: []
         })
     }

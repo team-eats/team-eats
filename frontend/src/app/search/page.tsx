@@ -1,9 +1,17 @@
-import {BusinessCard} from "@/app/components/BusinessCard";
-import {fetchAllBusinesses} from "@/app/utils/models/business/business.model";
 
-export default async function results(){
-    const businesses = await fetchAllBusinesses()
-    console.log(businesses)
+import {BusinessCard} from "@/app/components/BusinessCard";
+import {fetchAllBusinesses, fetchBusinessByName} from "@/app/utils/models/business/business.model";
+import {PageProps} from "@/app/utils/interfaces/NextComponents";
+
+
+type SearchParams = {q: string | undefined}
+
+export default async function results(props: PageProps<{}, SearchParams>){
+
+    const q = props.searchParams.q
+
+    const businesses = await fetchBusinessByName(q ?? '')
+
     return (
         <>
             <section className={"container mx-auto "}>
@@ -15,29 +23,11 @@ export default async function results(){
 
                 <div className="md:grid-cols-2 xl:grid-cols-4 grid grid-rows-1 gap-8 ">
 
-
-
                     {businesses.map(business =><BusinessCard key={business.businessId} business={business} />)}
 
-
-
-                    </div>
-
-
-
-
-
-
-                {/*<div className={"container mx-auto border border-black py-20 mt-5 "}>*/}
-                {/*    hello*/}
-                {/*</div>*/}
+                </div>
 
             </section>
-
-
         </>
     )
 }
-
-
-
