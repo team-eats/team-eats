@@ -1,4 +1,3 @@
-
 import {z} from "zod";
 import {sql} from "../../utils/database.utils";
 
@@ -98,6 +97,20 @@ export async function selectItemByItemId (itemId: string) : Promise<Item | null>
     const result = ItemSchema.array().max(1).parse(rowList)
 
     return result?.length === 0 ? null : result[0]
+}
+
+export async function selectItemsByItemSectionId (itemSectionId: string): Promise<Item[]> {
+    const rowList = await sql`SELECT
+            item_id,
+            item_section_id,
+            item_name,
+            item_description,
+            item_photo,
+            item_price,
+            item_order
+        FROM item
+        WHERE item_section_id = ${itemSectionId}`
+    return ItemSchema.array().parse(rowList)
 }
 
 
