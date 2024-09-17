@@ -1,4 +1,4 @@
-import {fetchBusinessByName} from "@/app/utils/models/business/business.model";
+import {fetchBusinessByName, fetchSingleBusinessByName} from "@/app/utils/models/business/business.model";
 import {getSession} from "@/app/utils/session.utils";
 import {redirect} from "next/navigation";
 import {MenuSectionForm} from "@/app/business-listing/[businessName]/admin/menuSectionForm";
@@ -15,7 +15,7 @@ type Props = {
 
 export default async function (props: Props) {
     const businessName = props.params.businessName
-    const business = await fetchBusinessByName(businessName)
+    const business = await fetchSingleBusinessByName(businessName)
     const session = await getSession()
 
     const sections = await fetchSectionsBySectionBusinessId(business?.businessId ?? '')
@@ -26,9 +26,6 @@ export default async function (props: Props) {
     if(session?.profile.profileId !== business.businessProfileId){
         redirect('..')
     }
-
-
-
 
     return (
         <>
