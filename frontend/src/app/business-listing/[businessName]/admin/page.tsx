@@ -3,6 +3,7 @@ import {getSession} from "@/app/utils/session.utils";
 import {redirect} from "next/navigation";
 import {MenuSectionForm} from "@/app/business-listing/[businessName]/admin/menuSectionForm";
 import {LocationForm} from "@/app/business-listing/[businessName]/admin/LocationForm";
+import {CreateItemForm} from "@/app/business-listing/[businessName]/admin/item.form";
 
 type Props = {
     params: {businessName: string}
@@ -28,6 +29,7 @@ export default async function (props: Props) {
 
             <MenuSectionForm session={session} businessId={business.businessId as string}/>
             <LocationForm session={session} businessId={business.businessId as string}/>
+            <CreateItemForm session={session}/>
             </>
 
     )
