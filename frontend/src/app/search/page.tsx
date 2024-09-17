@@ -1,6 +1,6 @@
 
 import {BusinessCard} from "@/app/components/BusinessCard";
-import {fetchAllBusinesses} from "@/app/utils/models/business/business.model";
+import {fetchAllBusinesses, fetchBusinessByName} from "@/app/utils/models/business/business.model";
 import {PageProps} from "@/app/utils/interfaces/NextComponents";
 
 
@@ -8,9 +8,9 @@ type SearchParams = {q: string | undefined}
 
 export default async function results(props: PageProps<{}, SearchParams>){
 
-    const businesses = await fetchAllBusinesses()
-
     const q = props.searchParams.q
+
+    const businesses = await fetchBusinessByName(q ?? '')
 
     return (
         <>
@@ -28,10 +28,6 @@ export default async function results(props: PageProps<{}, SearchParams>){
                 </div>
 
             </section>
-
         </>
     )
 }
-
-
-

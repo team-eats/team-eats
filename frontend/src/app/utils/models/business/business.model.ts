@@ -43,10 +43,10 @@ export async function fetchBusinessByBusinessId(businessId: string): Promise<Bus
 }
 
 
-export async function fetchBusinessByName(businessName: string): Promise<Business | null> {
+export async function fetchBusinessByName(searchTerm: string): Promise<Business[]> {
     noStore()
 
-    const {data} = await fetch (`${process.env.PUBLIC_API_URL}/apis/business/businessName/${businessName}`, {
+    const {data} = await fetch (`${process.env.PUBLIC_API_URL}/apis/business/search/${searchTerm}`, {
         method: "get",
         headers: {
             "Content-Type": "application/json",
@@ -59,7 +59,7 @@ export async function fetchBusinessByName(businessName: string): Promise<Busines
         }
     })
 
-    return BusinessSchema.nullable().parse(data)
+    return BusinessSchema.array().parse(data)
 }
 
 
