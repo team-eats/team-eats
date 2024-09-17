@@ -1,8 +1,15 @@
 'use client'
 
 import {MenuItemCard} from "@/app/business-listing/MenuItemCard";
+import {Business} from "@/app/utils/models/business/business.validator";
 
-export function MenuSection() {
+type MenuSectionProps = {
+    business: Business
+}
+
+export function MenuSection(props: MenuSectionProps) {
+    const {business} = props
+
     return(
         <>
             <h3 className='text-2xl'>Appetizers</h3>
