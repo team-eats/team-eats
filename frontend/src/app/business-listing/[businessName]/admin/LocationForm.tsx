@@ -16,42 +16,42 @@ import {DisplayStatus} from "@/app/components/DisplayStatus";
 
 
 const CreateLocationSchema = LocationSchema
-    .omit({locationId: true, locationBusinessId: true, locationActive: true})
+    .omit({locationId: true, locationBusinessId: true, locationActive: true, locationEndDatetime: true, locationStartDatetime: true})
     .extend({
-        locationDate: z.coerce.date({
+        locationDate: z.any({
             required_error: 'please provide a valid date',
             invalid_type_error: 'date must be a string'}),
 
-        locationStartTime: z.string({
+        locationStartTime: z.any({
             required_error: 'please provide a valid start time',
-            invalid_type_error: 'start time must be a string'})
-            .time(),
+            invalid_type_error: 'start time must be a string'}),
 
-        locationEndTime: z.string({
+        locationEndTime: z.any({
             required_error: 'please provide a valid end time',
             invalid_type_error: 'end time must be a string'})
-            .time()
     })
 
 type CreateLocation = z.infer<typeof CreateLocationSchema>
 
-type Props = {session: Session}
+type Props = {
+    session: Session,
+    businessId: string
+}
 
 export function LocationForm(props: Props) {
     const session = props.session
 
     const initialValues = {
         locationOfBusiness: '',
-        locationDate: new Date(),
+        locationDate: '',
         locationStartTime: '10:00',
         locationEndTime: '22:00',
-        locationStartDatetime: '',
-        locationEndDatetime: ''
     }
 
     const handleSubmit = (values: CreateLocation, actions: FormikHelpers<CreateLocation>) => {
         const {setStatus, resetForm} = actions
-        console.log(values)
+
+
 
         const {
             locationDate,
@@ -59,16 +59,23 @@ export function LocationForm(props: Props) {
             locationEndTime
         } = values
 
-        const locationStartDatetime = `${locationDate} ${locationStartTime}`
-        const locationEndDateTime = `${locationDate} ${locationEndTime}`
+        console.log(values)
+
+        const convertDate = new Date(locationDate)
+        const formattedDate = `${convertDate.getFullYear()}-${convertDate.getMonth() + 1}-${convertDate.getDate()}`
+        const locationStartDatetime = `${formattedDate} ${locationStartTime}`
+        const locationEndDateTime = `${formattedDate} ${locationEndTime}`
 
         const newValues = {
+            locationId: null,
+            locationBusinessId: props.businessId,
+            locationActive: true,
             locationOfBusiness: values.locationOfBusiness,
             locationStartDatetime: locationStartDatetime,
             locationEndDatetime: locationEndDateTime
         }
 
-        console.log(newValues)
+        // console.log()
 
         fetch('/apis/location', {
             method: 'POST',
@@ -93,6 +100,8 @@ export function LocationForm(props: Props) {
             })
     }
 
+    // @ts-ignore
+    // @ts-ignore
     return (
         <Formik initialValues={initialValues} onSubmit={handleSubmit} validationSchema={toFormikValidationSchema(CreateLocationSchema)}>
             {LocationFormContent}
@@ -108,12 +117,16 @@ export function LocationFormContent(props: FormikProps<CreateLocation>) {
         touched,
         handleChange,
         handleBlur,
+        setFieldValue,
         handleSubmit,
         handleReset
     } = props
 
     return (
         <>
+            <div className={'container mx-auto max-w-lg'}>
+
+
             <form onSubmit={handleSubmit}>
                 <div>
                     <Label htmlFor='locationOfBusiness' value='Business address:'/>
@@ -132,7 +145,7 @@ export function LocationFormContent(props: FormikProps<CreateLocation>) {
 
                 <div>
                     <Label htmlFor={'locationDate'} value={'Date:'} />
-                    <Datepicker onChange={handleChange} name='locationDate' minDate={new Date()} value={values.locationDate} />
+                    <Datepicker onSelectedDateChanged={(date) => {setFieldValue('locationDate', date)}} name='locationDate' minDate={new Date()}  />
                 </div>
 
                 <div className='flex gap-6'>
@@ -189,6 +202,7 @@ export function LocationFormContent(props: FormikProps<CreateLocation>) {
                 </div>
             </form>
             <FormDebugger {...props} />
+            </div>
         </>
     )
 }

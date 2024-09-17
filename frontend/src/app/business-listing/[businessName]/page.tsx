@@ -17,6 +17,8 @@ export default async function (props: Props) {
 
     const business = await fetchBusinessByName(businessName)
 
+    const sections = await
+
     if(business === null) {
         redirect('/')
     }
@@ -51,7 +53,7 @@ export default async function (props: Props) {
 
                     <h2 className='block text-6xl my-10 underline underline-offset-8'>{business.businessName}</h2>
 
-                    <MenuSection businessId={business.businessId}  session={props.session}/>
+                    {sections.map(section =><MenuSection key={business.businessId} business={business}/>)}
 
                 </div>
             </div>
