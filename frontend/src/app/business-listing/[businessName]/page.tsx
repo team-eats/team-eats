@@ -18,11 +18,12 @@ export default async function (props: Props) {
 
     const business = await fetchSingleBusinessByName(businessName)
 
-    const sections = await fetchSectionsBySectionBusinessId(business?.businessId ?? '')
-
     if(business === null) {
         redirect('/')
     }
+
+    const sections = await fetchSectionsBySectionBusinessId(business?.businessId ?? '')
+
 
     return (
         <>

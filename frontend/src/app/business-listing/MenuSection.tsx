@@ -10,7 +10,7 @@ type MenuSectionProps = {
 export async function MenuSection(props: MenuSectionProps) {
     const section = props.section
 
-    const items = await fetchMenuItemByItemSectionId(section.sectionId)
+    const items = await fetchMenuItemByItemSectionId(section?.sectionId ?? '')
 
     return(
         <>
