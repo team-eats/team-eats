@@ -5,6 +5,7 @@ import React, { useState } from "react";
 import Image from 'next/image';
 import {SignInForm} from "@/app/login/SignInForm"
 import {SignUpForm} from "@/app/login/SignUpForm";
+import {BusinessCard} from "@/app/components/BusinessCard";
 
 
 const businessData= [
@@ -22,10 +23,18 @@ export function Navigation() {
     const [openSignInModal, setOpenSignInModal] = useState(false);
     const [openSignUpModal, setOpenSignUpModal] = useState(false);
 
+    // const [openFavoriteModal, setOpenFavoriteModal] = useState(false);
+    // const [email, setEmail] = useState('');
+
     function onCloseSettingsModal() {
         setOpenSettingsModal(false);
         setEmail('');
 
+    }
+
+    function onCloseFavoriteModal() {
+        setOpenFavoritesModal(false);
+        setEmail('');
     }
 
     function onCloseSignInModal() {
@@ -108,6 +117,12 @@ export function Navigation() {
                     </Dropdown>
                 </div>
             </Navbar>
+
+            {/*<Modal show={openFavoriteModal} size="md" onClose={onCloseFavoriteModal} popup>*/}
+            {/*    <Modal.Header>*/}
+            {/*        <BusinessCard />*/}
+            {/*    </Modal.Header>*/}
+            {/*</Modal>*/}
 
             {/*Settings Modal*/}
             <Modal show={openSettingsModal} size="md" onClose={onCloseSettingsModal} popup>
