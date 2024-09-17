@@ -36,11 +36,7 @@ export default async function (props: Props) {
 
             <MenuSectionForm session={session} businessId={business.businessId as string}/>
             <LocationForm session={session} businessId={business.businessId as string}/>
-<<<<<<< HEAD
             <CreateItemForm session={session}/>
-=======
-
->>>>>>> b8aa29e4e35df87b92bccc922ecaa55080ba5493
             </>
 
     )
