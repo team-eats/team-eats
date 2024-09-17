@@ -162,8 +162,8 @@ export async function selectBusinessByBusinessName(businessName: string): Promis
     return result?.length < 1 ? null : result[0]
 }
 
-export async function selectSearchBusinessesByName(businessName: string): Promise<Business[] | null> {
-    const formattedValue = `%${businessName}%`
+export async function selectSearchBusinessesByName(searchTerm: string): Promise<Business[] | null> {
+    const formattedValue = `%${searchTerm}%`
 
     const rowList = await sql`SELECT
         business_id,
@@ -177,7 +177,9 @@ export async function selectSearchBusinessesByName(businessName: string): Promis
     FROM business
     INNER JOIN section ON section.section_business_id = business.business_id
     INNER JOIN item ON item.item_section_id = section.section_id
-    WHERE business_name LIKE ${businessName}`
+    WHERE business_name LIKE ${searchTerm} 
+    OR section_name LIKE ${searchTerm}
+    OR item_name LIKE ${searchTerm}`
 
     return BusinessSchema.array().parse(rowList)
 }
