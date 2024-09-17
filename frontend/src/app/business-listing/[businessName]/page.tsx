@@ -19,13 +19,14 @@ export default async function (props: Props) {
 
     const business = await fetchSingleBusinessByName(businessName)
 
+    if(business === null) {
+        redirect('/')
+    }
+
     const sections = await fetchSectionsBySectionBusinessId(business?.businessId ?? '')
 
     const location = await fetchAllLocationsByLocationBusinessId(business?.businessId ?? '')
 
-    if(business === null) {
-        redirect('/')
-    }
 
     // Do in backend
     function currentLocation() {
