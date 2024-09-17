@@ -1,5 +1,5 @@
-import {Session} from "node:inspector";
-import {Formik, FormikHelpers} from "formik";
+
+import {Formik, FormikHelpers, FormikProps} from "formik";
 import React from "react";
 import {Button, Label, TextInput} from "flowbite-react";
 import {DisplayUploadErrorProps, ImageUploadDropZone} from "@/app/components/ImageUploadDropZone";
@@ -7,78 +7,74 @@ import {DisplayError} from "@/app/components/DisplayError";
 import {FormDebugger} from "@/app/components/FormDebugger";
 import {DisplayStatus} from "@/app/components/DisplayStatus";
 import {z} from "zod";
+import {ItemSchema} from "@/app/utils/models/items/item.validator";
+import {Session} from "@/app/utils/session.utils";
+import {toFormikValidationSchema} from "zod-formik-adapter";
 
+const FormSchema = ItemSchema.omit({
+    itemId: true,
+    itemSectionId: true,
+    itemPhoto: true
 
+}).extend({
+        itemPhoto: z
+            .any()
+            .optional()
+})
 
-type ItemSchema = z.infer<typeof itemSchema>
+type ItemForm = z.infer<typeof FormSchema>
 
 type Props = {session: Session}
 
-export function ItemForm(props: Props) {
+export function CreateItemForm(props: Props) {
     const session = props.session;
-}
 
-const  handleSubmit = (props: Props, actions: FormikHelpers<ItemsForm>) => {
-    const Values = {
-        itemName: '',
-        itemDescription: '',
-        itemPhoto:'',
-        itemPrice: '',
-        itemOrder: ''
+    const initialValues = {
+        itemSectionId:'',
+        itemName:'',
+        itemDescription:'',
+        itemPrice:0,
+        itemOrder:0,
+        itemPhoto:undefined
+    }
+
+const  handleSubmit = (values: ItemForm, actions: FormikHelpers<ItemForm>) => {
+    const newValues = {
+        itemId: null,
+        itemSectionId:"",
+        itemName: values.itemName,
+        itemDescription: values.itemDescription,
+        itemPhoto:values?.itemPhoto,
+        itemPrice: values.itemPrice,
+        itemOrder: values.itemOrder
     }
     const {setStatus, resetForm} = actions
 
-    if (values.itemName) {
+
         fetch("/apis/item/", {
             method: "POST",
             headers: {
-                'Authorization': session
-                    .authorization ?? ""
+                'Authorization': session.authorization ?? ""
             },
             body: values.itemName
-        }) Promise<Response>
-            .then(response : REsponse =>
+        })
+            .then(response =>
             response.json())
         .then(json => {
             if (json.status !== 200) {
                 setStatus({type: 'failure', message: json.message})
             } else {
                 values.itemName = json.message
-                postItem()
             }
         })
-    }
 
-    function postItem() {
-        fetch(`/apis/item`, {
-            method: 'POST',
-            headers: {
-                'Authorization':session.authorization,
-                'Content-Type': 'application/json'
-            }
-            body: JSON.stringify(values)
-        })
-            .then(response: Response => response.json())
-            .then(data => {
-                let type: string = 'failure'
-                if (data.status === 200) {
-                    type = 'success'
-                    resetForm()
-                }
-                setStatus({type, message: data.message})
-        })
-            .catch(error => {
-                console.log(error)
-                setStatus({type: 'failure', message:'input is an error, try again'})
-            })
-    }
 }
 
 return (
     <div className ='flex justify-center items-center min-h-screen bg-gray-100 mx-auto max-w-3xl'>
         <div className="bg-white p-6 rounded-lg shadow-lg w-full">
             <Formik initialValues={initialValues} onSubmit={handleSubmit}
-                    validationSchema={{toFormikValidationSchema(itemForm)} >
+                    validationSchema={toFormikValidationSchema(FormSchema)}>
                         {ItemFormContent}
                         </Formik>
                         </div>
@@ -89,13 +85,14 @@ return (
 
                         const [selectedItem, setSelectedName] = React.useState<string | null> (null)
 
-                        export function ItemFormContent(props: FormikProps<ItemListing>)
+                        export function ItemFormContent(props: FormikProps<ItemForm>)
                     {
                         const {
                         status,
                         values,
                         errors,
-                        handleChange,
+                        touched,
+                            handleChange,
                         handleBlur,
                         handleSubmit,
                         handleReset,
@@ -104,12 +101,12 @@ return (
                         setFieldTouched
                     } = props;
 
-                        const [selectedItem, setSelectedItem] = React.useState<string | null> (null)
+                        const [selectedImage, setSelectedImage] = React.useState<string | null> (null)
 
                         return (
                         <>
-                        <form onSubmit = {handleSubmit}> className="">
-                {selectedImage ? <img src{selectedImage} alt={"uploadedImage"}
+                        <form onSubmit = {handleSubmit}>
+                {selectedImage ? <img src={selectedImage} alt={"uploadedImage"}
                                       className="w-full h-auto"/> : <></>}
                 <div>
                     <div>
@@ -211,8 +208,7 @@ return (
                 <Button color={'success'} type="submit">Submit</Button>
                 <Button color={'failure'} type="reset" onClick={handleReset}>Reset</Button>
                 <DisplayStatus status={status}/>
-
-            </Formik>
+                        </form>
             <FormDebugger {...props} />
         </>
         )
