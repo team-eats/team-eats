@@ -103,7 +103,7 @@ export function Navigation() {
                         <Dropdown.Item className='block xl:hidden text-left'>About Us</Dropdown.Item>
                         <Dropdown.Divider/>
                         <Dropdown.Item onClick={() => setOpenSignInModal(true)}>Sign In</Dropdown.Item>
-                        <Dropdown.Item onClick={() => setOpenSignUpModal(true)}>Sign Up</Dropdown.Item>
+                        <Dropdown.Item href="/login">Sign Up</Dropdown.Item>
                         <Dropdown.Item>Sign Out</Dropdown.Item>
                     </Dropdown>
                 </div>
