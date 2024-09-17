@@ -24,7 +24,6 @@ export default async function (props: Props) {
         redirect('/')
     }
 
-
     return (
         <>
             <div className='flex'>
