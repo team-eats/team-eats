@@ -22,6 +22,7 @@ export async function fetchSectionBySectionId(sectionId: string): Promise<Sectio
 
 export async function fetchSectionsBySectionBusinessId(sectionBusinessId: string): Promise<Section[]> {
     noStore()
+    console.log(sectionBusinessId)
     const {data} = await fetch(`${process.env.PUBLIC_API_URL}/apis/section/sectionBusinessId/${sectionBusinessId}`, {
     method: "get",
     headers: {

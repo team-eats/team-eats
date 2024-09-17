@@ -1,7 +1,7 @@
 
 import React from "react";
 import {MenuSection} from "@/app/business-listing/MenuSection";
-import {fetchBusinessByBusinessId} from "@/app/utils/models/business/business.model";
+import {fetchBusinessByBusinessId, fetchSingleBusinessByName} from "@/app/utils/models/business/business.model";
 import {fetchBusinessByName} from "@/app/utils/models/business/business.model";
 import {getSession} from "@/app/utils/session.utils";
 import {redirect} from "next/navigation";
@@ -16,7 +16,7 @@ export default async function (props: Props) {
 
     const businessName = props.params.businessName
 
-    const business = await fetchBusinessByName(businessName)
+    const business = await fetchSingleBusinessByName(businessName)
 
     const sections = await fetchSectionsBySectionBusinessId(business?.businessId ?? '')
 
