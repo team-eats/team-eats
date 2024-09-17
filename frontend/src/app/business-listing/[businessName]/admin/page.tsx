@@ -2,6 +2,7 @@ import {fetchBusinessByName} from "@/app/utils/models/business/business.model";
 import {getSession} from "@/app/utils/session.utils";
 import {redirect} from "next/navigation";
 import {MenuSectionForm} from "@/app/business-listing/[businessName]/admin/menuSectionForm";
+import {fetchSectionsBySectionBusinessId} from "@/app/utils/models/section/section.model";
 
 type Props = {
     params: {businessName: string}
@@ -11,6 +12,8 @@ export default async function (props: Props) {
     const businessName = props.params.businessName
     const business = await fetchBusinessByName(businessName)
     const session = await getSession()
+
+
 
     if(business === null){
         redirect('/')
@@ -25,7 +28,7 @@ export default async function (props: Props) {
     return (
         <>
 
-            <MenuSectionForm session={session} businessId={business.businessId as string}/>
+            <MenuSectionForm session={session} businessId={business.businessId as string}  />
 
             </>
 
