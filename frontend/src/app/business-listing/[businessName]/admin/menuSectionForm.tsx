@@ -15,7 +15,7 @@ const menuSectionSchema = SectionSchema
 
 type MenuSection = z.infer<typeof menuSectionSchema>
 
-type Props = {session: Session|undefined, businessId: string} // do we need this to show we are logged in, so we can put a section in a menu?
+type Props = {session: Session|undefined, businessId: string, } // do we need this to show we are logged in, so we can put a section in a menu?
 
 
 export  function MenuSectionForm(props:Props) {

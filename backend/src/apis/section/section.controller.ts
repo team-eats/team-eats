@@ -5,7 +5,7 @@ import {
     insertSection,
     Section,
     SectionSchema,
-    selectSectionBySectionId,
+    selectSectionBySectionId, selectSectionsBySectionBusinessId,
     updateSection
 } from "./section.model";
 import {selectBusinessByBusinessId} from "../business/business.model";
@@ -81,6 +81,32 @@ export async function getSectionBySectionIdController(request: Request, response
         })
 
     } catch (error) {
+        return response.json({
+            status: 500,
+            message: '',
+            data: []
+        })
+    }
+}
+
+export async function getSectionsBySectionBusinessIdController(request: Request, response: Response): Promise<Response<Status>> {
+    try {
+        const validationResult = z.string()
+            .uuid({message: 'please provide a valid section business id.'})
+            .safeParse(request.params.sectionBusinessId)
+        if(!validationResult.success) {
+            return zodErrorResponse(response, validationResult.error)
+        }
+        const sectionBusinessId = validationResult.data
+
+        const data = await selectSectionsBySectionBusinessId(sectionBusinessId)
+        return response.json({
+            status: 200,
+            message: null,
+            data
+        })
+
+    }catch (error) {
         return response.json({
             status: 500,
             message: '',

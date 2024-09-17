@@ -5,15 +5,13 @@ import React, { useState } from "react";
 import Image from 'next/image';
 import {SignInForm} from "@/app/login/SignInForm"
 import {SignUpForm} from "@/app/login/SignUpForm";
-
-
+import {BusinessCard} from "@/app/components/BusinessCard";
 
 
 const businessData= [
 
     { businessPhoto: "/images/card-top.jpg", businessName: 'SouthWestern Express', businessBio: 'No Bio' }
 ];
-
 
 
 export function Navigation() {
@@ -25,10 +23,18 @@ export function Navigation() {
     const [openSignInModal, setOpenSignInModal] = useState(false);
     const [openSignUpModal, setOpenSignUpModal] = useState(false);
 
+    // const [openFavoriteModal, setOpenFavoriteModal] = useState(false);
+    // const [email, setEmail] = useState('');
+
     function onCloseSettingsModal() {
         setOpenSettingsModal(false);
         setEmail('');
 
+    }
+
+    function onCloseFavoriteModal() {
+        setOpenFavoritesModal(false);
+        setEmail('');
     }
 
     function onCloseSignInModal() {
@@ -44,14 +50,15 @@ export function Navigation() {
 
 
     return (
-
         <>
             <Navbar fluid rounded>
+
                 <Navbar.Brand href="/">
                     <img src="/placeholder-logo.png" className="h-12 hover:border-red-800" alt="placeholder logo"/>
                     <span
                         className="self-center whitespace-nowrap text-black text-5xl hover:text-red-950 hover:rounded-xl hover:border-red-800dark:text-white">Team Eats</span>
                 </Navbar.Brand>
+
                 <form action= "/search" className="flex items-center max-w-sm py-4">
                     <label htmlFor="simple-search" className="sr-only">Search</label>
                     <div className="relative">
@@ -63,7 +70,7 @@ export function Navigation() {
                                       d="M3 5v10M3 5a2 2 0 1 0 0-4 2 2 0 0 0 0 4Zm0 10a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm12 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm0 0V6a3 3 0 0 0-3-3H9m1.5-2-2 2 2 2"/>
                             </svg>
                         </div>
-                        <input name= "searchTerm" type="text" id="simple-search"
+                        <input name= "q" type="text" id="simple-search"
                                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg hover:border-red-800 focus:ring-red-800 focus:border-red-800 block w-full ps-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-red-500 dark:focus:border-red-500 px-14"
                                placeholder="Search Eats..." required/>
                     </div>
@@ -91,7 +98,6 @@ export function Navigation() {
                                 <path stroke="currentColor" strokeLinecap="round" strokeWidth="2"
                                       d="M5 7h14M5 12h14M5 17h14"/>
                             </svg>
-
                         }
                     >
                         <Dropdown.Header>
@@ -106,11 +112,17 @@ export function Navigation() {
                         <Dropdown.Item className='block xl:hidden text-left'>About Us</Dropdown.Item>
                         <Dropdown.Divider/>
                         <Dropdown.Item onClick={() => setOpenSignInModal(true)}>Sign In</Dropdown.Item>
-                        <Dropdown.Item onClick={() => setOpenSignUpModal(true)}>Sign Up</Dropdown.Item>
+                        <Dropdown.Item href="/login">Sign Up</Dropdown.Item>
                         <Dropdown.Item>Sign Out</Dropdown.Item>
                     </Dropdown>
                 </div>
             </Navbar>
+
+            {/*<Modal show={openFavoriteModal} size="md" onClose={onCloseFavoriteModal} popup>*/}
+            {/*    <Modal.Header>*/}
+            {/*        <BusinessCard />*/}
+            {/*    </Modal.Header>*/}
+            {/*</Modal>*/}
 
             {/*Settings Modal*/}
             <Modal show={openSettingsModal} size="md" onClose={onCloseSettingsModal} popup>
@@ -150,7 +162,6 @@ export function Navigation() {
                 </Modal.Body>
             </Modal>
 
-
             {/* Sign Up Modal */}
             <Modal show={openSignUpModal} size="md" onClose={onCloseSignUpModal} popup>
                 <Modal.Header />
@@ -158,7 +169,6 @@ export function Navigation() {
                     <SignUpForm />
                 </Modal.Body>
             </Modal>
-
 
         </>
     );

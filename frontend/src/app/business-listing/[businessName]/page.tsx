@@ -1,8 +1,10 @@
+
 import React from "react";
 import {MenuSection} from "@/app/business-listing/MenuSection";
+import {fetchBusinessByBusinessId} from "@/app/utils/models/business/business.model";
 import {fetchBusinessByName} from "@/app/utils/models/business/business.model";
+import {getSession} from "@/app/utils/session.utils";
 import {redirect} from "next/navigation";
-import {fetchAllLocationsByLocationBusinessId} from "@/app/utils/models/location/location.model";
 
 
 type Props = {
@@ -14,6 +16,8 @@ export default async function (props: Props) {
     const businessName = props.params.businessName
 
     const business = await fetchBusinessByName(businessName)
+
+    const sections = await fetchSectionsBySectionBusinessId(business?.businessId ?? '')
 
     const location = await fetchAllLocationsByLocationBusinessId(business?.businessId ?? '')
 
@@ -48,7 +52,7 @@ export default async function (props: Props) {
                         <img src="https://placehold.co/300x300" alt="Placeholder business image"
                              className='mx-auto pt-10 pb-5'/>
 
-                        <p className='text-xl text-gray-950 mx-[42px] my-2'><span className='text-lg'>Address: </span>{address}</p>
+                        {/*<p className='text-xl text-gray-950 mx-[42px] my-2'><span className='text-lg'>Address:</span></p>*/}
                         {/*<p className='text-xl text-gray-950 mx-[42px] my-2'><span className='text-lg'>Hours:</span></p>*/}
 
                         <p className='text-xl text-gray-950 mx-[42px] my-2'><span className='text-lg'>{business.businessPhone}</span></p>
@@ -66,7 +70,7 @@ export default async function (props: Props) {
 
                     <h2 className='block text-6xl my-10 underline underline-offset-8'>{business.businessName}</h2>
 
-                    <MenuSection businessId={business.businessId}  session={props.session}/>
+                    {sections.map(section =><MenuSection key={section.sectionBusinessId} section={section}/>)}
 
                 </div>
             </div>

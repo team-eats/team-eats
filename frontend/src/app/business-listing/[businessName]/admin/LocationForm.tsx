@@ -8,9 +8,6 @@ import {toFormikValidationSchema} from "zod-formik-adapter";
 import {Button, Checkbox, Datepicker, Label, TextInput} from "flowbite-react";
 import {DisplayError} from "@/app/components/DisplayError";
 import {FormDebugger} from "@/app/components/FormDebugger";
-import 'react-datetime-picker/dist/DateTimePicker.css';
-import 'react-calendar/dist/Calendar.css';
-import 'react-clock/dist/Clock.css';
 import {DisplayStatus} from "@/app/components/DisplayStatus";
 
 
