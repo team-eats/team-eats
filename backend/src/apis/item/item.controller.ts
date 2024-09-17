@@ -1,6 +1,14 @@
 import {zodErrorResponse} from "../../utils/response.utils";
 import {Status} from "../../utils/interfaces/Status";
-import {deleteItemByItemId, insertItem, Item, ItemSchema, selectItemByItemId, updateItem} from "./item.model";
+import {
+    deleteItemByItemId,
+    insertItem,
+    Item,
+    ItemSchema,
+    selectItemByItemId,
+    selectItemsByItemSectionId,
+    updateItem
+} from "./item.model";
 import {z} from "zod";
 import {Request, Response} from "express";
 import {selectSectionBySectionId} from "../section/section.model";
@@ -82,6 +90,31 @@ export async function getItemByItemIdController(request: Request, response: Resp
 
     } catch (error: unknown) {
         console.error(error)
+        return response.json({
+            status: 500,
+            message: 'internal server error',
+            data: null
+        })
+    }
+}
+
+export async function getItemsByItemSectionIdController(request: Request, response: Response) : Promise<Response<Status>> {
+    try {
+        const validationResult = ItemSchema.safeParse(request.params.itemSectionId)
+
+        if (!validationResult.success) {
+            return zodErrorResponse(response, validationResult.error)
+        }
+
+        const itemSectionId = validationResult.data
+
+        const data = await selectItemsByItemSectionId(itemSectionId)
+
+        return response.json({
+            status: 200,
+            message: null,
+            data})
+    } catch (error: unknown) {
         return response.json({
             status: 500,
             message: 'internal server error',

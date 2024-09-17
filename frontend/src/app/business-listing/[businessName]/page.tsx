@@ -5,6 +5,7 @@ import {fetchBusinessByBusinessId} from "@/app/utils/models/business/business.mo
 import {fetchBusinessByName} from "@/app/utils/models/business/business.model";
 import {getSession} from "@/app/utils/session.utils";
 import {redirect} from "next/navigation";
+import {fetchSectionsBySectionBusinessId} from "@/app/utils/models/section/section.model";
 
 
 type Props = {
@@ -17,7 +18,7 @@ export default async function (props: Props) {
 
     const business = await fetchBusinessByName(businessName)
 
-    const sections = await
+    const sections = await fetchSectionsBySectionBusinessId(business?.businessId ?? '')
 
     if(business === null) {
         redirect('/')
@@ -53,7 +54,7 @@ export default async function (props: Props) {
 
                     <h2 className='block text-6xl my-10 underline underline-offset-8'>{business.businessName}</h2>
 
-                    {sections.map(section =><MenuSection key={business.businessId} business={business}/>)}
+                    {sections.map(section =><MenuSection key={section.sectionBusinessId} section={section}/>)}
 
                 </div>
             </div>
