@@ -14,7 +14,6 @@ import {Section} from "@/app/utils/models/section/section.validator";
 
 const FormSchema = ItemSchema.omit({
     itemId: true,
-    itemSectionId: true,
     itemPhoto: true
 
 }).extend({
@@ -46,7 +45,7 @@ export function CreateItemForm(props: Props) {
     const  handleSubmit = (values: ItemForm, actions: FormikHelpers<ItemForm>) => {
         const newValues = {
             itemId: null,
-            itemSectionId:"",
+            itemSectionId: values.itemSectionId,
             itemName: values.itemName,
             itemDescription: values.itemDescription,
             itemPhoto:values?.itemPhoto,
@@ -59,7 +58,8 @@ export function CreateItemForm(props: Props) {
             fetch('/apis/image/', {
                 method: 'POST',
                 headers: {
-                    'Authorization': session.authorization ?? ""
+                    'Authorization': session.authorization ?? "",
+
                 },
                 body: values.itemPhoto
             })
@@ -69,20 +69,21 @@ export function CreateItemForm(props: Props) {
                         setStatus({type: 'failure', message: json.message})
                     } else {
                         newValues.itemPhoto = json.message
-                        postItem()
+                        postItem(newValues)
                     }
                 })
         } else {
             newValues.itemPhoto = null
-            postItem()
+            postItem(newValues)
         }
 
-        function postItem() {
+        function postItem(newValues: any) {
             console.log(newValues)
             fetch("/apis/item/", {
                 method: "POST",
                 headers: {
-                    'Authorization': session.authorization ?? ""
+                    'Authorization': session.authorization ?? "",
+                    'Content-Type': 'application/json'
                 },
                 body: JSON.stringify(newValues)
             })
@@ -135,7 +136,7 @@ export function CreateItemForm(props: Props) {
                                         <div className="mb-2 block">
                                             <Label htmlFor="menuSection" value="Select your menu section"/>
                                         </div>
-                                        <Select id="menuSection" required>
+                                        <Select onChange={handleChange} onBlur={handleBlur} name={'itemSectionId'} id="menuSection" required>
                                             <option>Select an option</option>
                                             {sections.map(section => (
                                                 <option value={section.sectionId as string}>{section.sectionName}</option>
