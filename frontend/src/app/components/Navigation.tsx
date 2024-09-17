@@ -7,13 +7,10 @@ import {SignInForm} from "@/app/login/SignInForm"
 import {SignUpForm} from "@/app/login/SignUpForm";
 
 
-
-
 const businessData= [
 
     { businessPhoto: "/images/card-top.jpg", businessName: 'SouthWestern Express', businessBio: 'No Bio' }
 ];
-
 
 
 export function Navigation() {
@@ -91,7 +88,6 @@ export function Navigation() {
                                 <path stroke="currentColor" strokeLinecap="round" strokeWidth="2"
                                       d="M5 7h14M5 12h14M5 17h14"/>
                             </svg>
-
                         }
                     >
                         <Dropdown.Header>
@@ -150,7 +146,6 @@ export function Navigation() {
                 </Modal.Body>
             </Modal>
 
-
             {/* Sign Up Modal */}
             <Modal show={openSignUpModal} size="md" onClose={onCloseSignUpModal} popup>
                 <Modal.Header />
@@ -158,7 +153,6 @@ export function Navigation() {
                     <SignUpForm />
                 </Modal.Body>
             </Modal>
-
 
         </>
     );
