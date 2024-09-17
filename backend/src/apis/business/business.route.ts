@@ -7,7 +7,7 @@ import {
     getBusinessByBusinessIdController,
     getBusinessByBusinessNameController,
     getBusinessesByBusinessProfileIdController,
-    getBusinessesByProfileNameController, putBusinessController
+    getBusinessesByProfileNameController, putBusinessController, getSearchBusinessByNameController
 } from "./business.controller";
 import {isLoggedInController} from "../../utils/controllers/isLoggedIn.controller";
 
@@ -33,7 +33,7 @@ router.route('/businessBio/:businessBio')
     .get(getBusinessByBusinessBio)
 
 router.route('/search/:search')
-    .get(getBusinessByBusinessBio, getBusinessByBusinessNameController)
+    .get(getSearchBusinessByNameController)
 
 router.route('/:businessId')
     .get(getBusinessByBusinessIdController)
