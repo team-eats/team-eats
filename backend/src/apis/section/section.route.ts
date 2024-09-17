@@ -2,7 +2,7 @@ import {Router} from "express";
 import {isLoggedInController} from "../../utils/controllers/isLoggedIn.controller";
 import {
     deleteSectionBySectionIdController,
-    getSectionBySectionIdController,
+    getSectionBySectionIdController, getSectionsBySectionBusinessIdController,
     postSectionController,
     putSectionController
 } from "./section.controller";
@@ -20,5 +20,7 @@ router.route('/:sectionId')
     .delete(isLoggedInController, deleteSectionBySectionIdController)
     .get(getSectionBySectionIdController)
 
+router.route('/sectionBusinessId/:sectionBusinessId')
+    .get(getSectionsBySectionBusinessIdController)
 
 export const sectionRoute = { basePath, router }
