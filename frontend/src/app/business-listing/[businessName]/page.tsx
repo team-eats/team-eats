@@ -5,6 +5,7 @@ import {fetchBusinessByBusinessId} from "@/app/utils/models/business/business.mo
 import {fetchBusinessByName} from "@/app/utils/models/business/business.model";
 import {getSession} from "@/app/utils/session.utils";
 import {redirect} from "next/navigation";
+import {fetchAllLocationsByLocationBusinessId} from "@/app/utils/models/location/location.model";
 
 
 type Props = {
@@ -17,10 +18,18 @@ export default async function (props: Props) {
 
     const business = await fetchBusinessByName(businessName)
 
+    const location = await fetchAllLocationsByLocationBusinessId(business?.businessId ?? '')
+
     if(business === null) {
         redirect('/')
     }
 
+    // Do in backend
+    // for (let i in location) {
+    //     if (location[i].locationStartDatetime.getTime() < new Date().getTime() && location[i].locationEndDatetime.getTime() > new Date().getTime()) {
+    //
+    //     }
+    // }
 
     return (
         <>
@@ -33,7 +42,7 @@ export default async function (props: Props) {
                         <img src="https://placehold.co/300x300" alt="Placeholder business image"
                              className='mx-auto pt-10 pb-5'/>
 
-                        {/*<p className='text-xl text-gray-950 mx-[42px] my-2'><span className='text-lg'>Address:</span></p>*/}
+                        <p className='text-xl text-gray-950 mx-[42px] my-2'><span className='text-lg'>Address:</span></p>
                         {/*<p className='text-xl text-gray-950 mx-[42px] my-2'><span className='text-lg'>Hours:</span></p>*/}
 
                         <p className='text-xl text-gray-950 mx-[42px] my-2'><span className='text-lg'>{business.businessPhone}</span></p>
