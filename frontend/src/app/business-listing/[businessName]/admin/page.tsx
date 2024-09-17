@@ -18,7 +18,7 @@ export default async function (props: Props) {
     const business = await fetchBusinessByName(businessName)
     const session = await getSession()
 
-
+    const sections = await fetchSectionsBySectionBusinessId(business?.businessId ?? '')
 
     if(business === null){
         redirect('/')
@@ -36,7 +36,7 @@ export default async function (props: Props) {
 
             <MenuSectionForm session={session} businessId={business.businessId as string}/>
             <LocationForm session={session} businessId={business.businessId as string}/>
-
+            <CreateItemForm session={session} sections={sections}/>
             </>
 
     )
