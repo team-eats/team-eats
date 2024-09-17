@@ -100,7 +100,7 @@ export async function getItemByItemIdController(request: Request, response: Resp
 
 export async function getItemsByItemSectionIdController(request: Request, response: Response) : Promise<Response<Status>> {
     try {
-        const validationResult = ItemSchema.safeParse(request.params.itemSectionId)
+        const validationResult = z.string().safeParse(request.params.itemSectionId)
 
         if (!validationResult.success) {
             return zodErrorResponse(response, validationResult.error)
