@@ -1,5 +1,6 @@
 import {MenuItemCard} from "@/app/business-listing/MenuItemCard";
 import {Section} from "@/app/utils/models/section/section.validator";
+import {fetchMenuItemByItemSectionId} from "@/app/utils/models/items/item.model";
 
 
 type MenuSectionProps = {
@@ -9,7 +10,7 @@ type MenuSectionProps = {
 export async function MenuSection(props: MenuSectionProps) {
     const section = props.section
 
-    const items = await fetchMenuItemByItemSectionId(section.sectionId)
+    const items = await fetchMenuItemByItemSectionId(section?.sectionId ?? '')
 
     return(
         <>

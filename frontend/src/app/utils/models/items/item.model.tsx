@@ -4,7 +4,7 @@ import {unstable_noStore as noStore} from "next/cache";
 
 export async function fetchMenuItemByItemSectionId(itemSectionId: string): Promise<Item[]>{
     noStore()
-    const {data} = await fetch(`${process.env.PUBLIC_API_URL}/apis/section/${itemSectionId}`, {
+    const {data} = await fetch(`${process.env.PUBLIC_API_URL}/apis/item/itemSectionId/${itemSectionId}`, {
         method: "get",
         headers: {
             'Content-Type': 'application/json',
