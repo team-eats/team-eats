@@ -90,6 +90,20 @@ export async function updateSection(section: Section): Promise<string> {
     return 'HomepageSection Updated Successfully'
 }
 
+
+export async function selectSectionsBySectionBusinessId(sectionBusinessId: string): Promise<Section[]> {
+    const rowList = await sql`SELECT
+                                    section_id,
+                                    section_business_id,
+                                    section_name,
+                                    section_description,
+                                    section_order
+                                FROM section
+                                WHERE section_business_id = ${sectionBusinessId}`
+    return SectionSchema.array().parse(rowList)
+}
+
+
 export async function deleteSectionBySectionId(sectionId: string): Promise<string> {
     await sql`
         DELETE 
