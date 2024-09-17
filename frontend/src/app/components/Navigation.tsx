@@ -102,9 +102,9 @@ export function Navigation() {
                         <Dropdown.Item onClick={() => setOpenFavoritesModal(true)}>Favorites</Dropdown.Item>
                         <Dropdown.Item className='block xl:hidden text-left'>About Us</Dropdown.Item>
                         <Dropdown.Divider/>
-                        <Dropdown.Item onClick={() => setOpenSignInModal(true)}>Sign In</Dropdown.Item>
-                        <Dropdown.Item href="/login">Sign Up</Dropdown.Item>
-                        <Dropdown.Item>Sign Out</Dropdown.Item>
+                        {/*<Dropdown.Item onClick={() => setOpenSignInModal(true)}>Sign In</Dropdown.Item>*/}
+                        <Dropdown.Item href="/login">Sign-In / Sign-Up</Dropdown.Item>
+                        {/*<Dropdown.Item>Sign Out</Dropdown.Item>*/}
                     </Dropdown>
                 </div>
             </Navbar>
@@ -139,21 +139,21 @@ export function Navigation() {
             </Modal>
 
             {/*Sign In Modal*/}
-            <Modal show={openSignInModal} size="md" onClose={onCloseSignInModal}
-                   popup>
-                <Modal.Header className={"bg-orange-200"}>Sign In</Modal.Header>
-                <Modal.Body className={"bg-red-700"}>
-                    <SignInForm />
-                </Modal.Body>
-            </Modal>
+            {/*<Modal show={openSignInModal} size="md" onClose={onCloseSignInModal}*/}
+            {/*       popup>*/}
+            {/*    <Modal.Header className={"bg-orange-200"}>Sign In</Modal.Header>*/}
+            {/*    <Modal.Body className={"bg-red-700"}>*/}
+            {/*        <SignInForm />*/}
+            {/*    </Modal.Body>*/}
+            {/*</Modal>*/}
 
             {/* Sign Up Modal */}
-            <Modal show={openSignUpModal} size="md" onClose={onCloseSignUpModal} popup>
-                <Modal.Header />
-                <Modal.Body>
-                    <SignUpForm />
-                </Modal.Body>
-            </Modal>
+            {/*<Modal show={openSignUpModal} size="md" onClose={onCloseSignUpModal} popup>*/}
+            {/*    <Modal.Header />*/}
+            {/*    <Modal.Body>*/}
+            {/*        <SignUpForm />*/}
+            {/*    </Modal.Body>*/}
+            {/*</Modal>*/}
 
         </>
     );
