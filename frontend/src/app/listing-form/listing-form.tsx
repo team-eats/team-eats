@@ -101,13 +101,15 @@ export function ListingForm(props: Props){
     }
 
     return (
-        <>
-            <Formik
-                initialValues=
-                    {initialValues} onSubmit ={handleSubmit} validationSchema={toFormikValidationSchema(businessListingSchema)}>
-                {BusinessFormContent}
-            </Formik>
-        </>
+            <div className='flex justify-center items-center min-h-screen bg-gray-100 mx-auto max-w-3xl'>
+                <div className="bg-white p-6 rounded-lg shadow-lg w-full">
+                <Formik
+                    initialValues=
+                        {initialValues} onSubmit ={handleSubmit} validationSchema={toFormikValidationSchema(businessListingSchema)}>
+                    {BusinessFormContent}
+                </Formik>
+                </div>
+            </div>
     )
 }
 
@@ -144,6 +146,7 @@ export function BusinessFormContent(props: FormikProps<BusinessListing>) {
                         name={'businessName'}
                         type='text'
                         value={values.businessName}
+                        className="w-full"
                     />
                     <DisplayError errors={errors} touched={touched} field={'businessName'}/>
                 </div>
@@ -176,6 +179,7 @@ export function BusinessFormContent(props: FormikProps<BusinessListing>) {
                         name={"businessHours"}
                         type='text'
                         value={values.businessHours}
+                        className="w-full"
                     />
                 </div>
                 <DisplayError errors={errors} touched={touched} field={'businessHours'} />
@@ -191,6 +195,7 @@ export function BusinessFormContent(props: FormikProps<BusinessListing>) {
                         name={"businessBio"}
                         type='text'
                         value={values.businessBio}
+                        className="w-full p-2 border border-gray-300 rounded"
                     />
                 </div>
                 <DisplayError errors={errors} touched={touched} field={'businessBio'} />
@@ -206,6 +211,7 @@ export function BusinessFormContent(props: FormikProps<BusinessListing>) {
                         name={"businessEmail"}
                         type="email"
                         value={values.businessEmail}
+                        className="w-full"
                     />
                     <DisplayError errors={errors} touched={touched} field={'businessEmail'}/>
                 </div>
@@ -221,6 +227,7 @@ export function BusinessFormContent(props: FormikProps<BusinessListing>) {
                         name={'businessPhone'}
                         type="text"
                         value={values.businessPhone}
+                        className="w-full"
                     />
                     <DisplayError errors={errors} touched={touched} field={'businessPhone'} />
                 </div>
