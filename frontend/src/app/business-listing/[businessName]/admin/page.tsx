@@ -1,3 +1,4 @@
+"use server"
 import {fetchBusinessByName, fetchSingleBusinessByName} from "@/app/utils/models/business/business.model";
 import {getSession} from "@/app/utils/session.utils";
 import {redirect} from "next/navigation";
