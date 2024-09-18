@@ -166,6 +166,7 @@ export async function selectSearchBusinessesByName(searchTerm: string): Promise<
     const formattedValue = `%${searchTerm}%`
 
     const rowList = await sql`SELECT
+    DISTINCT 
         business_id,
         business_profile_id, 
         business_name, 
@@ -177,9 +178,9 @@ export async function selectSearchBusinessesByName(searchTerm: string): Promise<
     FROM business
     INNER JOIN section ON section.section_business_id = business.business_id
     INNER JOIN item ON item.item_section_id = section.section_id
-    WHERE business_name levenshtein(lower(business_name, ${searchTerm})) <= 3
-    OR section_name LIKE (LOWER(${formattedValue}))
-    OR item_name LIKE (LOWER(${formattedValue}))`
+    WHERE business_name %> ${searchTerm}
+    OR section_name %> ${searchTerm}
+    OR item_name %> ${searchTerm}`
 
     return BusinessSchema.array().parse(rowList)
 }

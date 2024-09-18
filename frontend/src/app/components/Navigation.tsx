@@ -6,6 +6,7 @@ import Image from 'next/image';
 import {SignInForm} from "@/app/login/SignInForm"
 import {SignUpForm} from "@/app/login/SignUpForm";
 import {BusinessCard} from "@/app/components/BusinessCard";
+import {redirect} from "next/navigation";
 
 
 // const businessData= [
@@ -58,8 +59,12 @@ export function Navigation() {
                         className="self-center whitespace-nowrap text-black text-5xl hover:text-red-950 hover:rounded-xl hover:border-red-800dark:text-white">Team Eats</span>
                 </Navbar.Brand>
 
-                <form action= "/search" className="flex items-center max-w-sm py-4">
+                <form action={async(formData) => {
+                    redirect(`/search/?q=${formData.get('search')}`);
+                }} className="flex items-center max-w-sm py-4">
+
                     <label htmlFor="simple-search" className="sr-only">Search</label>
+
                     <div className="relative">
                         <div className="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
                             <svg className="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true"
@@ -70,9 +75,11 @@ export function Navigation() {
                             </svg>
                         </div>
                         <input type="text" id="simple-search"
+                               name={'search'}
                                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg hover:border-red-800 focus:ring-red-800 focus:border-red-800 block w-40 sm:w-full ps-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-red-500 dark:focus:border-red-500 px-2"
                                placeholder="Search Eats..." required/>
                     </div>
+
                     <button type="submit"
                             className="p-2.5 ms-2 text-sm font-medium text-white bg-black rounded-lg border border-black hover:bg-orange-800 focus:ring-4 focus:outline-none focus:ring-white dark:bg-red-600 dark:hover:bg-red-800 dark:focus:ring-red-500">
                         <svg className="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"

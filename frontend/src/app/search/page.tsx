@@ -19,20 +19,27 @@ export default async function results(props: PageProps<{}, SearchParams>){
         results = await fetchAllBusinesses();
     }
 
+    if (results.length === 0 ) {
+        results = await fetchAllBusinesses();
+    }
+
     return (
         <>
             <section className={"container mx-auto "}>
                 {
-                    !q ?? <>
+                    !q ??
+                    <>
                         <div>
-                            <h1 className={"text-4xl text-center pt-20 my-10 text-sky-800"}>
-                                <span>Sorry! Try these instead!</span></h1>
+                            <h2 className={"text-4xl text-center pt-20 my-10 text-sky-800"}>Sorry! Try these instead!</h2>
                         </div>
                     </>
                 }
 
-                <div className="md:grid-cols-2 xl:grid-cols-4 grid grid-rows-1 gap-8 ">
-                    {results.map(business => <BusinessCard key={business.businessId} business={business}/>)}
+                <div>
+                    <h2></h2>
+                    <div className="md:grid-cols-2 xl:grid-cols-4 grid grid-rows-1 gap-8 ">
+                        {results.map(business => <BusinessCard key={business.businessId} business={business}/>)}
+                    </div>
                 </div>
             </section>
         </>
