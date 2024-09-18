@@ -1,3 +1,4 @@
+
 "use client";
 
 import { Card } from "flowbite-react";
@@ -15,17 +16,19 @@ export function BusinessCard(props: businessCardProps) {
     const business = props.business;
     const [isFlipped, setIsFlipped] = useState(false);
 
+
+
     function flipCard(){
         setIsFlipped (!isFlipped);
     }
 
     return (
         <Card
-            className="min-w-[16rem] max-w-[16rem] h-[22rem] box-border mx-auto container"
-            renderImage={() => <Link href={`/business-listing/${business.businessName}`}><image width={150} height={200} href={business.businessPhoto as string} alt="image 1" /></Link>}>
+            className="min-w-[16rem] max-w-[16rem] h-[22rem] box-border mx-auto container">
 
             <ReactCardFlip flipDirection={'horizontal'} isFlipped={isFlipped}>
                 <div onClick={flipCard}>
+                    <img className='w-full h-32 object-cover' src={business.businessPhoto?.toString()} alt={''}/>
                     <h5 className="card text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
                         {business.businessName}
                     </h5>

@@ -6,6 +6,7 @@ import {fetchBusinessByName} from "@/app/utils/models/business/business.model";
 import {getSession} from "@/app/utils/session.utils";
 import {redirect} from "next/navigation";
 import {fetchSectionsBySectionBusinessId} from "@/app/utils/models/section/section.model";
+import {fetchAllLocationsByLocationBusinessId} from "@/app/utils/models/location/location.model";
 
 
 type Props = {
@@ -24,6 +25,24 @@ export default async function (props: Props) {
 
     const sections = await fetchSectionsBySectionBusinessId(business?.businessId ?? '')
 
+    const location = await fetchAllLocationsByLocationBusinessId(business?.businessId ?? '')
+
+
+    // Do in backend
+    function currentLocation() {
+        for (let i in location) {
+            if (!location[0].locationActive) {
+                if (location[i].locationStartDatetime.getTime() <= new Date().getTime() && location[i].locationEndDatetime.getTime() >= new Date().getTime()) {
+                    return location[i].locationOfBusiness;
+                }
+            } else {
+                return location[0].locationOfBusiness;
+            }
+        }
+        return 'This business has no current location';
+    }
+
+    let address = currentLocation()
 
     return (
         <>
@@ -36,8 +55,7 @@ export default async function (props: Props) {
                         <h2 className='block sm:hidden text-center text-4xl pt-5 underline underline-offset-8'>{business.businessName}</h2>
                         <img src={business.businessPhoto?.toString()} alt="Placeholder business image"
                              className='mx-auto pt-10 pb-5'/>
-                        <p className='text-lg text-gray-950 mx-[42px] my-2'><span className='text-xl'>Address:</span>
-                            </p>
+                        <p className='text-lg text-gray-950 mx-[42px] my-2'><span className='text-xl'>Address:</span> {address}</p>
                         <p className='text-lg text-gray-950 mx-[42px] my-2'><span
                             className='text-xl'>Phone Number:</span> {business.businessPhone}</p>
                         <p className='text-lg text-gray-950 mx-[42px] my-2 pb-5'><span className='text-xl'>Hours:</span> {business.businessHours}</p>

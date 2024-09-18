@@ -8,7 +8,7 @@ import Link from "next/link";
 import React, {useState} from "react";
 
 
-export async function RandomButton(props:{businesses: Business[]}) {
+export function RandomButton(props:{businesses: Business[]}) {
 
     const randomIndex =() => Math.floor(Math.random() * props.businesses.length);
 
