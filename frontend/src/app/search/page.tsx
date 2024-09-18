@@ -25,6 +25,7 @@ export default async function results(props: PageProps<{}, SearchParams>){
 
     return (
         <>
+            <body className={"bg-red-700"} ></body>
             <section className={"container mx-auto "}>
                 {
                     !q ??
