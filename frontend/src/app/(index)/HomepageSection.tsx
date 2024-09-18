@@ -9,7 +9,7 @@ export async function HomepageSection() {
     return (
         <section className="mx-full my-5 mb-16">
             <div>
-                <h5 className="text-3xl font-bold text-gray-900 text-center my-9">Pizza</h5>
+                <h5 className="text-3xl font-bold text-gray-900 text-center my-9">Featured</h5>
             </div>
             <div className='overflow-x-auto bg-red-700 p-4'>
                 <div className="flex flex-row items-center gap-x-8 h-[24rem]">

@@ -18,8 +18,8 @@ export default async function Home() {
 
             <div>
                 <HomepageSection />
-                <HomepageSection />
-                <HomepageSection />
+                {/*<HomepageSection />*/}
+                {/*<HomepageSection />*/}
             </div>
 
         </>
