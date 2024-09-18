@@ -4,8 +4,9 @@
 import { Card } from "flowbite-react";
 import Image from "next/image";
 import ReactCardFlip from "react-card-flip";
-import {useState} from "react";
+import React, {useState} from "react";
 import {Item} from "@/app/utils/models/items/item.validator";
+import Link from "next/link";
 
 type ItemCardProps = {
     item: Item
@@ -22,12 +23,10 @@ export function MenuItemCard (props: ItemCardProps) {
      }
 
     return (
-        <Card
-            className="min-w-[16rem] max-w-[16rem] h-[22rem] box-border mx-auto container"
-            renderImage={() => <image width={150} height={200} src={item?.itemPhoto ?? ''} alt="image 1" />}>
-
+        <Card className="min-w-[16rem] max-w-[16rem] h-[22rem] box-border mx-auto container">
             <ReactCardFlip flipDirection={'horizontal'} isFlipped={isFlipped}>
                 <div onClick={flipCard}>
+                    <img src={item.itemPhoto?.toString()} alt={''}/>
                     <h5 className="card text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
                         {item.itemName}
                     </h5>
