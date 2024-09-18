@@ -19,6 +19,10 @@ export default async function Home() {
 
             <div>
                 <HomepageSection />
+
+                {/*<HomepageSection />*/}
+                {/*<HomepageSection />*/}
+
             </div>
 
         </>
