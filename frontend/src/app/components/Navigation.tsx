@@ -6,6 +6,7 @@ import Image from 'next/image';
 import {SignInForm} from "@/app/login/SignInForm"
 import {SignUpForm} from "@/app/login/SignUpForm";
 import {BusinessCard} from "@/app/components/BusinessCard";
+import {getSession, Session} from "@/app/utils/session.utils";
 
 
 const businessData= [
@@ -13,8 +14,12 @@ const businessData= [
     { businessPhoto: "/images/card-top.jpg", businessName: 'SouthWestern Express', businessBio: 'No Bio' }
 ];
 
+type SessionProps = {
+    session: Session | undefined
+}
 
-export function Navigation() {
+
+export function Navigation(props: SessionProps) {
     const [openFavoritesModal, setOpenFavoritesModal] = useState(false);
 
     const [openSettingsModal, setOpenSettingsModal] = useState(false);
@@ -25,6 +30,16 @@ export function Navigation() {
 
     // const [openFavoriteModal, setOpenFavoriteModal] = useState(false);
     // const [email, setEmail] = useState('');
+
+    const session = props.session
+
+    let user = ''
+
+    if (session === undefined) {
+        user = 'to Eats'
+    } else {
+        user = session.profile.profileName
+    }
 
     function onCloseSettingsModal() {
         setOpenSettingsModal(false);
@@ -51,31 +66,25 @@ export function Navigation() {
 
     return (
         <>
-            <Navbar fluid rounded>
+            <Navbar className='p-1' fluid>
 
                 <Navbar.Brand href="/">
-                    <img src="/placeholder-logo.png" className="h-12 hover:border-red-800" alt="placeholder logo"/>
-                    <span
-                        className="self-center whitespace-nowrap text-black text-5xl hover:text-red-950 hover:rounded-xl hover:border-red-800dark:text-white">Team Eats</span>
+                    <div className='flex'>
+                        <img src="/plate-logo.svg" className="h-10 hover:border-red-800 self-center pr-2" alt="Team Eats logo"/>
+                        <span
+                            className="hidden sm:flex self-center whitespace-nowrap text-black text-4xl hover:text-red-950 hover:rounded-xl hover:border-red-800dark:text-white">Team Eats</span>
+                    </div>
                 </Navbar.Brand>
 
-                <form action= "/search" className="flex items-center max-w-sm py-4">
+                <form action= "/search" className="flex items-center max-w-sm">
                     <label htmlFor="simple-search" className="sr-only">Search</label>
                     <div className="relative">
-                        <div className="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
-                            <svg className="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true"
-                                 xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 20">
-                                <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round"
-                                      strokeWidth="2"
-                                      d="M3 5v10M3 5a2 2 0 1 0 0-4 2 2 0 0 0 0 4Zm0 10a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm12 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm0 0V6a3 3 0 0 0-3-3H9m1.5-2-2 2 2 2"/>
-                            </svg>
-                        </div>
                         <input type="text" id="simple-search"
-                               className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg hover:border-red-800 focus:ring-red-800 focus:border-red-800 block w-40 sm:w-full ps-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-red-500 dark:focus:border-red-500 px-2"
+                               className="bg-gray-50 border border-gray-300 text-gray-900 text-sm  hover:border-red-600 focus:ring-red-700 focus:border-red-700 block w-40 sm:w-full dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-red-500 dark:focus:border-red-500"
                                placeholder="Search Eats..." required/>
                     </div>
                     <button type="submit"
-                            className="p-2.5 ms-2 text-sm font-medium text-white bg-black rounded-lg border border-black hover:bg-orange-800 focus:ring-4 focus:outline-none focus:ring-white dark:bg-red-600 dark:hover:bg-red-800 dark:focus:ring-red-500">
+                            className="p-2.5 ms-2 text-sm font-medium text-white bg-black border border-black hover:bg-gray-800 focus:ring-4 focus:outline-none focus:ring-white dark:bg-red-600 dark:hover:bg-red-800 dark:focus:ring-red-500">
                         <svg className="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
                              viewBox="0 0 20 20">
                             <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round"
@@ -101,7 +110,7 @@ export function Navigation() {
                         }
                     >
                         <Dropdown.Header>
-                            <span className="block text-sm">Team Eats</span>
+                            <span className="block text-sm">Welcome {user}!</span>
                             <span className="block truncate text-sm font-medium">Options</span>
                         </Dropdown.Header>
                         <Dropdown.Item href="/listing-form">

@@ -25,14 +25,12 @@ export function BusinessCard(props: businessCardProps) {
     return (
         <Card
             className="min-w-[16rem] max-w-[16rem] h-[22rem] box-border mx-auto container">
-
             <ReactCardFlip flipDirection={'horizontal'} isFlipped={isFlipped}>
-                <div onClick={flipCard}>
-                    <img className='w-full h-32 object-cover' src={business.businessPhoto?.toString()} alt={''}/>
+                <div className='overflow-hidden' onClick={flipCard}>
+                    <img className='w-full h-48 object-cover' src={business.businessPhoto?.toString()} alt={''}/>
                     <h5 className="card text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
                         {business.businessName}
                     </h5>
-                    <p className="font-normal text-gray-700 dark:text-gray-400">Come to Tony's!</p>
                 </div>
 
                 <div onClick={flipCard}>
@@ -40,6 +38,8 @@ export function BusinessCard(props: businessCardProps) {
                     <p>{business.businessBio}</p>
                 </div>
             </ReactCardFlip>
+            <p className="font-normal text-gray-700 dark:text-gray-400"><a
+                href={`/business-listing/${business.businessName}`}>View Menu</a></p>
         </Card>
     );
 }

@@ -20,7 +20,7 @@ export type Session = {
 
 const currentTimeInSeconds = new Date().getTime() / 1000
 
-export async function getSession(): Promise<Session|undefined > {
+export async function getSession(): Promise<Session|undefined> {
 
 
     const cookieStore = cookies()

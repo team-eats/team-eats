@@ -14,9 +14,11 @@ export async function MenuSection(props: MenuSectionProps) {
 
     return(
         <>
-            <h3 className='text-2xl'>{section.sectionName}</h3>
-            <div className='overflow-x-auto flex gap-3'>
-                {items.map(item =><MenuItemCard key={item.itemSectionId} item={item} />)}
+            <div className='overflow-x-auto'>
+                <h3 className='text-2xl'>{section.sectionName}</h3>
+                <div className='flex gap-3'>
+                    {items.map(item => <MenuItemCard key={item.itemSectionId} item={item}/>)}
+                </div>
             </div>
         </>
     )
