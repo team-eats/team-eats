@@ -106,7 +106,7 @@ export async function selectAllLocationsByLocationBusinessId(locationBusinessId:
                                 WHERE location_business_id = ${locationBusinessId}`
 const result = LocationSchema.array().parse(rowList)
 
-    return result?.length === 0 ? null : result
+    return result
 }
 
 
