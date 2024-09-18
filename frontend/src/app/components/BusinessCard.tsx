@@ -24,11 +24,11 @@ export function BusinessCard(props: businessCardProps) {
 
     return (
         <Card
-            className="min-w-[16rem] max-w-[16rem] h-[22rem] box-border mx-auto container"
-            imgSrc={<Link href={`/business-listing/${business.businessName}`}>{business.businessPhoto?.toString()}</Link>}>
+            className="min-w-[16rem] max-w-[16rem] h-[22rem] box-border mx-auto container">
 
             <ReactCardFlip flipDirection={'horizontal'} isFlipped={isFlipped}>
                 <div onClick={flipCard}>
+                    <img className='w-full h-32 object-cover' src={business.businessPhoto?.toString()} alt={''}/>
                     <h5 className="card text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
                         {business.businessName}
                     </h5>
