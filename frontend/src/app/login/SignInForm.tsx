@@ -59,9 +59,13 @@ export function SignInForm() {
     }
 
     return (
+        <div className ='flex items-center justify-center min-h-screen bg-red-700 rounded-lg mx-auto max-w-4xl'>
+            <div className="bg-white p-6 mx-auto rounded-lg shadow-lg w-full">
         <Formik initialValues={initialValues} onSubmit={handleSubmit} validationSchema={toFormikValidationSchema(formSchema) }>
             {SignInFormContent}
         </Formik>
+            </div>
+        </div>
     )
 }
 
@@ -119,9 +123,10 @@ function SignInFormContent(props: FormikProps<FormSchema>) {
                     <DisplayError errors={errors} touched={touched} field={'profilePassword'}/>
                 </div>
 
-                <div>
-                    <Button onClick={handleReset}>Reset</Button>
+                <div className="flex gap-3 mt-3">
                     <Button color={'success'} type="submit">Submit</Button>
+                    <Button color={'failure'} onClick={handleReset}>Reset</Button>
+
                 </div>
 
                 <DisplayStatus status={status} />

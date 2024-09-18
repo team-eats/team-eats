@@ -86,7 +86,7 @@ export function SignUpFormContent(props: FormikProps<SignUp>) {
 
     return (
         <>
-        <form onSubmit={handleSubmit} className=''>
+        <form onSubmit={handleSubmit}>
             <div>
                 <div>
                     <Label htmlFor='profileName' value='Your name'/>
@@ -153,12 +153,13 @@ export function SignUpFormContent(props: FormikProps<SignUp>) {
                 />
                 <DisplayError errors={errors} touched={touched} field={'profilePasswordConfirm'}/>
             </div>
-
+<div className="flex gap-3 mt-3">
             <Button color={'success'} type='submit'>Submit</Button>
             <Button color={'failure'} type='reset' onClick={handleReset}>Reset</Button>
+</div>
             <DisplayStatus status={status}/>
         </form>
-            <FormDebugger {...props}/>
+            {/*<FormDebugger {...props}/>*/}
         </>
     )
 }
