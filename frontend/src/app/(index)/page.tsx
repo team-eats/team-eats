@@ -19,12 +19,10 @@ export default async function Home() {
                 {/*</Suspense>*/}
             </div>
 
-
-
             <div>
-                {/*<HomepageSection />*/}
-                {/*<HomepageSection />*/}
-                {/*<HomepageSection />*/}
+                <HomepageSection />
+                <HomepageSection />
+                <HomepageSection />
             </div>
 
         </>

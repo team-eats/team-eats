@@ -94,6 +94,7 @@ export function CreateItemForm(props: Props) {
                     if (data.status === 200) {
                         type = 'success'
                         resetForm()
+
                     }
                     setStatus({type, message: data.message})
                 })
@@ -106,8 +107,8 @@ export function CreateItemForm(props: Props) {
     }
 
     return (
-        <div className ='flex justify-center items-center min-h-screen bg-gray-100 mx-auto max-w-3xl'>
-            <div className="bg-white p-6 rounded-lg shadow-lg w-full">
+        <div className ='flex justify-center items-center min-h-screen bg-red-700 rounded-lg mx-auto max-w-3xl'>
+            <div className="bg-white p-6 mx-auto rounded-lg shadow-lg w-full max-w-2xl">
                 <Formik initialValues={initialValues} onSubmit={handleSubmit}
                         validationSchema={toFormikValidationSchema(FormSchema)}>
                     {(props) => {
@@ -136,7 +137,7 @@ export function CreateItemForm(props: Props) {
                                         <div className="mb-2 block">
                                             <Label htmlFor="menuSection" value="Select your menu section"/>
                                         </div>
-                                        <Select onChange={handleChange} onBlur={handleBlur} name={'itemSectionId'} id="menuSection" required>
+                                        <Select onChange={handleChange} onBlur={handleBlur} name={'itemSectionId'} value={values.itemSectionId} id="menuSection" required>
                                             <option>Select an option</option>
                                             {sections.map(section => (
                                                 <option value={section.sectionId as string}>{section.sectionName}</option>
@@ -225,11 +226,13 @@ export function CreateItemForm(props: Props) {
                                         />
                                         <DisplayError errors={errors} touched={touched} field={'itemOrder'}/>
                                     </div>
+                                    <div className="flex gap-3 mt-3">
                                     <Button color={'success'} type="submit">Submit</Button>
                                     <Button color={'failure'} type="reset" onClick={handleReset}>Reset</Button>
                                     <DisplayStatus status={status}/>
+</div>
                                 </form>
-                                <FormDebugger {...props} />
+                                {/*<FormDebugger {...props} />*/}
                             </>
                         )
 

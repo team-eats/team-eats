@@ -4,7 +4,7 @@ import { Label, TextInput, Textarea,} from "flowbite-react";
 
 export function Contact() {
     return (
-        <div className="flex max-w-lg flex-col gap-4 my-5">
+        <div className="flex max-w-lg flex-col gap-4 my-5 ">
             <div>
                 <div className="mb-2 block">
                     <Label htmlFor="name" value="Name" />
