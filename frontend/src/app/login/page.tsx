@@ -56,7 +56,7 @@ import {SignInForm} from "@/app/login/SignInForm";
 
 const Page = () => {
     return (
-        <div className="flex justify-center items-center min-h-screen mt-20 gap-10">
+        <div className="flex justify-center items-center  mt-20 gap-10">
             <div className="flex space-x-4 w-full max-w-4xl">
                 <div className="flex-1 bg-red-700 border-1 p-4 rounded-lg flex">
                     <div className="bg-white p-6 rounded-lg shadow-lg w-full min-h-[400px]">
