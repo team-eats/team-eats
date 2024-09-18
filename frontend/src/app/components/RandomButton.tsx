@@ -26,6 +26,10 @@ export function RandomButton(props:{businesses: Business[]}) {
 
     const [business, setRandomBusiness] = useState<Business>(randomBusinesses[randomIndex()]);
 
+    if (!business) {
+        return <></>
+    }
+
     return (
         <>
             <button type={"button"} className={"bg-sky-800 text-white p-3 px-7 font-bold text-2xl rounded-2xl"} onClick={() => {setRandomBusiness(randomBusinesses[randomIndex()]);}}>
