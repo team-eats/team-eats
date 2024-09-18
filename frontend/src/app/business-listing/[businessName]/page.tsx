@@ -55,8 +55,7 @@ export default async function (props: Props) {
                         <h2 className='block sm:hidden text-center text-4xl pt-5 underline underline-offset-8'>{business.businessName}</h2>
                         <img src={business.businessPhoto?.toString()} alt="Placeholder business image"
                              className='mx-auto pt-10 pb-5'/>
-                        <p className='text-lg text-gray-950 mx-[42px] my-2'><span className='text-xl'>Address:</span>
-                            </p>
+                        <p className='text-lg text-gray-950 mx-[42px] my-2'><span className='text-xl'>Address:</span> {address}</p>
                         <p className='text-lg text-gray-950 mx-[42px] my-2'><span
                             className='text-xl'>Phone Number:</span> {business.businessPhone}</p>
                         <p className='text-lg text-gray-950 mx-[42px] my-2 pb-5'><span className='text-xl'>Hours:</span> {business.businessHours}</p>
