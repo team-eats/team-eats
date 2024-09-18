@@ -1,5 +1,8 @@
 import {fetchAllBusinesses} from "@/app/utils/models/business/business.model";
 import {Business} from "@/app/utils/models/business/business.validator";
+import Image from "next/image";
+import Link from "next/link";
+import React from "react";
 
 
 export async function RandomButton() {
@@ -20,8 +23,8 @@ export async function RandomButton() {
 
     return (
         <>
-            <button type={"button"} className={"bg-black text-white p-3 px-7 font-bold text-2xl"}>Random
-
+            <button type={"button"} className={"bg-sky-800 text-white p-3 px-7 font-bold text-2xl rounded-2xl"}>
+                <Link href={`/business-listing/${business.businessName}`}>Random</Link>
             </button>
         </>
     )
