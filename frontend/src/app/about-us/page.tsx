@@ -6,14 +6,19 @@ import { FaInstagram } from "react-icons/fa";
 import { FaLinkedin } from "react-icons/fa";
 import { CiYoutube } from "react-icons/ci";
 
+
 export default function() {
     return (
 
         <>
+
+            <body className={"bg-red-700"}></body>
+
+
              <h1 className={"text-center text-6xl mt-20"}>About Team Eats</h1>
 
 
-     <div className={"container mx-auto border-2 border-gray-300 shadow-md px-10 py-14 mt-20"}>
+     <div className={"container mx-auto border-2 border-gray-300 shadow-md px-10 py-14 mt-20 bg-white"}>
 
 
                   <p>Well, the way they make shows is, they make one show. That show's called a pilot. Then they
@@ -40,7 +45,7 @@ export default function() {
 
 
              </div>
-<div className={"container mx-auto mt-10 mb-10 grid grid-cols-1 md:grid-cols-2 gap-8 shadow-md border border-gray-300"}>
+<div className={" container mx-auto mt-10 mb-10 grid grid-cols-1 md:grid-cols-2 gap-8 shadow-md border border-gray-300 bg-white "}>
 
     <div>
 <h2 className={"text-3xl mt-5 text-center"}>How to Contact Us</h2>

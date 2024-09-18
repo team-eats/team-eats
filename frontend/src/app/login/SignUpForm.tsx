@@ -53,6 +53,7 @@ export function SignUpForm() {
                 if (data.status === 200) {
                     type = 'success'
                     resetForm()
+                    window.location.href = '/'
                 }
                 setStatus({type, message: data.message})
             })
