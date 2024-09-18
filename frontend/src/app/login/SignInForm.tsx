@@ -60,7 +60,7 @@ export function SignInForm() {
     }
 
     return (
-        <div className ='flex items-center justify-center min-h-screen rounded-lg mx-auto max-w-4xl'>
+        <div className ='flex items-center justify-center rounded-lg mx-auto max-w-4xl'>
             <div className="bg-white p-6 mx-auto rounded-lg shadow-lg w-full">
         <Formik initialValues={initialValues} onSubmit={handleSubmit} validationSchema={toFormikValidationSchema(formSchema) }>
             {SignInFormContent}
