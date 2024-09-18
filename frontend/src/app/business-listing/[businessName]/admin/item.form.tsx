@@ -94,6 +94,7 @@ export function CreateItemForm(props: Props) {
                     if (data.status === 200) {
                         type = 'success'
                         resetForm()
+
                     }
                     setStatus({type, message: data.message})
                 })
@@ -136,7 +137,7 @@ export function CreateItemForm(props: Props) {
                                         <div className="mb-2 block">
                                             <Label htmlFor="menuSection" value="Select your menu section"/>
                                         </div>
-                                        <Select onChange={handleChange} onBlur={handleBlur} name={'itemSectionId'} id="menuSection" required>
+                                        <Select onChange={handleChange} onBlur={handleBlur} name={'itemSectionId'} value={values.itemSectionId} id="menuSection" required>
                                             <option>Select an option</option>
                                             {sections.map(section => (
                                                 <option value={section.sectionId as string}>{section.sectionName}</option>

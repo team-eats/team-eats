@@ -53,6 +53,7 @@ export function SignInForm() {
             if (json.status === 200) {
                 resetForm()
                 type = 'success'
+                window.location.href= '/'
             }
             setStatus({type, message: json.message})
         })
