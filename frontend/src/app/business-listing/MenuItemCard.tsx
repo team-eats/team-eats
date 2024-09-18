@@ -26,8 +26,8 @@ export function MenuItemCard (props: ItemCardProps) {
         <Card className="min-w-[16rem] max-w-[16rem] h-[22rem] box-border mx-auto container">
             <ReactCardFlip flipDirection={'horizontal'} isFlipped={isFlipped}>
                 <div onClick={flipCard}>
-                    <img src={item.itemPhoto?.toString()} alt={''}/>
-                    <h5 className="card text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
+                    <img className='w-60 h-60' src={item.itemPhoto?.toString()} alt={''}/>
+                    <h5 className="card text-md font-bold tracking-tight text-gray-900 dark:text-white">
                         {item.itemName}
                     </h5>
                     <p className="font-normal text-gray-700 dark:text-gray-400">${item.itemPrice}</p>
