@@ -69,8 +69,8 @@ export function Navigation() {
                                       d="M3 5v10M3 5a2 2 0 1 0 0-4 2 2 0 0 0 0 4Zm0 10a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm12 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm0 0V6a3 3 0 0 0-3-3H9m1.5-2-2 2 2 2"/>
                             </svg>
                         </div>
-                        <input name= "q" type="text" id="simple-search"
-                               className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg hover:border-red-800 focus:ring-red-800 focus:border-red-800 block w-full ps-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-red-500 dark:focus:border-red-500 px-14"
+                        <input type="text" id="simple-search"
+                               className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg hover:border-red-800 focus:ring-red-800 focus:border-red-800 block w-40 sm:w-full ps-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-red-500 dark:focus:border-red-500 px-2"
                                placeholder="Search Eats..." required/>
                     </div>
                     <button type="submit"
@@ -124,7 +124,7 @@ export function Navigation() {
             {/*</Modal>*/}
 
             {/*Settings Modal*/}
-            <Modal show={openSettingsModal} size="md" onClose={onCloseSettingsModal} popup>
+            <Modal dismissible show={openSettingsModal} size="md" onClose={onCloseSettingsModal} popup>
                 <Modal.Header />
                 <Modal.Body>
                     <div className="space-y-6">
