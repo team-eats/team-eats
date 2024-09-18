@@ -32,9 +32,10 @@ export default async function (props: Props) {
     return (
         <>
 
-
             <MenuSectionForm session={session} businessId={business.businessId as string}/>
+            <br/>
             <LocationForm session={session} businessId={business.businessId as string}/>
+            <br/>
             <CreateItemForm session={session} sections={sections}/>
             </>
 

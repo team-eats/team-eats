@@ -65,10 +65,14 @@ export  function MenuSectionForm(props:Props) {
 
     return (
         <>
+            <div className='flex justify-center items-center min-h-screen bg-red-700 rounded-lg mx-auto max-w-3xl'>
+                <div className="bg-white p-6 rounded-lg shadow-lg w-full max-w-2xl">
             <Formik
                 initialValues={initialValues} onSubmit ={handleSubmit} validationSchema={toFormikValidationSchema(menuSectionSchema)}>
                 {MenuSectionFormContent}
             </Formik>
+                </div>
+            </div>
 
         </>
     )
@@ -140,10 +144,12 @@ export function MenuSectionFormContent(props: FormikProps<MenuSection>) {
 
                     <DisplayError errors={errors} touched={touched} field={'sectionOrder'}/>
                 </div>
+                <div className="mt-3">
                 <Button color={'success'} type="submit" >Submit</Button>
                 <DisplayStatus status={status}/>
+                </div>
             </form>
-            <FormDebugger {...props} />
+            {/*<FormDebugger {...props} />*/}
             </div>
 
 
