@@ -54,7 +54,7 @@ export function Navigation() {
             <Navbar fluid rounded>
 
                 <Navbar.Brand href="/">
-                    <img src="/placeholder-logo.png" className="h-12 hover:border-red-800" alt="placeholder logo"/>
+                    {/*<img src="/placeholder-logo.png" className="h-12 hover:border-red-800" alt="placeholder logo"/>*/}
                     <span
                         className="self-center whitespace-nowrap text-black text-5xl hover:text-red-950 hover:rounded-xl hover:border-red-800dark:text-white">Team Eats</span>
                 </Navbar.Brand>

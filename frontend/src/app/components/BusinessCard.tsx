@@ -1,4 +1,3 @@
-
 "use client";
 
 import { Card } from "flowbite-react";
@@ -25,14 +24,7 @@ export function BusinessCard(props: businessCardProps) {
     return (
         <Card
             className="min-w-[16rem] max-w-[16rem] h-[22rem] box-border mx-auto container"
-<<<<<<< HEAD
             renderImage={() => <Link href={`/business-listing/${business.businessName}`}><image width={150} height={200} src={business.businessPhoto as string} alt="image 1" /></Link>}>
-=======
-            renderImage={() =>
-                <Link href={`/business-listing/${business.businessName}`}>
-                    <Image width={150} height={200} src="/${business.businessPhoto}" alt="image 1" />
-                </Link>}>
->>>>>>> search
 
             <ReactCardFlip flipDirection={'horizontal'} isFlipped={isFlipped}>
                 <div onClick={flipCard}>
