@@ -24,7 +24,7 @@ export function MenuItemCard (props: ItemCardProps) {
     return (
         <Card
             className="min-w-[16rem] max-w-[16rem] h-[22rem] box-border mx-auto container"
-            renderImage={() => <Image width={150} height={200} src="/images/blog/image-1.jpg" alt="image 1" />}>
+            renderImage={() => <image width={150} height={200} src={item?.itemPhoto ?? ''} alt="image 1" />}>
 
             <ReactCardFlip flipDirection={'horizontal'} isFlipped={isFlipped}>
                 <div onClick={flipCard}>
