@@ -8,10 +8,9 @@ import {SignUpForm} from "@/app/login/SignUpForm";
 import {BusinessCard} from "@/app/components/BusinessCard";
 
 
-const businessData= [
-
-    { businessPhoto: "/images/card-top.jpg", businessName: 'SouthWestern Express', businessBio: 'No Bio' }
-];
+// const businessData= [
+//     { businessPhoto: "/images/card-top.jpg", businessName: 'SouthWestern Express', businessBio: 'No Bio' }
+// ];
 
 
 export function Navigation() {
@@ -51,7 +50,7 @@ export function Navigation() {
 
     return (
         <>
-            <Navbar fluid rounded>
+            <Navbar className="border-black border-2 rounded">
 
                 <Navbar.Brand href="/">
                     {/*<img src="/placeholder-logo.png" className="h-12 hover:border-red-800" alt="placeholder logo"/>*/}

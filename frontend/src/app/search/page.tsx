@@ -39,7 +39,9 @@ export default async function results(props: PageProps<{}, SearchParams>){
 
                     <div className="md:grid-cols-2 xl:grid-cols-4 grid grid-rows-1 gap-8 ">
 
-                        {results.map(business => <BusinessCard key={business.businessId} business={business} />)}
+                        {results.map(business =>
+                            <BusinessCard key={business.businessId} business={business} />
+                        )}
 
                     </div>
                 </section>
