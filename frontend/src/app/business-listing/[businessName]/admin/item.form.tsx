@@ -106,8 +106,8 @@ export function CreateItemForm(props: Props) {
     }
 
     return (
-        <div className ='flex justify-center items-center min-h-screen bg-gray-100 mx-auto max-w-3xl'>
-            <div className="bg-white p-6 rounded-lg shadow-lg w-full">
+        <div className ='flex justify-center items-center min-h-screen bg-red-700 rounded-lg mx-auto max-w-3xl'>
+            <div className="bg-white p-6 mx-auto rounded-lg shadow-lg w-full max-w-2xl">
                 <Formik initialValues={initialValues} onSubmit={handleSubmit}
                         validationSchema={toFormikValidationSchema(FormSchema)}>
                     {(props) => {
@@ -225,11 +225,13 @@ export function CreateItemForm(props: Props) {
                                         />
                                         <DisplayError errors={errors} touched={touched} field={'itemOrder'}/>
                                     </div>
+                                    <div className="flex gap-3 mt-3">
                                     <Button color={'success'} type="submit">Submit</Button>
                                     <Button color={'failure'} type="reset" onClick={handleReset}>Reset</Button>
                                     <DisplayStatus status={status}/>
+</div>
                                 </form>
-                                <FormDebugger {...props} />
+                                {/*<FormDebugger {...props} />*/}
                             </>
                         )
 

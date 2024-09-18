@@ -98,12 +98,16 @@ export function LocationForm(props: Props) {
             })
     }
 
-    // @ts-ignore
-    // @ts-ignore
+
     return (
-        <Formik initialValues={initialValues} onSubmit={handleSubmit} validationSchema={toFormikValidationSchema(CreateLocationSchema)}>
-            {LocationFormContent}
-        </Formik>
+        <div className='flex justify-center items-center min-h-screen bg-red-700 mx-auto max-w-3xl rounded-lg'>
+            <div className="bg-white p-6 rounded-lg shadow-lg w-full max-w-2xl">
+                <Formik initialValues={initialValues} onSubmit={handleSubmit}
+                        validationSchema={toFormikValidationSchema(CreateLocationSchema)}>
+                    {LocationFormContent}
+                </Formik>
+            </div>
+        </div>
     )
 }
 
@@ -122,13 +126,9 @@ export function LocationFormContent(props: FormikProps<CreateLocation>) {
 
     return (
         <>
-            <div className={'container mx-auto max-w-lg'}>
-
-
                 <form onSubmit={handleSubmit}>
                     <div>
                         <Label htmlFor='locationOfBusiness' value='Business address:'/>
-
                         <TextInput
                             onChange={handleChange}
                             onBlur={handleBlur}
@@ -200,14 +200,14 @@ export function LocationFormContent(props: FormikProps<CreateLocation>) {
                         </div>
                     </div>
 
-                    <div>
-                        <Button onClick={handleReset}>Reset</Button>
+                    <div className="flex gap-3 mt-3">
                         <Button color={'success'} type='submit'>Submit</Button>
+                        <Button color={'failure'} onClick={handleReset}>Reset</Button>
+
                         <DisplayStatus status={status}/>
-                    </div>
+</div>
                 </form>
-                <FormDebugger {...props} />
-            </div>
+                {/*<FormDebugger {...props} />*/}
         </>
     )
 }

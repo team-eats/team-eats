@@ -101,8 +101,8 @@ export function ListingForm(props: Props){
     }
 
     return (
-            <div className='flex justify-center items-center min-h-screen bg-gray-100 mx-auto max-w-3xl'>
-                <div className="bg-white p-6 rounded-lg shadow-lg w-full">
+            <div className='flex justify-center items-center min-h-screen bg-red-700 rounded-lg mx-auto max-w-3xl'>
+                <div className="bg-white p-6 rounded-lg shadow-lg  max-w-3xl">
                 <Formik
                     initialValues=
                         {initialValues} onSubmit ={handleSubmit} validationSchema={toFormikValidationSchema(businessListingSchema)}>
@@ -185,9 +185,9 @@ export function BusinessFormContent(props: FormikProps<BusinessListing>) {
                 <DisplayError errors={errors} touched={touched} field={'businessHours'} />
                 <div>
                     <div>
-                        <Label htmlFor="businessBio" value="Business Bio" />
+                        <Label htmlFor="businessBio" value="Business Bio"/>
                     </div>
-                    <TextInput
+                    <textarea
                         onChange={handleChange}
                         onBlur={handleBlur}
                         autoComplete='organization'
@@ -195,13 +195,14 @@ export function BusinessFormContent(props: FormikProps<BusinessListing>) {
                         name={"businessBio"}
                         type='text'
                         value={values.businessBio}
-                        className="w-full p-2 border border-gray-300 rounded"
+                        maxLength="800"
+                        className={"w-full p-2 border border-gray-300 rounded"}
                     />
                 </div>
-                <DisplayError errors={errors} touched={touched} field={'businessBio'} />
+                <DisplayError errors={errors} touched={touched} field={'businessBio'}/>
                 <div>
                     <div>
-                        <Label htmlFor="businessEmail" value="Business Email" />
+                        <Label htmlFor="businessEmail" value="Business Email"/>
                     </div>
                     <TextInput
                         onChange={handleChange}
@@ -231,11 +232,13 @@ export function BusinessFormContent(props: FormikProps<BusinessListing>) {
                     />
                     <DisplayError errors={errors} touched={touched} field={'businessPhone'} />
                 </div>
+                <div className="flex gap-3 mt-3">
                 <Button color={'success'} type="submit">Submit</Button>
                 <Button color={'failure'} type="reset" onClick={handleReset}>Reset</Button>
+                </div>
                 <DisplayStatus status={status}/>
             </form>
-            <FormDebugger {...props} />
+            {/*<FormDebugger {...props} />*/}
         </>
     )
 }
