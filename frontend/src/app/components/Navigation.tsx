@@ -7,12 +7,13 @@ import {SignInForm} from "@/app/login/SignInForm"
 import {SignUpForm} from "@/app/login/SignUpForm";
 import {BusinessCard} from "@/app/components/BusinessCard";
 import {getSession, Session} from "@/app/utils/session.utils";
+import {redirect} from "next/navigation";
 
 
-const businessData= [
 
-    { businessPhoto: "/images/card-top.jpg", businessName: 'SouthWestern Express', businessBio: 'No Bio' }
-];
+// const businessData= [
+//     { businessPhoto: "/images/card-top.jpg", businessName: 'SouthWestern Express', businessBio: 'No Bio' }
+// ];
 
 type SessionProps = {
     session: Session | undefined
@@ -66,23 +67,29 @@ export function Navigation(props: SessionProps) {
 
     return (
         <>
-            <Navbar className='p-1' fluid>
+                    <Navbar className='p-1' fluid>
 
-                <Navbar.Brand href="/">
-                    <div className='flex'>
-                        <img src="/plate-logo.svg" className="h-10 hover:border-red-800 self-center pr-2" alt="Team Eats logo"/>
-                        <span
-                            className="hidden sm:flex self-center whitespace-nowrap text-black text-4xl hover:text-red-950 hover:rounded-xl hover:border-red-800dark:text-white">Team Eats</span>
-                    </div>
-                </Navbar.Brand>
+                        <Navbar.Brand href="/">
+                            <div className='flex'>
+                                <img src="/plate-logo.svg" className="h-10 hover:border-red-800 self-center pr-2" alt="Team Eats logo"/>
+                                <span
+                                    className="hidden sm:flex self-center whitespace-nowrap text-black text-4xl hover:text-red-950 hover:rounded-xl hover:border-red-800dark:text-white">Team Eats</span>
+                            </div>
+                        </Navbar.Brand>
 
-                <form action= "/search" className="flex items-center max-w-sm">
+                <form action={async(formData) => {
+                    redirect(`/search/?q=${formData.get('search')}`);
+                }} className="flex items-center max-w-sm">
                     <label htmlFor="simple-search" className="sr-only">Search</label>
+
                     <div className="relative">
                         <input type="text" id="simple-search"
-                               className="bg-gray-50 border border-gray-300 text-gray-900 text-sm  hover:border-red-600 focus:ring-red-700 focus:border-red-700 block w-40 sm:w-full dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-red-500 dark:focus:border-red-500"
+                               name={'search'}
+                        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm  hover:border-red-600 focus:ring-red-700 focus:border-red-700 block w-40 sm:w-full dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-red-500 dark:focus:border-red-500"
+
                                placeholder="Search Eats..." required/>
                     </div>
+
                     <button type="submit"
                             className="p-2.5 ms-2 text-sm font-medium text-white bg-black border border-black hover:bg-gray-800 focus:ring-4 focus:outline-none focus:ring-white dark:bg-red-600 dark:hover:bg-red-800 dark:focus:ring-red-500">
                         <svg className="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
