@@ -58,13 +58,13 @@ const Page = () => {
     return (
         <div className="flex justify-center items-center  mt-20 gap-10">
             <div className="flex space-x-4 w-full max-w-4xl">
-                <div className="flex-1 bg-red-950 border-1 p-4 rounded-lg flex">
+                <div className="flex-1 bg-red-700 border-1 p-4 rounded-lg flex">
                     <div className="bg-white p-6 rounded-lg shadow-lg w-full min-h-[400px]">
                         <h1 className="text-black text-center mt-20 items-center font-bold">Please Sign-In Below</h1>
                         <SignInForm />
                     </div>
                 </div>
-                <div className="flex-1 bg-black p-4 rounded-lg flex gap-4">
+                <div className="flex-1 bg-red-700 p-4 rounded-lg flex gap-4">
                     <div className="bg-white p-6 rounded-lg shadow-lg w-full min-h-[400px]">
                         <h1 className="text-black text-center items-center font-bold mt-20 mb-20">Please Create a New Account Below</h1>
                         <SignUpForm/>
