@@ -38,13 +38,14 @@ const Page = () => {
             <div className="flex space-x-4 w-full max-w-4xl">
                 <div className="flex-1 bg-red-700 p-4 rounded-lg flex">
                     <div className="bg-white p-6 rounded-lg shadow-lg w-full">
-                    <h1 className="text-white items-center font-bold">Please Sign-In Below</h1>
+                        <h1 className="text-white items-center font-bold">Please Sign-In Below</h1>
                         <SignInForm />
-                </div>
-                <div className="flex-1 bg-red-700 p-4 rounded-lg">
-                    <div className="flex mx-auto bg-white rounded-lg shadow-lg p-6">
-                        <h1 className="text-white items-center font-bold">Please Create a New Account Below</h1>
-                        <SignUpForm/>
+                    </div>
+                    <div className="flex-1 bg-red-700 p-4 rounded-lg">
+                        <div className="flex mx-auto bg-white rounded-lg shadow-lg p-6">
+                            <h1 className="text-white items-center font-bold">Please Create a New Account Below</h1>
+                            <SignUpForm/>
+                        </div>
                     </div>
                 </div>
             </div>
