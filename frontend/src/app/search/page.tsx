@@ -1,50 +1,49 @@
-import {BusinessCard} from "@/app/search/BusinessCard";
+'use server'
+import {BusinessCard} from "@/app/components/BusinessCard";
+import {fetchAllBusinesses, fetchBusinessByName} from "@/app/utils/models/business/business.model";
+import {PageProps} from "@/app/utils/interfaces/NextComponents";
+import {Business} from "@/app/utils/models/business/business.validator";
 
-export default function results(){
+
+type SearchParams = {q: string | undefined}
+
+export default async function results(props: PageProps<{}, SearchParams>){
+
+    const q = props.searchParams.q
+
+    let results: Business[] = []
+
+    if (q) {
+        results = await fetchBusinessByName(q)
+    } else {
+        results = await fetchAllBusinesses();
+    }
+
+    if (results.length === 0 ) {
+        results = await fetchAllBusinesses();
+    }
+
     return (
         <>
+
+            <h1 className={"text-6xl text-center mt-10 mb-10"}>Search Results</h1>
             <section className={"container mx-auto "}>
+                {
+                    !q ??
+                    <>
+                        <div>
+                            <h2 className={"text-4xl text-center pt-20 my-10 text-sky-800"}>Sorry! Try these instead!</h2>
+                        </div>
+                    </>
+                }
+
                 <div>
-                    <h1 className={"text-4xl text-center pt-20 my-10"}>Search Results For: <span
-                        className={"text-blue-600"}>Example Search</span></h1>
-
-                </div>
-
-                <div className="md:grid-cols-2 xl:grid-cols-4 grid grid-rows-1 gap-8 ">
-
-
-
-                        <BusinessCard/>
-                        <BusinessCard/>
-                        <BusinessCard/>
-                        <BusinessCard/>
-                    <BusinessCard/>
-                    <BusinessCard/>
-                    <BusinessCard/>
-                    <BusinessCard/>
-                    <BusinessCard/>
-                    <BusinessCard/>
-                    <BusinessCard/>
-                    <BusinessCard/>
-
-
+                    <h2></h2>
+                    <div className="md:grid-cols-2 xl:grid-cols-4 grid grid-rows-1 gap-8 ">
+                        {results.map(business => <BusinessCard key={business.businessId} business={business}/>)}
                     </div>
-
-
-
-
-
-
-                {/*<div className={"container mx-auto border border-black py-20 mt-5 "}>*/}
-                {/*    hello*/}
-                {/*</div>*/}
-
+                </div>
             </section>
-
-
         </>
     )
 }
-
-
-

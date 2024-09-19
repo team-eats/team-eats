@@ -1,82 +1,191 @@
+'use client'
+
+import {Button, Modal, Dropdown, Navbar, Label, TextInput} from "flowbite-react";
+import React, { useState } from "react";
+import Image from 'next/image';
+import {SignInForm} from "@/app/login/SignInForm"
+import {SignUpForm} from "@/app/login/SignUpForm";
+import {BusinessCard} from "@/app/components/BusinessCard";
+import {getSession, Session} from "@/app/utils/session.utils";
+import {redirect} from "next/navigation";
 
 
-export function Navigation () {
-    return (
 
-        <>
-            <nav className="bg-red-50 dark:bg-gray-900 text-slate-600">
-               <div className="max-w-screen-xl flex flex-wrap items-end justify-between mx-auto p-4">
-                   <a href="https://flowbite.com/" className="flex items-center space-x-3 rtl:space-x-reverse">
-                        <img src="https://flowbite.com/docs/images/logo.svg" className="h-8" alt="Flowbite Logo"/>
-                      <span
-                           className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">Team Eats</span>
-                  </a>
-                   <div className="flex flex-start">
-                        <button type="button" data-collapse-toggle="navbar-search" aria-controls="navbar-search"
-                                 aria-expanded="false"
-                                 className="md:hidden text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 me-1">
-                             <svg className="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
-                                  viewBox="0 0 20 20">
-                                 <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round"
-                                       strokeWidth="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
-                             </svg>
-                             <span className="sr-only">Search</span>
-                        </button>
-                         <div className="relative hidden md:block">
-                             <div className="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
-                                 <svg className="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true"
-                                      xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
-                                     <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round"
-                                           strokeWidth="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
-                                 </svg>g
-                                 <span className="sr-only">Search icon</span>
-                             </div>
-                             <input type="text" id="search-navbar"
-                                    className="block w-full p-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                   placeholder="Search..."/>
-                        </div>
-                        <button data-collapse-toggle="navbar-search" type="button"
-                                 className="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
-                                 aria-controls="navbar-search" aria-expanded="false">
-                             <span className="sr-only">Open main menu</span>
-                            <svg className="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
-                                  viewBox="0 0 17 14">
-                                 <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round"
-                                       strokeWidth="2" d="M1 1h15M1 7h15M1 13h15"/>
-                             </svg>
-                         </button>
-                     </div>
-                     <div className="items-center justify-between hidden w-full md:flex md:w-auto md:order-1"
-                          id="navbar-search">
-                         <div className="relative mt-3 md:hidden">
-                             <div className="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
-                                 <svg className="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true"
-                                     xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
-                                     <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round"
-                                           strokeWidth="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
-                                </svg>
-                             </div>
-                             <input type="text" id="search-navbar"
-                                   className="block w-full p-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                    placeholder="Search..."/>
-                         </div>
-                         <ul className="flex flex-col p-4 md:p-0 mt-4 font-medium border border-gray-100 rounded-lg bg-gray-50 md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
-                             <li>
-                                 <a href="#"
-                                    className="block py-2 px-3 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 md:dark:text-blue-500"
-                                    aria-current="page">Home</a>
-                             </li>
-                             <li>
-                                 <a href="#"
-                                    className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">About
-                                     us</a>
-                             </li>
-                         </ul>
-                     </div>
-                 </div>
-             </nav>
-        </>
+// const businessData= [
+//     { businessPhoto: "/images/card-top.jpg", businessName: 'SouthWestern Express', businessBio: 'No Bio' }
+// ];
 
-    )
+type SessionProps = {
+    session: Session | undefined
 }
 
+
+export function Navigation(props: SessionProps) {
+    const [openFavoritesModal, setOpenFavoritesModal] = useState(false);
+
+    const [openSettingsModal, setOpenSettingsModal] = useState(false);
+    const [email, setEmail] = useState('');
+
+    const [openSignInModal, setOpenSignInModal] = useState(false);
+    const [openSignUpModal, setOpenSignUpModal] = useState(false);
+
+    // const [openFavoriteModal, setOpenFavoriteModal] = useState(false);
+    // const [email, setEmail] = useState('');
+
+    const session = props.session
+
+    let user = ''
+
+    if (session === undefined) {
+        user = 'to Eats'
+    } else {
+        user = session.profile.profileName
+    }
+
+    function onCloseSettingsModal() {
+        setOpenSettingsModal(false);
+        setEmail('');
+
+    }
+
+    function onCloseFavoriteModal() {
+        setOpenFavoritesModal(false);
+        setEmail('');
+    }
+
+    function onCloseSignInModal() {
+        setOpenSignInModal(false);
+        setEmail('');
+    }
+
+    function onCloseSignUpModal() {
+
+        setOpenSignUpModal(false);
+        setEmail('')
+    }
+
+
+    return (
+        <>
+            <Navbar className='p-1' fluid>
+
+                <Navbar.Brand href="/">
+                    <div className='flex'>
+                        <img src="/plate-logo.svg" className="h-10 hover:border-red-800 self-center pr-2" alt="Team Eats logo"/>
+                        <span
+                            className="hidden sm:flex self-center whitespace-nowrap text-black text-4xl hover:text-red-950 hover:rounded-xl hover:border-red-800dark:text-white">Team Eats</span>
+                    </div>
+                </Navbar.Brand>
+
+                <form action={async(formData) => {
+                    redirect(`/search/?q=${formData.get('search')}`);
+                }} className="flex items-center max-w-sm">
+                    <label htmlFor="simple-search" className="sr-only">Search</label>
+
+                    <div className="relative">
+                        <input type="text" id="simple-search"
+                               name={'search'}
+                               className="bg-gray-50 border border-gray-300 text-gray-900 text-sm  hover:border-red-600 focus:ring-red-700 focus:border-red-700 block w-40 sm:w-full dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-red-500 dark:focus:border-red-500"
+
+                               placeholder="Search Eats..." required/>
+                    </div>
+
+                    <button type="submit"
+                            className="p-2.5 ms-2 text-sm font-medium text-white bg-black border border-black hover:bg-gray-800 focus:ring-4 focus:outline-none focus:ring-white dark:bg-red-600 dark:hover:bg-red-800 dark:focus:ring-red-500">
+                        <svg className="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                             viewBox="0 0 20 20">
+                            <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round"
+                                  strokeWidth="2"
+                                  d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
+                        </svg>
+                        <span className="sr-only">Search</span>
+                    </button>
+                </form>
+
+                <div className="flex flex-wrap items-center p-2 md:order-2">
+
+                    <Dropdown
+                        arrowIcon={false}
+                        inline
+                        label={
+                            <svg className="w-8 h-8 text-gray-800 dark:text-white" aria-hidden="true"
+                                 xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
+                                 viewBox="0 0 24 24">
+                                <path stroke="currentColor" strokeLinecap="round" strokeWidth="2"
+                                      d="M5 7h14M5 12h14M5 17h14"/>
+                            </svg>
+                        }
+                    >
+                        <Dropdown.Header>
+                            <span className="block text-sm">Welcome {user}!</span>
+                            <span className="block truncate text-sm font-medium">Options</span>
+                        </Dropdown.Header>
+                        <Dropdown.Item href="/listing-form">
+                            Business Listing
+                        </Dropdown.Item>
+                        <Dropdown.Item onClick={() => setOpenSettingsModal(true)}>Profile Settings</Dropdown.Item>
+                        <Dropdown.Item onClick={() => setOpenFavoritesModal(true)}>Favorites</Dropdown.Item>
+                        <Dropdown.Item className='block xl:hidden text-left'>About Us</Dropdown.Item>
+                        <Dropdown.Divider/>
+                        {/*<Dropdown.Item onClick={() => setOpenSignInModal(true)}>Sign In</Dropdown.Item>*/}
+                        <Dropdown.Item href="/login">Sign-In / Sign-Up</Dropdown.Item>
+                        {/*<Dropdown.Item>Sign Out</Dropdown.Item>*/}
+                    </Dropdown>
+                </div>
+            </Navbar>
+
+            {/*<Modal show={openFavoriteModal} size="md" onClose={onCloseFavoriteModal} popup>*/}
+            {/*    <Modal.Header>*/}
+            {/*        <BusinessCard />*/}
+            {/*    </Modal.Header>*/}
+            {/*</Modal>*/}
+
+            {/*Settings Modal*/}
+            <Modal dismissible show={openSettingsModal} size="md" onClose={onCloseSettingsModal} popup>
+                <Modal.Header />
+                <Modal.Body>
+                    <div className="space-y-6">
+                        <h3 className="text-xl font-medium text-gray-900 dark:text-white">Account Settings</h3>
+                        <div>
+                            <div className="mb-2 block">
+                                <Label htmlFor="email" value="Change e-mail" />
+                            </div>
+                            <TextInput
+                                id="email"
+                                value={email}
+                                onChange={(event) => setEmail(event.target.value)}
+                            />
+                        </div>
+                        <div>
+                            <div className="mb-2 block">
+                                <Label htmlFor="password" value="Change password" />
+                            </div>
+                            <TextInput id="password" type="password" />
+                        </div>
+                        <div className="w-full">
+                            <Button>Save settings</Button>
+                        </div>
+                    </div>
+                </Modal.Body>
+            </Modal>
+
+            {/*Sign In Modal*/}
+            {/*<Modal show={openSignInModal} size="md" onClose={onCloseSignInModal}*/}
+            {/*       popup>*/}
+            {/*    <Modal.Header className={"bg-orange-200"}>Sign In</Modal.Header>*/}
+            {/*    <Modal.Body className={"bg-red-700"}>*/}
+            {/*        <SignInForm />*/}
+            {/*    </Modal.Body>*/}
+            {/*</Modal>*/}
+
+            {/* Sign Up Modal */}
+            {/*<Modal show={openSignUpModal} size="md" onClose={onCloseSignUpModal} popup>*/}
+            {/*    <Modal.Header />*/}
+            {/*    <Modal.Body>*/}
+            {/*        <SignUpForm />*/}
+            {/*    </Modal.Body>*/}
+            {/*</Modal>*/}
+
+        </>
+    );
+}

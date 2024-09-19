@@ -1,0 +1,43 @@
+import {Router} from "express";
+import {
+    postBusinessController,
+    deleteBusinessByBusinessIdController,
+    getAllBusinesses,
+    getBusinessByBusinessBio,
+    getBusinessByBusinessIdController,
+    getBusinessByBusinessNameController,
+    getBusinessesByBusinessProfileIdController,
+    getBusinessesByProfileNameController, putBusinessController, getSearchBusinessByNameController
+} from "./business.controller";
+import {isLoggedInController} from "../../utils/controllers/isLoggedIn.controller";
+
+
+const basePath = '/apis/business'
+
+const router = Router()
+
+router.route('/')
+    .post(isLoggedInController, postBusinessController)
+    .get(getAllBusinesses)
+
+router.route('/profileName/:profileName')
+    .get(getBusinessesByProfileNameController)
+
+router.route('/businessProfileId/:businessProfileId')
+    .get(getBusinessesByBusinessProfileIdController)
+
+router.route('/businessName/:businessName')
+    .get(getBusinessByBusinessNameController)
+
+router.route('/businessBio/:businessBio')
+    .get(getBusinessByBusinessBio)
+
+router.route('/search/:search')
+    .get(getSearchBusinessByNameController)
+
+router.route('/:businessId')
+    .get(getBusinessByBusinessIdController)
+    .put(putBusinessController)
+    .delete(isLoggedInController, deleteBusinessByBusinessIdController)
+
+export const businessRoute = { basePath, router }
