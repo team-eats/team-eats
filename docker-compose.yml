@@ -1,4 +1,14 @@
 services:
+  app:
+    build: frontend
+    user: "node"
+    env_file:
+      - ./project.env
+    depends_on:
+      - node
+    #    For deploying to server use ports: - 80:80
+    ports:
+      - '80:3000'
   redis:
     image: 'redis:alpine'
     volumes:
@@ -6,7 +16,7 @@ services:
     env_file:
       - ./project.env
     healthcheck:
-      test: [ "CMD", "redis-cli", "ping"]
+      test: [ "CMD", "redis-cli", "ping" ]
   sql:
     build: ./sql
     ports:

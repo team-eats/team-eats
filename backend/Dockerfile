@@ -19,7 +19,6 @@ EXPOSE $PORT 9229 9230
 
 WORKDIR ./home/node/app
 RUN npm install -g npm@latest
-COPY tsconfig.json ./
 RUN chown node:node -R ./
 COPY --from=builder /home/node/app ./
 USER node
