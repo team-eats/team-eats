@@ -1,9 +1,12 @@
-DROP TABLE IF EXISTS favorite;
-DROP TABLE IF EXISTS item;
-DROP TABLE IF EXISTS section;
-DROP TABLE IF EXISTS location;
-DROP TABLE IF EXISTS business;
--- DROP TABLE IF EXISTS profile;
+CREATE EXTENSION if not exists pg_trgm;
+
+
+-- DROP TABLE IF EXISTS favorite;
+-- DROP TABLE IF EXISTS item;
+-- DROP TABLE IF EXISTS section;
+-- DROP TABLE IF EXISTS location;
+-- DROP TABLE IF EXISTS business;
+-- -- DROP TABLE IF EXISTS profile;
 
 
 CREATE TABLE IF NOT EXISTS profile(

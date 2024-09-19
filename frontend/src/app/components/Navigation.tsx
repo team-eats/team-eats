@@ -73,7 +73,8 @@ export function Navigation(props: SessionProps) {
                     <div className='flex'>
                         <img src="/plate-logo.svg" className="h-10 hover:border-red-800 self-center pr-2" alt="Team Eats logo"/>
                         <span
-                            className="hidden sm:flex self-center whitespace-nowrap text-black text-4xl hover:text-red-950 hover:rounded-xl hover:border-red-800dark:text-white">Team Eats</span>
+                            className="hidden sm:flex self-center whitespace-nowrap text-black text-4xl hover:text-red-950 hover:rounded-xl hover:border-red-800dark:text-white">TasteBuddy
+                        </span>
                     </div>
                 </Navbar.Brand>
 
