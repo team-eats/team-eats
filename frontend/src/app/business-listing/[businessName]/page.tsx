@@ -1,4 +1,4 @@
-
+'use server'
 import React from "react";
 import {MenuSection} from "@/app/business-listing/MenuSection";
 import {fetchBusinessByBusinessId, fetchSingleBusinessByName} from "@/app/utils/models/business/business.model";

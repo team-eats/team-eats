@@ -1,4 +1,4 @@
-
+'use server'
 import {BusinessCard} from "@/app/components/BusinessCard";
 import {fetchAllBusinesses, fetchBusinessByName} from "@/app/utils/models/business/business.model";
 import {PageProps} from "@/app/utils/interfaces/NextComponents";
@@ -25,7 +25,7 @@ export default async function results(props: PageProps<{}, SearchParams>){
 
     return (
         <>
-            <body className={"bg-red-700"} ></body>
+
             <h1 className={"text-6xl text-center mt-10 mb-10"}>Search Results</h1>
             <section className={"container mx-auto "}>
                 {
